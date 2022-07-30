@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: "Project THY Back-end"
+  datasource:
+    username: "postgres"
+    password: "postgres"
+    url: "jdbc:postgresql://localhost:5432/appllication_database"
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  banner:
+    location: "classpath:/path/to/banner/banner.txt"
