@@ -5,6 +5,7 @@ import com.edemirkirkan.thybackend.geo.dao.GeoDataDao;
 import com.edemirkirkan.thybackend.geo.dto.GeoDataDto;
 import com.edemirkirkan.thybackend.geo.entity.GeoData;
 import com.edemirkirkan.thybackend.rst.dto.RestGeoDataDto;
+import com.edemirkirkan.thybackend.rst.dto.RestGeoDto;
 import com.edemirkirkan.thybackend.rst.service.RestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class GeoDataService {
         GeoData geoData = checkGeoDataIfExists(cityName);
 
         if (geoData == null) {
-            RestGeoDataDto restGeoDataDto = restService.geoDataRequest(cityName);
-            geoData = mapper.convertToEntity(restGeoDataDto);
+            RestGeoDto restGeoDto = restService.geoDataRequest(cityName);
+            geoData = mapper.convertToEntity(restGeoDto);
             geoData = geoDataDao.save(geoData);
         }
 

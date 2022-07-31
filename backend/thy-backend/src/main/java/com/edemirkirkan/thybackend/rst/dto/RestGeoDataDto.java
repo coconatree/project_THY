@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class RestGeoDataDto {
-    private List<GeoDto> data;
+    private List<RestGeoDto> data;
 }

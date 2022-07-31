@@ -1,6 +1,5 @@
 package com.edemirkirkan.thybackend.geo.entity;
 
-import com.edemirkirkan.thybackend.rst.dto.GeoCodeDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +26,8 @@ public class GeoData {
     private String iataCode;
 
     @Column(nullable = false)
-    private GeoCodeDto geoCode;
+    private String latitude;
+    @Column(nullable = false)
+    private String longitude;
 }
 
