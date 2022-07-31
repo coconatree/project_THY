@@ -1,5 +1,6 @@
 package com.edemirkirkan.thybackend.rst.service;
 
+import com.edemirkirkan.thybackend.cst.dto.CustomerDto;
 import com.edemirkirkan.thybackend.rst.dto.RestAccessTokenDto;
 import com.edemirkirkan.thybackend.rst.dto.RestGeoDataDto;
 import com.edemirkirkan.thybackend.rst.dto.RestGeoDto;
@@ -107,5 +108,29 @@ public class RestService {
         headers.setBearerAuth(token);
         HttpEntity<Void> httpEntity = new HttpEntity<>(headers);
         return httpEntity;
+    }
+
+    public CustomerDto customerRequest(String reservationId) {
+
+        // Reservation -> THY API
+
+        // Amedeus API
+
+        RestGeoDto geoData = this.geoDataRequest("PARIS");
+
+        if (
+                geoData.getType() != null &&
+                geoData.getSubtype() != null &&
+                (!geoData.getType().equals("location") || !geoData.getSubtype().equals("city"))) {
+                throw new RuntimeException("Invalid City Name");
+        }
+
+        return CustomerDto.builder()
+                .reservationId("Res-453193191-13123")
+                .firstname("Emre")
+                .lastname("Caniklioglu")
+                .latitude(geoData.getGeoCode().getLatitude())
+                .longitude(geoData.getGeoCode().getLongitude())
+                .build();
     }
 }
