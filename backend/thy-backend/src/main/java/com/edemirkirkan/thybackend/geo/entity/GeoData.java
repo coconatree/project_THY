@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 
-@Table(name = "GEO_DATA")
+@Table
 @Entity
 @Getter
 @Setter
@@ -13,8 +13,7 @@ import javax.persistence.*;
 public class GeoData {
 
     @Id
-    @GeneratedValue(generator = "GeoData")
-    @SequenceGenerator(name = "GeoData", sequenceName = "GeoData")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String type;

@@ -2,13 +2,12 @@ package com.edemirkirkan.thybackend.usr.entity;
 
 import javax.persistence.*;
 
-@Table(name = "USER")
+@Table
 @Entity
-public class User {
+public class Customer {
 
     @Id
-    @GeneratedValue(generator = "User")
-    @SequenceGenerator(name = "User", sequenceName = "User")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String reservationId;
