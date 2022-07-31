@@ -3,7 +3,7 @@ package com.edemirkirkan.thybackend.rst.dto;
 import lombok.Data;
 
 @Data
-public class AccessTokenDto {
+public class RestAccessTokenDto {
     private String type;
     private String username;
     private String application_name;

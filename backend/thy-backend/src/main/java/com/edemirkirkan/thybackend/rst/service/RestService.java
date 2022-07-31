@@ -1,7 +1,8 @@
 package com.edemirkirkan.thybackend.rst.service;
 
-import com.edemirkirkan.thybackend.rst.dto.AccessTokenDto;
+import com.edemirkirkan.thybackend.rst.dto.RestAccessTokenDto;
 import com.edemirkirkan.thybackend.rst.dto.RestGeoDataDto;
+import com.edemirkirkan.thybackend.rst.dto.RestGeoDto;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.net.URISyntaxException;
 
 @Service
 public class RestService {
-    private AccessTokenDto tokenRequest()  {
+    private RestAccessTokenDto tokenRequest()  {
 
         URIBuilder builder = getURIBuilder(RestConstant.ACCESS_HOST, RestConstant.TOKEN_PATH);
         String url = buildUrl(builder);
@@ -24,8 +25,8 @@ public class RestService {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(buildPostMap(), headers);
-        ResponseEntity<AccessTokenDto> responseEntity = restTemplate.
-                postForEntity(url, request, AccessTokenDto.class);
+        ResponseEntity<RestAccessTokenDto> responseEntity = restTemplate.
+                postForEntity(url, request, RestAccessTokenDto.class);
 
         if (responseEntity.getStatusCodeValue() != 200) {
             throw new RuntimeException("Bad token request");
@@ -33,7 +34,7 @@ public class RestService {
         return responseEntity.getBody();
     }
 
-    public RestGeoDataDto geoDataRequest(String cityName) {
+    public RestGeoDto geoDataRequest(String cityName) {
         URIBuilder builder = getURIBuilder(RestConstant.ACCESS_HOST, RestConstant.CITY_SEARCH_PATH);
         String url = buildUrlWithParams(builder, "keyword", cityName, "max", "1");
 
@@ -47,10 +48,16 @@ public class RestService {
         }
 
         RestGeoDataDto restGeoDataDto = responseEntity.getBody();
-        if (restGeoDataDto.getData().size() == 0) {
+
+        if (
+                restGeoDataDto == null ||
+                restGeoDataDto.getData() == null ||
+                restGeoDataDto.getData().size() == 0
+        )
+        {
             throw new RuntimeException("Empty geo data response");
         }
-        return restGeoDataDto;
+        return restGeoDataDto.getData().get(0);
     }
 
     private URIBuilder getURIBuilder(String host,String path) {
