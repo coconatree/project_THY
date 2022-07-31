@@ -1,9 +1,8 @@
 package com.edemirkirkan.thybackend.rst.service;
 
 import com.edemirkirkan.thybackend.rst.dto.AccessTokenDto;
-import com.edemirkirkan.thybackend.rst.dto.GeoDataDto;
+import com.edemirkirkan.thybackend.rst.dto.RestGeoDataDto;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.protocol.HTTP;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -34,24 +33,24 @@ public class RestService {
         return responseEntity.getBody();
     }
 
-    public GeoDataDto geoDataRequest(String cityName) {
+    public RestGeoDataDto geoDataRequest(String cityName) {
         URIBuilder builder = getURIBuilder(RestConstant.ACCESS_HOST, RestConstant.CITY_SEARCH_PATH);
         String url = buildUrlWithParams(builder, "keyword", cityName, "max", "1");
 
         HttpEntity<Void> httpEntity = setAuthenticationHeaders();
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<GeoDataDto> responseEntity = restTemplate.
-                exchange(url, HttpMethod.GET, httpEntity, GeoDataDto.class);
+        ResponseEntity<RestGeoDataDto> responseEntity = restTemplate.
+                exchange(url, HttpMethod.GET, httpEntity, RestGeoDataDto.class);
         if (responseEntity.getStatusCodeValue() != 200) {
             throw new RuntimeException("Bad geo data request");
         }
 
-        GeoDataDto geoDataDto = responseEntity.getBody();
-        if (geoDataDto.getData().size() == 0) {
+        RestGeoDataDto restGeoDataDto = responseEntity.getBody();
+        if (restGeoDataDto.getData().size() == 0) {
             throw new RuntimeException("Empty geo data response");
         }
-        return geoDataDto;
+        return restGeoDataDto;
     }
 
     private URIBuilder getURIBuilder(String host,String path) {

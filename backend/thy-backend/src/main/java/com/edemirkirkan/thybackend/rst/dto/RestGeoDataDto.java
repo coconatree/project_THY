@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GeoDataDto {
+public class RestGeoDataDto {
     private List<GeoDto> data;
 }
