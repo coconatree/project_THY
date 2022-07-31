@@ -1,11 +1,9 @@
-import MemberList from "./component/MemberList"
-import Reservation from "./component/ReservationId";
+import ReservationCodePage from "./page/ReservationCodePage";
 
 function App() {
   return (
     <div>
-      <MemberList/>
-      <Reservation/>
+      <ReservationCodePage/>
     </div>
   );
 }
