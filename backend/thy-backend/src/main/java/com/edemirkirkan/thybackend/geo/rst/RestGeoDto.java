@@ -1,4 +1,4 @@
-package com.edemirkirkan.thybackend.rst.dto;
+package com.edemirkirkan.thybackend.geo.rst;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package com.edemirkirkan.thybackend.geo.converter;
 
 import com.edemirkirkan.thybackend.geo.dto.GeoDataDto;
 import com.edemirkirkan.thybackend.geo.entity.GeoData;
-import com.edemirkirkan.thybackend.rst.dto.RestGeoDto;
+import com.edemirkirkan.thybackend.geo.rst.RestGeoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

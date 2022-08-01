@@ -4,13 +4,10 @@ import com.edemirkirkan.thybackend.geo.converter.GeoDataMapper;
 import com.edemirkirkan.thybackend.geo.dao.GeoDataDao;
 import com.edemirkirkan.thybackend.geo.dto.GeoDataDto;
 import com.edemirkirkan.thybackend.geo.entity.GeoData;
-import com.edemirkirkan.thybackend.rst.dto.RestGeoDataDto;
-import com.edemirkirkan.thybackend.rst.dto.RestGeoDto;
+import com.edemirkirkan.thybackend.geo.rst.RestGeoDto;
 import com.edemirkirkan.thybackend.rst.service.RestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.beans.Transient;
 
 @Service
 @RequiredArgsConstructor
