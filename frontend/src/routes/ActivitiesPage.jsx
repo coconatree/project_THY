@@ -7,7 +7,7 @@ import MainPage from "../components/MainPageComponent";
 
 export default function ActivitiesPage() {
 
-    const [activities, setActivities] = useState([]);
+ //   const [activities, setActivities] = useState([]);
 
     async function retrieveActivityList() {
 
@@ -20,7 +20,7 @@ export default function ActivitiesPage() {
 
         let json = await response.json();
 
-        setActivities()
+       // setActivities()
     } 
 
     return (

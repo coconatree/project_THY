@@ -44,8 +44,7 @@ const ResponsiveAppBar = () => {
             | Trip Booster
           </Typography>
 
-          
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+        
           <Typography
             variant="h5"
             noWrap
@@ -62,7 +61,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            | Trip Booster
           </Typography>
 
           
