@@ -3,6 +3,7 @@ package com.edemirkirkan.thybackend.act.converter;
 import com.edemirkirkan.thybackend.act.dto.ActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityDto;
 import com.edemirkirkan.thybackend.act.entity.Activity;
+import com.edemirkirkan.thybackend.act.entity.ActivityImage;
 import org.mapstruct.*;
 
 import java.util.List;

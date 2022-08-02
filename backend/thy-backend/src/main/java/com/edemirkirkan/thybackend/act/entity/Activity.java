@@ -1,12 +1,11 @@
 package com.edemirkirkan.thybackend.act.entity;
 
-import com.edemirkirkan.thybackend.cst.converter.StringListConverter;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -28,11 +27,6 @@ public class Activity {
 
     private Double rating;
 
-    @Lob
-    @Column
-    @Convert(converter = StringListConverter.class)
-    private List<String> pictures;
-
     @Column(length = 1024)
     private String bookingLink;
 
@@ -44,4 +38,7 @@ public class Activity {
     private String queryLat;
 
     private String queryLon;
+
+    @OneToMany(targetEntity = ActivityImage.class, mappedBy = "activity")
+    private Set<ActivityImage> pictures;
 }

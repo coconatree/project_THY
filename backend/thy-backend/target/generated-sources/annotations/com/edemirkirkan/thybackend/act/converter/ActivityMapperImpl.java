@@ -5,15 +5,18 @@ import com.edemirkirkan.thybackend.act.dto.RestActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityGeoCodeDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityPriceDto;
 import com.edemirkirkan.thybackend.act.entity.Activity;
+import com.edemirkirkan.thybackend.act.entity.ActivityImage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-01T18:45:31+0300",
+    date = "2022-08-02T14:55:34+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -34,11 +37,11 @@ public class ActivityMapperImpl extends ActivityMapper {
         activity.setId( restActivityDto.getId() );
         activity.setName( restActivityDto.getName() );
         activity.setRating( restActivityDto.getRating() );
-        List<String> list = restActivityDto.getPictures();
-        if ( list != null ) {
-            activity.setPictures( new ArrayList<String>( list ) );
-        }
         activity.setBookingLink( restActivityDto.getBookingLink() );
+        Set<ActivityImage> set = restActivityDto.getPictures();
+        if ( set != null ) {
+            activity.setPictures( new LinkedHashSet<ActivityImage>( set ) );
+        }
 
         return activity;
     }
@@ -58,6 +61,19 @@ public class ActivityMapperImpl extends ActivityMapper {
     }
 
     @Override
+    public ActivityImage convertToActivityImage(String url) {
+        if ( url == null ) {
+            return null;
+        }
+
+        ActivityImage activityImage = new ActivityImage();
+
+        activityImage.setUrl( url );
+
+        return activityImage;
+    }
+
+    @Override
     public ActivityDto convertToDto(Activity activity) {
         if ( activity == null ) {
             return null;
@@ -68,9 +84,9 @@ public class ActivityMapperImpl extends ActivityMapper {
         activityDto.setId( activity.getId() );
         activityDto.setName( activity.getName() );
         activityDto.setRating( activity.getRating() );
-        List<String> list = activity.getPictures();
-        if ( list != null ) {
-            activityDto.setPictures( new ArrayList<String>( list ) );
+        Set<ActivityImage> set = activity.getPictures();
+        if ( set != null ) {
+            activityDto.setPictures( new LinkedHashSet<ActivityImage>( set ) );
         }
         activityDto.setBookingLink( activity.getBookingLink() );
         activityDto.setCurrencyCode( activity.getCurrencyCode() );

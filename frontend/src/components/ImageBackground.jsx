@@ -3,6 +3,6 @@
     render the child components inside of it
 */
 
-export default export ImageBackground() {
+export default function ImageBackground() {
 
 }
