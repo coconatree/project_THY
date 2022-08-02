@@ -1,5 +1,6 @@
 package com.edemirkirkan.thybackend.act.converter;
 
+import com.edemirkirkan.thybackend.act.dto.ActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityGeoCodeDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityPriceDto;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-01T02:14:42+0300",
+    date = "2022-08-01T18:45:31+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -56,7 +57,45 @@ public class ActivityMapperImpl extends ActivityMapper {
         return list;
     }
 
-    private Double restActivityDtoGeoCodeLatitude(RestActivityDto restActivityDto) {
+    @Override
+    public ActivityDto convertToDto(Activity activity) {
+        if ( activity == null ) {
+            return null;
+        }
+
+        ActivityDto activityDto = new ActivityDto();
+
+        activityDto.setId( activity.getId() );
+        activityDto.setName( activity.getName() );
+        activityDto.setRating( activity.getRating() );
+        List<String> list = activity.getPictures();
+        if ( list != null ) {
+            activityDto.setPictures( new ArrayList<String>( list ) );
+        }
+        activityDto.setBookingLink( activity.getBookingLink() );
+        activityDto.setCurrencyCode( activity.getCurrencyCode() );
+        activityDto.setAmount( activity.getAmount() );
+
+        customMapping( activity, activityDto );
+
+        return activityDto;
+    }
+
+    @Override
+    public List<ActivityDto> convertToDtoList(List<Activity> activities) {
+        if ( activities == null ) {
+            return null;
+        }
+
+        List<ActivityDto> list = new ArrayList<ActivityDto>( activities.size() );
+        for ( Activity activity : activities ) {
+            list.add( convertToDto( activity ) );
+        }
+
+        return list;
+    }
+
+    private String restActivityDtoGeoCodeLatitude(RestActivityDto restActivityDto) {
         if ( restActivityDto == null ) {
             return null;
         }
@@ -64,14 +103,14 @@ public class ActivityMapperImpl extends ActivityMapper {
         if ( geoCode == null ) {
             return null;
         }
-        Double latitude = geoCode.getLatitude();
+        String latitude = geoCode.getLatitude();
         if ( latitude == null ) {
             return null;
         }
         return latitude;
     }
 
-    private Double restActivityDtoGeoCodeLongitude(RestActivityDto restActivityDto) {
+    private String restActivityDtoGeoCodeLongitude(RestActivityDto restActivityDto) {
         if ( restActivityDto == null ) {
             return null;
         }
@@ -79,7 +118,7 @@ public class ActivityMapperImpl extends ActivityMapper {
         if ( geoCode == null ) {
             return null;
         }
-        Double longitude = geoCode.getLongitude();
+        String longitude = geoCode.getLongitude();
         if ( longitude == null ) {
             return null;
         }

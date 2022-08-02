@@ -22,9 +22,9 @@ public class Activity {
     @Column(length = 1024)
     private String name;
 
-    private Double latitude;
+    private String latitude;
 
-    private Double longitude;
+    private String longitude;
 
     private Double rating;
 
@@ -40,4 +40,8 @@ public class Activity {
 
     @Column(precision = 19, scale = 2)
     private BigDecimal amount;
+
+    private String queryLat;
+
+    private String queryLon;
 }

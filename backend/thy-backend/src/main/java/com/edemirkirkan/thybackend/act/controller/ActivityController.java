@@ -1,6 +1,6 @@
 package com.edemirkirkan.thybackend.act.controller;
 
-import com.edemirkirkan.thybackend.act.entity.Activity;
+import com.edemirkirkan.thybackend.act.dto.ActivityDto;
 import com.edemirkirkan.thybackend.act.service.ActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,8 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @GetMapping("/{latitude}/{longitude}")
-    public ResponseEntity<List<Activity>> getActivities(@PathVariable String latitude,
-                                                        @PathVariable String longitude) {
+    public ResponseEntity<List<ActivityDto>> getActivities(@PathVariable String latitude,
+                                                           @PathVariable String longitude) {
         return ResponseEntity.ok(activityService.retrieveAllActivities(latitude, longitude));
     }
 }

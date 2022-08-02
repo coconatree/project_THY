@@ -1,10 +1,9 @@
 package com.edemirkirkan.thybackend.act.converter;
 
+import com.edemirkirkan.thybackend.act.dto.ActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityDto;
 import com.edemirkirkan.thybackend.act.entity.Activity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -17,4 +16,19 @@ public abstract class ActivityMapper {
     public abstract Activity convertToEntity(RestActivityDto restActivityDto);
 
     public abstract List<Activity> convertToEntityList(List<RestActivityDto> restActivityDtos);
+
+    @AfterMapping
+    protected void customMapping(Activity activity, @MappingTarget ActivityDto activityDto) {
+        String latitude = activity.getLatitude();
+        String longitude = activity.getLongitude();
+        activityDto.setGoogleLocLink("https://maps.google.com/?q="+
+                latitude + "," + longitude);
+        activityDto.setAppleLocLink("http://maps.apple.com/?q="
+                + latitude + "," + longitude);
+    }
+
+    public abstract ActivityDto convertToDto(Activity activity);
+
+    public abstract List<ActivityDto> convertToDtoList(List<Activity> activities);
+
 }

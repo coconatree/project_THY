@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RestActivityGeoCodeDto {
-    Double latitude;
-    Double longitude;
+    String latitude;
+    String longitude;
 }
