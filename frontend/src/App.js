@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import ReservationCodePage from "./page/ReservationCodePage";
-import ActivitiesPage from "./page/ActivitiesPage";
+import ReservationCodePage from "./routes/ReservationCodePage";
+import ActivitiesPage from "./routes/ActivitiesPage";
 
-import Navbar from "./components/navbar/navbar";
+import Navbar from "./components/NavBar";
 
 import "./static/style/main.css"
 

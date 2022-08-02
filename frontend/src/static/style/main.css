@@ -1,16 +1,22 @@
 html, body {
     margin: 0;
-    height: 100%;
-}
-
-h1, h2, h3, h4 {
-
-}
-
-p {
-
+    height: 100vh;
 }
 
 label {
     font-size: 3rem;
+}
+
+.bacground_image {
+    
+    background-image: url("../images/reservation_page_background.jpg");
+    height: 100%;
+  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.full-size {
+    height: 100%;
 }

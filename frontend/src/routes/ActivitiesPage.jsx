@@ -1,16 +1,14 @@
-import { useState } from "react";
-import MainPage from "../routes/main_page/main_page_component";
-import { Box } from "@mui/material";
-import Navbar from "../components/navbar/navbar";
+import useState from "react";
 
+import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
 
+import MainPage from "../components/MainPageComponent";
 
 export default function ActivitiesPage() {
 
     const [activities, setActivities] = useState([]);
 
- 
     async function retrieveActivityList() {
 
         let response = await fetch("http://localhost:8080/api/v1/activities")
@@ -26,14 +24,11 @@ export default function ActivitiesPage() {
     } 
 
     return (
-        <Box >
-            <Navbar />
-            <Box >
+        <Box>
             <Typography variant="h4" gutterBottom component="div">
-        Welcome to Paris
-      </Typography>
-                  </Box>
+                Welcome to Paris
+            </Typography>
             <MainPage/>
-        </Box>
+        </Box> 
     )
 }

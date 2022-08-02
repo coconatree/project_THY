@@ -1,11 +1,14 @@
 import { useState } from "react";
 
-import useCityStore from "../store/CityStore";
+import useCityStore     from "../store/CityStore";
 import useCustomerStore from "../store/CustomerStore"
 
-import '../static/style/reservationPage.css'
+/** 
+    This component handles the reservation code and 
+    related communications with the backend   
+*/
 
-export default function ReservationCodePage() {
+export default function ReservationCodeField() {
 
     const [reservationCode, setReservationCode] = useState("");
     
@@ -39,6 +42,12 @@ export default function ReservationCodePage() {
 
         setInfo(json.firstname, json.lastname)
         setCity(json.latitude, json.longitude)
+
+        /** 
+            If succesfull this function will redirect to the events 
+            page and will pass the data to it using the react <Link/> 
+            component's functionality. 
+        */
     }
 
     function createReservationCodeForm() {
@@ -56,22 +65,14 @@ export default function ReservationCodePage() {
                     <button>
                         Submit Code
                     </button>
-                    <br/>
-                    <br/>
-                    <span>Firstname : {firstname}</span>
-                    <br/>
-                    <br/>
-                    <span>Lastname : {lastname}</span>
-                </form>
+                </form>     
             </div>    
         )
     }
 
     return (
-        <section className = "reservationSection">
-            <div className = "reservationForm">
-                {createReservationCodeForm()}
-            </div>
-        </section>
+        <>  
+            {createReservationCodeForm()}
+        </>
     )
 }
