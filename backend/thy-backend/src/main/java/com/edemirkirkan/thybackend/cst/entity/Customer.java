@@ -1,5 +1,6 @@
 package com.edemirkirkan.thybackend.cst.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 public class Customer {
 
@@ -18,7 +20,7 @@ public class Customer {
     private Long id;
 
     @Column(nullable = false)
-    private String reservationId;
+    private String pnr;
 
     @Column(nullable = false)
     private String firstname;
@@ -27,8 +29,14 @@ public class Customer {
     private String lastname;
 
     @Column(nullable = false)
-    private String latitude;
+    private String departureCityName;
 
     @Column(nullable = false)
-    private String longitude;
+    private String arrivalCityName;
+
+    @Column(nullable = false)
+    private String arrivalCitylatitude;
+
+    @Column(nullable = false)
+    private String arrivalCitylongitude;
 }

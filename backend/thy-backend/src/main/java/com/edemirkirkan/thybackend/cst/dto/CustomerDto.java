@@ -8,9 +8,11 @@ import javax.persistence.Column;
 @Data
 @Builder
 public class CustomerDto {
-    private String reservationId;
+    private String pnr;
     private String firstname;
     private String lastname;
-    private String latitude;
-    private String longitude;
+    private String departureCityName;
+    private String arrivalCityName;
+    private String arrivalCitylatitude;
+    private String arrivalCitylongitude;
 }
