@@ -1,7 +1,10 @@
 import { useState } from "react";
-
+import { Box, Button } from "@mui/material";
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import useCityStore     from "../store/CityStore";
 import useCustomerStore from "../store/CustomerStore"
+import TextField from '@mui/material/TextField';
+import { createTheme, styled } from '@mui/material/styles';
 
 /** 
     This component handles the reservation code and 
@@ -9,6 +12,24 @@ import useCustomerStore from "../store/CustomerStore"
 */
 
 export default function ReservationCodeField() {
+
+
+    const theme = createTheme({
+      palette: {
+        primary: {
+          light: '#757ce8',
+          main: '#3f50b5',
+          dark: '#002884',
+          contrastText: '#fff',
+        },
+        secondary: {
+          light: '#ff7961',
+          main: '#f44336',
+          dark: '#ba000d',
+          contrastText: '#000',
+        },
+      },
+    });
 
     const [reservationCode, setReservationCode] = useState("");
     
@@ -25,6 +46,9 @@ export default function ReservationCodeField() {
     function handleReservationCodeFieldChange(event) {
         setReservationCode(event.target.value)
     }
+
+    const [flag, setFlag] = useState(true);
+
 
     async function fetchCustomerInfo() {
         
@@ -50,23 +74,48 @@ export default function ReservationCodeField() {
         */
     }
 
+    const ColorButton = styled(Button)(({ theme }) => ({
+        backgroundColor: "#E91932",
+        color: "#fff",
+        '&:active': {
+          backgroundColor: "#E91932",
+        },
+        '&:focus': {
+            backgroundColor: "#E91932",
+          },
+          '&:hover': {
+            backgroundColor: "#E91932",
+          },
+      }));
+
     function createReservationCodeForm() {
         return (
-            <div className = "reservationForm">
+            <Box className = "reservationForm">
                 <form className = "reservationForm" onSubmit = {event => handleFormSubmition(event)}>
-                    <label>
-                        Reservation Code 
-                    </label>
-                    <input 
-                        type     = "text" 
-                        value    = {reservationCode} 
-                        onChange = {event => handleReservationCodeFieldChange(event)}
-                    />
-                    <button>
-                        Submit Code
-                    </button>
+
+                    <Box
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1, width: '25ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                    >      
+                        <TextField id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" 
+                                value    = {reservationCode} 
+                                onChange = {event => handleReservationCodeFieldChange(event)}/>
+                        <TextField id="isim" label="Yolcunun adı" variant="filled"  color="error" type     = "text" 
+                              />
+                         <TextField id="soyisim" label="Yolcunun soyadı" variant="filled"  color="error" type     = "text" 
+                           />
+                        
+                    
+                    <ColorButton  variant="filled" sx={{backgroundColor: "#E91932", m: 1, width: '25ch' }}>
+                        Boost <RocketLaunchIcon />
+                    </ColorButton>
+                    </Box>
                 </form>     
-            </div>    
+            </Box>    
         )
     }
 

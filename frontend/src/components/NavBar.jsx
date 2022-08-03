@@ -43,7 +43,7 @@ const ResponsiveAppBar = () => {
           >
             | Trip Booster
           </Typography>
-
+        
           <Typography
             variant="h5"
             noWrap
@@ -60,7 +60,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            | Trip Booster
           </Typography>
 
           

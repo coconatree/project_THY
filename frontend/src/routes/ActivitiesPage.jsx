@@ -13,7 +13,7 @@ import "../static/style/test.css"
 
 export default function ActivitiesPage() {
 
-    const [activities, setActivities] = useState([]);
+ //   const [activities, setActivities] = useState([]);
 
     async function retrieveActivityList() {
 
