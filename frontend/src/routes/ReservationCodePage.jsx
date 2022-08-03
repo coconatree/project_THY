@@ -16,38 +16,37 @@ export default function ReservationCodePage() {
         <ThemeProvider theme={theme}>
             
  <Box className = "reservationCodeBackground" > 
-        <Box     sx={{
-            width: "100%",
-            height: 500,
-            backgroundColor: 'primary.dark',
-
-        }} justifyContent="center" > 
-            <Box     sx={{
-            width: "100%",
-            height: 200, direction: 'column', 
-            backgroundColor: '#C0C0C0',
-             }} textAlign="right" display="inline-block" > 
-                <Box     sx={{
-                width: "40%",
-                height: 200, direction: 'column', 
-                backgroundColor: '#C022C0',
-                marginRight:'10vh'
-                }} textAlign="right" display="inline-block" > 
+        
+            
+            <Grid container spacing={3}>
+            <Grid item xs>
                 
-                    <Typography variant="h3"  color="#fdfdfd"  sx={{  display: 'flex', flexGrow: '3', flexDirection: 'width' ,marginTop: '5vh', marginRight:'3vh'}}>
+            </Grid>
+            <Grid item xs={6}>
+            <Typography variant="h3"  color="#fdfdfd"  sx={{  textShadow:"2px 2px 6px black", display: 'flex', flexGrow: '3', flexDirection: 'width' ,marginTop: '5vh', marginRight:'3vh'}}>
                         Extend Your Journey with Turkish Airlines Trip Booster
                     </Typography> 
                 
-                </Box>   
-            </Box>             
-      
+            </Grid>
+            <Grid item xs>
+                
+            </Grid>
+            </Grid>
 
-                     <Grid container justifyContent="flex-end">
-
-<ReservationCodeField/>
-</Grid>
-                    
-            </Box>
+            <Grid container spacing={0}>
+            <Grid item xs={3}>
+                
+            </Grid>
+            <Grid item xs={9}>
+            <ReservationCodeField/>
+                
+            </Grid>
+            <Grid item xs={3}>
+                
+            </Grid>
+            </Grid>
+       
+           
         </Box>  
      </ThemeProvider>
     )

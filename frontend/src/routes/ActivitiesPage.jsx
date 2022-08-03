@@ -26,7 +26,7 @@ export default function ActivitiesPage() {
 
         let json = await response.json();
 
-        setActivities(json.activities)
+ //       setActivities(json.activities)
     } 
 
     return (

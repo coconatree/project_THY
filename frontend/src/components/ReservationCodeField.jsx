@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Paper } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import useCityStore     from "../store/CityStore";
 import useCustomerStore from "../store/CustomerStore"
 import TextField from '@mui/material/TextField';
 import { createTheme, styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
 
 /** 
     This component handles the reservation code and 
@@ -92,28 +93,21 @@ export default function ReservationCodeField() {
         return (
             <Box className = "reservationForm">
                 <form className = "reservationForm" onSubmit = {event => handleFormSubmition(event)}>
-
-                    <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    >      
-                        <TextField id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" 
+ 
+                        <TextField id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" style = {{width: 280}}
                                 value    = {reservationCode} 
                                 onChange = {event => handleReservationCodeFieldChange(event)}/>
-                        <TextField id="isim" label="Yolcunun adı" variant="filled"  color="error" type     = "text" 
-                              />
-                         <TextField id="soyisim" label="Yolcunun soyadı" variant="filled"  color="error" type     = "text" 
-                           />
-                        
                     
+                        <TextField id="isim" label="Yolcunun adı" variant="filled"  color="error" type= "text"/>
+                                
+                            
+                         <TextField id="soyisim" label="Yolcunun soyadı" variant="filled"  color="error" type= "text" />
+                   
+                  
                     <ColorButton  variant="filled" sx={{backgroundColor: "#E91932", m: 1, width: '25ch' }}>
                         Boost <RocketLaunchIcon />
                     </ColorButton>
-                    </Box>
+                      
                 </form>     
             </Box>    
         )
