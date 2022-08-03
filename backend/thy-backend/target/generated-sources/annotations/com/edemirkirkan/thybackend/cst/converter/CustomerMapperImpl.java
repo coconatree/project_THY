@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-01T20:44:32+0300",
+    date = "2022-08-03T23:38:56+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -19,15 +19,17 @@ public class CustomerMapperImpl extends CustomerMapper {
             return null;
         }
 
-        Customer customer = new Customer();
+        Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.setReservationId( customerDto.getReservationId() );
-        customer.setFirstname( customerDto.getFirstname() );
-        customer.setLastname( customerDto.getLastname() );
-        customer.setLatitude( customerDto.getLatitude() );
-        customer.setLongitude( customerDto.getLongitude() );
+        customer.pnr( customerDto.getPnr() );
+        customer.firstname( customerDto.getFirstname() );
+        customer.lastname( customerDto.getLastname() );
+        customer.departureCityName( customerDto.getDepartureCityName() );
+        customer.arrivalCityName( customerDto.getArrivalCityName() );
+        customer.arrivalCitylatitude( customerDto.getArrivalCitylatitude() );
+        customer.arrivalCitylongitude( customerDto.getArrivalCitylongitude() );
 
-        return customer;
+        return customer.build();
     }
 
     @Override
@@ -38,11 +40,13 @@ public class CustomerMapperImpl extends CustomerMapper {
 
         CustomerDto.CustomerDtoBuilder customerDto = CustomerDto.builder();
 
-        customerDto.reservationId( customer.getReservationId() );
+        customerDto.pnr( customer.getPnr() );
         customerDto.firstname( customer.getFirstname() );
         customerDto.lastname( customer.getLastname() );
-        customerDto.latitude( customer.getLatitude() );
-        customerDto.longitude( customer.getLongitude() );
+        customerDto.departureCityName( customer.getDepartureCityName() );
+        customerDto.arrivalCityName( customer.getArrivalCityName() );
+        customerDto.arrivalCitylatitude( customer.getArrivalCitylatitude() );
+        customerDto.arrivalCitylongitude( customer.getArrivalCitylongitude() );
 
         return customerDto.build();
     }

@@ -1,6 +1,8 @@
 package com.edemirkirkan.thybackend.thy.service;
 
+import com.edemirkirkan.thybackend.thy.dto.ThyAirpotInfoRestDto;
 import com.edemirkirkan.thybackend.thy.dto.ThyBoardingPassRestDto;
+import com.edemirkirkan.thybackend.thy.dto.ThyCustomerRestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;

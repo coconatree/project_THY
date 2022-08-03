@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-02T14:55:34+0300",
+    date = "2022-08-03T23:38:56+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -58,19 +58,6 @@ public class ActivityMapperImpl extends ActivityMapper {
         }
 
         return list;
-    }
-
-    @Override
-    public ActivityImage convertToActivityImage(String url) {
-        if ( url == null ) {
-            return null;
-        }
-
-        ActivityImage activityImage = new ActivityImage();
-
-        activityImage.setUrl( url );
-
-        return activityImage;
     }
 
     @Override

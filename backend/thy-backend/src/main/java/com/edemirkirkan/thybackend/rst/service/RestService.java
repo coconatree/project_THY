@@ -140,11 +140,11 @@ public class RestService {
         }
 
         return CustomerDto.builder()
-                .reservationId("Res-453193191-13123")
+                .pnr("Res-453193191-13123")
                 .firstname("Emre")
                 .lastname("Caniklioglu")
-                .latitude(geoData.getGeoCode().getLatitude())
-                .longitude(geoData.getGeoCode().getLongitude())
+                .arrivalCitylatitude(geoData.getGeoCode().getLatitude())
+                .arrivalCitylongitude(geoData.getGeoCode().getLongitude())
                 .build();
     }
 }
