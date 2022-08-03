@@ -47,9 +47,6 @@ public class ThyRestService {
         return response.getBody();
     }
     public ThyCustomerRestDto retrieveCustomerInfo() {
-
-        
-
         return null;
     }
 

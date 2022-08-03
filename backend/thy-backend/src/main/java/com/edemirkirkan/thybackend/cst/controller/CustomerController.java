@@ -16,11 +16,13 @@ public class CustomerController {
 
     private final CustomerService customerService;
     
-    @GetMapping("/{reservationId}")
+    @GetMapping("search/{pnr}/{name}/{surname}")
     public ResponseEntity<CustomerDto> getCustomer(
-        @PathVariable(name = "reservationId") String reservationId
+        @PathVariable(name = "pnr") String pnr,
+        @PathVariable(name = "name") String name,
+        @PathVariable(name = "surname") String surname
     )
     {
-        return ResponseEntity.ok(customerService.retieveCustomerByReservationId(reservationId));
+        return ResponseEntity.ok(customerService.retieveCustomerByReservationId(pnr));
     }
 }
