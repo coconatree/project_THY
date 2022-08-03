@@ -5,6 +5,12 @@ import Typography from '@mui/material/Typography';
 
 import MainPage from "../components/MainPageComponent";
 
+import ImageContainer from "../components/ImageContainer"
+
+import bg01 from "../static/images/reservation_page_background.jpg"
+
+import "../static/style/test.css"
+
 export default function ActivitiesPage() {
 
  //   const [activities, setActivities] = useState([]);
@@ -20,14 +26,19 @@ export default function ActivitiesPage() {
 
         let json = await response.json();
 
-       // setActivities()
+        setActivities(json.activities)
     } 
 
     return (
         <Box>
-            <Typography variant="h4" gutterBottom component="div">
-                Welcome to Paris
-            </Typography>
+            <ImageContainer image_url = {bg01}>
+                <div className = "test">
+                    dadaw
+                    <Typography variant="h4" gutterBottom component="div">
+                        Welcome to Paris
+                    </Typography>
+                </div>
+            </ImageContainer>
             <MainPage/>
         </Box> 
     )

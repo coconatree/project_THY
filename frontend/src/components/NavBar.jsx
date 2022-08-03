@@ -43,7 +43,6 @@ const ResponsiveAppBar = () => {
           >
             | Trip Booster
           </Typography>
-
         
           <Typography
             variant="h5"

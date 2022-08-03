@@ -5,6 +5,7 @@ html, body {
 
 label {
     font-size: 3rem;
+    position: absolute;
 }
 
 .bacground_image {
