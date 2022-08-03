@@ -34,9 +34,6 @@ public class BeanConfig {
         headers.set("apikey", THY_API_KEY);
         headers.set("apisecret", THY_API_SECRET);
 
-        log.log(Level.WARNING, "API_KEY" + THY_API_KEY);
-        log.log(Level.WARNING, "API_SECRET" + THY_API_SECRET);
-
         return headers;
     }
 
