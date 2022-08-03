@@ -1,0 +1,19 @@
+
+.image_container {
+    height: 100%;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.image_cover {
+    background-color: black;
+    height: 100%;
+    opacity: 30%;
+}
+
+.image {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
