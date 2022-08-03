@@ -15,17 +15,17 @@ export default function ReservationCodePage() {
     return (
         <ThemeProvider theme={theme}>
             
- <Box className = "reservationCodeBackground" > 
-        
-            
-            <Grid container spacing={3}>
+ <Box mt={5} pt={5}className = "reservationCodeBackground" > 
+
+            <Grid container spacing={4}>
             <Grid item xs>
                 
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={7}>
             <Typography variant="h3"  color="#fdfdfd"  sx={{  textShadow:"2px 2px 6px black", display: 'flex', flexGrow: '3', flexDirection: 'width' ,marginTop: '5vh', marginRight:'3vh'}}>
                         Extend Your Journey with Turkish Airlines Trip Booster
                     </Typography> 
+                   
                 
             </Grid>
             <Grid item xs>
@@ -34,7 +34,7 @@ export default function ReservationCodePage() {
             </Grid>
 
             <Grid container spacing={0}>
-            <Grid item xs={3}>
+            <Grid item xs={2.3}>
                 
             </Grid>
             <Grid item xs={9}>

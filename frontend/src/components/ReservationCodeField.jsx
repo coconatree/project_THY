@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import useCityStore     from "../store/CityStore";
 import useCustomerStore from "../store/CustomerStore"
 import TextField from '@mui/material/TextField';
 import { createTheme, styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+
 
 /** 
     This component handles the reservation code and 
@@ -32,28 +34,30 @@ export default function ReservationCodeField() {
       },
     });
 
-    const [reservationCode, setReservationCode] = useState("");
+    const [formData, setFormData] = useState({
+        name: "",
+        surname: "",
+        PNR: ""
+    });
     
     const setCity = useCityStore((state) => state.setCity)
     const setInfo = useCustomerStore((state => state.setInfo))
     
     const {firstname, lastname} = useCustomerStore((state) => ({firstname: state.firstname, lastname: state.lastname }))
 
-    function handleFormSubmition(event) {
+    function handleFormSubmit(event) {
         event.preventDefault()
         fetchCustomerInfo()
     }
 
-    function handleReservationCodeFieldChange(event) {
-        setReservationCode(event.target.value)
+    function handleChange(event) {
+        setFormData({  ...formData, [event.target.name]: event.target.value });
     }
-
-    const [flag, setFlag] = useState(true);
 
 
     async function fetchCustomerInfo() {
         
-        let response = await fetch(`http://localhost:8080/api/v1/customers/${reservationCode}`)
+        let response = await fetch(`http://localhost:8080/api/v1/customers/${formData.PNR}`)
             .catch(e => alert("Error retrievig the data please try at a later time"))
         
         if (!response.ok) {
@@ -91,19 +95,17 @@ export default function ReservationCodeField() {
 
     function createReservationCodeForm() {
         return (
-            <Box className = "reservationForm">
-                <form className = "reservationForm" onSubmit = {event => handleFormSubmition(event)}>
- 
-                        <TextField id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" style = {{width: 280}}
-                                value    = {reservationCode} 
-                                onChange = {event => handleReservationCodeFieldChange(event)}/>
-                    
-                        <TextField id="isim" label="Yolcunun adı" variant="filled"  color="error" type= "text"/>
+            <Box m={2} pt={5} className = "reservationForm">
+                <form className = "reservationForm" onSubmit = {event => handleFormSubmit(event)}>
+
+ <TextField name="PNR" id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" style = {{width: 280,paddingRight: '7px'}}
+                            
+                                onChange={handleChange} value={formData.PNR} />
+                        <TextField name="name" id="name" label="Yolcunun adı" variant="filled"  color="error" type= "text" onChange={handleChange} value={formData.name}  style = {{paddingRight: '7px' }}/>
                                 
                             
-                         <TextField id="soyisim" label="Yolcunun soyadı" variant="filled"  color="error" type= "text" />
-                   
-                  
+                         <TextField name="surname" id="surname" label="Yolcunun soyadı" variant="filled"  color="error" type= "text" onChange={handleChange} value={formData.surname}  style = {{paddingRight: '7px'}} />
+            
                     <ColorButton  variant="filled" sx={{backgroundColor: "#E91932", m: 1, width: '25ch' }}>
                         Boost <RocketLaunchIcon />
                     </ColorButton>
