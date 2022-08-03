@@ -5,7 +5,7 @@ import ReservationCodeField from "../components/ReservationCodeField";
 import { Box } from '@mui/material';
 import { responsiveFontSizes,  ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-
+import { alpha } from "@mui/material/styles";
 export default function ReservationCodePage() {
 
     
@@ -15,9 +15,9 @@ export default function ReservationCodePage() {
     return (
         <ThemeProvider theme={theme}>
             
- <Box mt={5} pt={5}className = "reservationCodeBackground" > 
+ <Box mt={3} pt={5}  className = "reservationCodeBackground" > 
 
-            <Grid container spacing={4}>
+            <Grid container spacing={4} m="auto">
             <Grid item xs>
                 
             </Grid>
@@ -34,16 +34,15 @@ export default function ReservationCodePage() {
             </Grid>
 
             <Grid container spacing={0}>
-            <Grid item xs={2.3}>
+            <Grid item xs={2.5}>
                 
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={7} mt={5} p={4} spacing={2} justifyContent="center" alignItems="center" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} borderRadius="6px" style={{textAlign: "center"}}>
+
             <ReservationCodeField/>
                 
             </Grid>
-            <Grid item xs={3}>
-                
-            </Grid>
+            
             </Grid>
        
            

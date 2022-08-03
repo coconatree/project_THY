@@ -95,7 +95,7 @@ export default function ReservationCodeField() {
 
     function createReservationCodeForm() {
         return (
-            <Box m={2} pt={5} className = "reservationForm">
+            
                 <form className = "reservationForm" onSubmit = {event => handleFormSubmit(event)}>
 
  <TextField name="PNR" id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" style = {{width: 280,paddingRight: '7px'}}
@@ -106,12 +106,12 @@ export default function ReservationCodeField() {
                             
                          <TextField name="surname" id="surname" label="Yolcunun soyadı" variant="filled"  color="error" type= "text" onChange={handleChange} value={formData.surname}  style = {{paddingRight: '7px'}} />
             
-                    <ColorButton  variant="filled" sx={{backgroundColor: "#E91932", m: 1, width: '25ch' }}>
+                    <ColorButton  variant="filled" sx={{ boxShadow:"2", backgroundColor: "#E91932", maxWidth: '100px', maxHeight: '100px' , minHeight: '56px', minWidth: '50px'}}>
                         Boost <RocketLaunchIcon />
                     </ColorButton>
                       
                 </form>     
-            </Box>    
+               
         )
     }
 
