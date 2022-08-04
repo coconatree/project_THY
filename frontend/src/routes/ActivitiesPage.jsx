@@ -1,4 +1,5 @@
 import useState from "react";
+import Grid from '@mui/material/Grid';
 
 import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
@@ -7,9 +8,11 @@ import MainPage from "../components/MainPageComponent";
 
 import ImageContainer from "../components/ImageContainer"
 
+
 import bg01 from "../static/images/reservation_page_background.jpg"
 
-import "../static/style/test.css"
+import "../static/style/main.css"
+import CategoriesImaged from "../components/CategoriesImaged";
 
 export default function ActivitiesPage() {
 
@@ -29,17 +32,34 @@ export default function ActivitiesPage() {
  //       setActivities(json.activities)
     } 
 
+
     return (
-        <Box>
+        <Box >
             <ImageContainer image_url = {bg01}>
-                <div className = "test">
-                    dadaw
-                    <Typography variant="h4" gutterBottom component="div">
+                <div>
+                    
+                    <Grid item  ml = {0} mt={4} p={3} spacing={0} style={{textAlign: "left"}}>
+                    <Typography variant="h3" gutterBottom component="div">
                         Welcome to Paris
                     </Typography>
+                    </Grid>
+
                 </div>
+                        <Grid item xs={2.5} mt={2} mb p={3} >
+                        <MainPage/>
+                        </Grid>
+                        <Grid item xs={2.5} mt={2} mb p={3} >
+
+                <CategoriesImaged/>
+                </Grid>
+
+           
             </ImageContainer>
-            <MainPage/>
+          
+
+          
+   
+   
         </Box> 
     )
 }

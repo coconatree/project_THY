@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { createTheme, styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
+import Carousel from 'react-material-ui-carousel';
 
 /** 
     This component handles the reservation code and 
@@ -95,7 +95,7 @@ export default function ReservationCodeField() {
 
     function createReservationCodeForm() {
         return (
-            
+          
                 <form className = "reservationForm" onSubmit = {event => handleFormSubmit(event)}>
 
  <TextField name="PNR" id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" style = {{width: 280,paddingRight: '7px'}}
@@ -112,6 +112,8 @@ export default function ReservationCodeField() {
                       
                 </form>     
                
+
+          
         )
     }
 

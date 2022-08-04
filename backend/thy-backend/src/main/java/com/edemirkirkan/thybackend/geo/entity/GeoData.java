@@ -16,13 +16,10 @@ public class GeoData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String type;
-    private String subType;
-
     @Column(unique = true)
     private String name;
 
-    private String iataCode;
+    private String country;
 
     @Column(nullable = false)
     private String latitude;

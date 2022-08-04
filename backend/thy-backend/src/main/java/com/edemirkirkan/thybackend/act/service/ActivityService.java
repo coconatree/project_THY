@@ -27,7 +27,6 @@ public class ActivityService {
             List<RestActivityDto> restActivityDtos = restActivityListDto.getData()
                     .stream()
                     .filter(p -> p.getName() != null
-                            && p.getPrice().getAmount() != null
                             && p.getRating() != null
                             && p.getPictures() != null
                             && p.getPictures().size() != 0

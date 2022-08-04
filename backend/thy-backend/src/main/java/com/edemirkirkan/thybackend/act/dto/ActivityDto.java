@@ -1,6 +1,5 @@
 package com.edemirkirkan.thybackend.act.dto;
 
-import com.edemirkirkan.thybackend.act.entity.ActivityImage;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,8 +13,6 @@ public class ActivityDto {
     private String googleLocLink;
     private String appleLocLink;
     private Double rating;
-    private Set<ActivityImage> pictures;
+    private List<String> pictures;
     private String bookingLink;
-    private String currencyCode;
-    private BigDecimal amount;
 }

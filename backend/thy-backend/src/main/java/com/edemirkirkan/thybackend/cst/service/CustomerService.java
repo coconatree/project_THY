@@ -6,14 +6,11 @@ import com.edemirkirkan.thybackend.cst.converter.CustomerMapper;
 import com.edemirkirkan.thybackend.cst.dao.CustomerDao;
 import com.edemirkirkan.thybackend.cst.dto.CustomerDto;
 import com.edemirkirkan.thybackend.cst.entity.Customer;
-import com.edemirkirkan.thybackend.geo.dto.GeoDataDto;
-import com.edemirkirkan.thybackend.geo.rst.RestGeoDataDto;
-import com.edemirkirkan.thybackend.geo.rst.RestGeoDto;
+import com.edemirkirkan.thybackend.geo.dto.RestGeoDataDto;
 import com.edemirkirkan.thybackend.rst.service.RestService;
 import com.edemirkirkan.thybackend.thy.dto.ThyBoardingPassRestDto;
 import com.edemirkirkan.thybackend.thy.service.ThyRestService;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,13 +39,10 @@ public class CustomerService {
 
             // Check if it is in our list
 
-            if (isCityInService(arrivalCityName)) {
-                throw new RuntimeException("Sorry but our application currently doesn't sypport the given destination");
-            }
 
             // If so retrive location data from the amedeus data for the city
 
-            RestGeoDto restGeoDto = amedeusRestService.geoDataRequest(arrivalCityName);
+            RestGeoDataDto restGeoDto = amedeusRestService.geoDataRequest(arrivalCityName);
 
             // Create the customer dto
 
@@ -58,8 +52,8 @@ public class CustomerService {
                     .pnr(customer.getPnr())
                     .departureCityName("")
                     .arrivalCityName("")
-                    .arrivalCitylatitude(restGeoDto.getGeoCode().getLatitude())
-                    .arrivalCitylongitude(restGeoDto.getGeoCode().getLongitude())
+                    .arrivalCitylatitude(restGeoDto.getLat())
+                    .arrivalCitylongitude(restGeoDto.getLon())
                     .build();
 
             customer = customerDao.save(customer);
@@ -68,7 +62,4 @@ public class CustomerService {
         return mapper.convertToDto(customer);
     }
 
-    private boolean isCityInService(String cityName) {
-        return AppConfig.SERVICE_CITIES.contains(cityName);
-    }
 }
