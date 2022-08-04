@@ -4,11 +4,15 @@ import com.edemirkirkan.thybackend.thy.dto.ThyAirpotInfoRestDto;
 import com.edemirkirkan.thybackend.thy.dto.ThyBoardingPassRestDto;
 import com.edemirkirkan.thybackend.thy.dto.ThyCustomerRestDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.logging.Level;
+
+@Log
 @Service
 @RequiredArgsConstructor
 public class ThyRestService {
@@ -44,10 +48,11 @@ public class ThyRestService {
         if (response.getStatusCode() != HttpStatus.OK) {
             throw new RuntimeException("Printing boarding pass failed !!!");
         }
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getBody());
 
-        System.out.println(response02.getBody());
+        log.log(Level.WARNING, "Response status code: " + response.getStatusCode());
+        log.log(Level.WARNING, "Response body: " + response.getBody().toString());
+
+        log.log(Level.WARNING, "Response as json: " + response02.getBody());
 
         return response.getBody();
     }
