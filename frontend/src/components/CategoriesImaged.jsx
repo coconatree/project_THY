@@ -2,19 +2,23 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import Grid from '@mui/material/Grid';
-import "../static/style/main.css"
-export default function CategoriesImaged() {
-  return (
-    <Grid container item xs={7} mt={5} p={4} spacing={2} style={{textAlign: "left"}} m="auto">
+import {Grid, Box, Typography} from '@mui/material';
+import "../static/style/main.css";
 
-<Grid>
-    <ImageList sx={{ width: 500, height: 450 }} className="customScroll">
+
+export default function CategoriesImaged(props) {
+  return (
+
+    <Box container display="flex" sx = {{letterSpacing: 1 ,fontStyle: 'helvetica', fontWeight: 'medium' }} flexDirection="column" m="auto">
+      <Typography   variant="h4">{props.titleName}</Typography>
+
+    <ImageList sx={{ height: 400 , maxWidth:"25rem", m:'auto',justifyContent: "center",
+alignItems: "center"}} className="customScroll">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+          <img 
+            src={`${item.img}?w=250&fit=crop&auto=format`}
+            srcSet={`${item.img}?w=250&fit=crop&auto=format&dpr=2 2x`}
             alt={item.title}
             loading="lazy"
           />
@@ -27,27 +31,7 @@ export default function CategoriesImaged() {
       ))}
       
     </ImageList>
-    </Grid>
-    <Grid>
-        <ImageList sx={{ width: 500, height: 450}} className="customScroll">
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=248&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy"
-            />
-            <ImageListItemBar
-              title={item.title}
-              subtitle={<span>by: {item.author}</span>}
-              position="below"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-      </Grid>
-</Grid>
+    </Box>
   );
 }
 

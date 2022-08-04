@@ -10,13 +10,18 @@ label {
 }
 
 .bacground_image {
-    
+   
     background-image: url("../images/reservation_page_background_02.jpg");
     height: 100%;
   
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    min-width:100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
 }
 
 .full-size {
@@ -38,4 +43,5 @@ label {
   
 .customScroll::-webkit-scrollbar-thumb{
     background: #000;
+    border-radius: 6px;
   }
