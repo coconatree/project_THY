@@ -1,6 +1,7 @@
 import useState from "react";
 import Grid from '@mui/material/Grid';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { alpha } from "@mui/material/styles";
@@ -63,11 +64,11 @@ export default function ActivitiesPage() {
 
                     <Grid item mt={2} mb p={3} >
                         <Grid container mt={5} p={7}  borderRadius="6px" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} style={{textAlign: "left", display:"flex", mX:"auto"}}>
-                        <CategoriesImaged/>
-                        
-                        <CategoriesImaged/>
-                            <CategoriesImaged/>
-                            <CategoriesImaged/>
+                        <CategoriesImaged titleName="Yemek" data-aos="fade-right"/>
+                        <CategoriesImaged titleName="Görülmeye Değer" data-aos="fade-right"/>
+                        <CategoriesImaged titleName="Alışveriş" data-aos="fade-left"/>
+                            <CategoriesImaged titleName="Gece Hayatı" data-aos="fade-left"/>
+                            
                         </Grid>
                     </Grid>
             </Grid>

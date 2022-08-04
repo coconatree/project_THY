@@ -3,12 +3,14 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import {Grid, Box, Typography} from '@mui/material';
-import "../static/style/main.css"
-export default function CategoriesImaged() {
+import "../static/style/main.css";
+
+
+export default function CategoriesImaged(props) {
   return (
 
-    <Box container display="flex" flexDirection="column" m="auto">
-      <Typography variant="h3">alo</Typography>
+    <Box container display="flex" sx = {{letterSpacing: 1 ,fontStyle: 'helvetica', fontWeight: 'medium' }} flexDirection="column" m="auto">
+      <Typography   variant="h4">{props.titleName}</Typography>
 
     <ImageList sx={{ height: 400 , maxWidth:"25rem", m:'auto',justifyContent: "center",
 alignItems: "center"}} className="customScroll">
