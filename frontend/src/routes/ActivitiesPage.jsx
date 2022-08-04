@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 
 import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
+import { alpha } from "@mui/material/styles";
 
 import MainPage from "../components/MainPageComponent";
 
@@ -14,6 +15,7 @@ import bg01 from "../static/images/reservation_page_background.jpg"
 import "../static/style/main.css"
 import CategoriesImaged from "../components/CategoriesImaged";
 import TicketInfoTest from "../components/TicketInfoTest";
+import WeatherCard from "../components/WeatherCard";
 
 export default function ActivitiesPage() {
 
@@ -36,24 +38,40 @@ export default function ActivitiesPage() {
 
     return (
         <Box >
-                <TicketInfoTest/>
-                <div>
+
+            <Grid container direction="column">
                     
                     <Grid item  ml = {0} mt={4} p={3} spacing={0} style={{textAlign: "left"}}>
-                    <Typography variant="h3" gutterBottom component="div">
-                        Welcome to Paris
-                    </Typography>
+                        <Grid container direction="column">   
+                            <Grid item>
+                                <Typography variant="h3" gutterBottom component="div">
+                                    Welcome to Paris
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+
+                            <WeatherCard  />
+                            </Grid>
+                            
+                        </Grid>
                     </Grid>
 
-                </div>
-                        <Grid item xs={2.5} mt={2} mb p={3} >
+                
+                    <Grid item xs={7} mt={5} p={4} spacing={2} justifyContent="center" alignItems="center" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} borderRadius="6px" style={{textAlign: "center"}}>
                         <MainPage/>
-                        </Grid>
-                        <Grid item xs={2.5} mt={2} mb p={3} >
+                    </Grid>
 
-                <CategoriesImaged/>
-                </Grid>
-                <TicketInfoTest/>
+                    <Grid item mt={2} mb p={3} >
+                        <Grid container mt={5}  style={{textAlign: "left", display:"flex", mX:"auto"}}>
+                            <CategoriesImaged/>
+                            <CategoriesImaged/>
+                            <CategoriesImaged/>
+                            <CategoriesImaged/>
+                        </Grid>
+                    </Grid>
+            </Grid>
+
         </Box> 
+
     )
 }
