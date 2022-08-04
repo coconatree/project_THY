@@ -1,15 +1,11 @@
 import useState from "react";
 import Grid from '@mui/material/Grid';
-import AOS from 'aos';
-import 'aos/dist/aos.css'
+
 import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { alpha } from "@mui/material/styles";
 
 import MainPage from "../components/MainPageComponent";
-
-import ImageContainer from "../components/ImageContainer"
-
 
 import bg01 from "../static/images/reservation_page_background.jpg"
 
