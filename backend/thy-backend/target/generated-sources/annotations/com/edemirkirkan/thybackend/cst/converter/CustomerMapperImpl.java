@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-03T23:38:56+0300",
+    date = "2022-08-04T10:33:45+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,13 +21,8 @@ public class CustomerMapperImpl extends CustomerMapper {
 
         Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.pnr( customerDto.getPnr() );
         customer.firstname( customerDto.getFirstname() );
         customer.lastname( customerDto.getLastname() );
-        customer.departureCityName( customerDto.getDepartureCityName() );
-        customer.arrivalCityName( customerDto.getArrivalCityName() );
-        customer.arrivalCitylatitude( customerDto.getArrivalCitylatitude() );
-        customer.arrivalCitylongitude( customerDto.getArrivalCitylongitude() );
 
         return customer.build();
     }
@@ -40,13 +35,8 @@ public class CustomerMapperImpl extends CustomerMapper {
 
         CustomerDto.CustomerDtoBuilder customerDto = CustomerDto.builder();
 
-        customerDto.pnr( customer.getPnr() );
         customerDto.firstname( customer.getFirstname() );
         customerDto.lastname( customer.getLastname() );
-        customerDto.departureCityName( customer.getDepartureCityName() );
-        customerDto.arrivalCityName( customer.getArrivalCityName() );
-        customerDto.arrivalCitylatitude( customer.getArrivalCitylatitude() );
-        customerDto.arrivalCitylongitude( customer.getArrivalCitylongitude() );
 
         return customerDto.build();
     }

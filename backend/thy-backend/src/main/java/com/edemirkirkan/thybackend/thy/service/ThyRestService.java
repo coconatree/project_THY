@@ -28,11 +28,14 @@ public class ThyRestService {
         );
 
         ResponseEntity<ThyBoardingPassRestDto> response = null;
+        ResponseEntity<String> response02 = null;
 
         try {
              response = template
                     .exchange(URL, HttpMethod.GET, new HttpEntity<String>(headers), ThyBoardingPassRestDto.class);
 
+             response02 = template
+                    .exchange(URL, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
         }
         catch (Error e) {
             System.out.println(e);
@@ -43,6 +46,8 @@ public class ThyRestService {
         }
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
+
+        System.out.println(response02.getBody());
 
         return response.getBody();
     }

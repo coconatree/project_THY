@@ -2,8 +2,76 @@ package com.edemirkirkan.thybackend.thy.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ThyBoardingPassRestDto {
+    private String status;
+    private String requestId;
+    private MessageDto message;
+    private DataDto data;
+
+    @Data
+    class MessageDto {
+        private String code;
+        private String description;
+    }
+
+    @Data
+    class DataDto {
+        private TripDataDto TripData;
+    }
+
+    @Data
+    class TripDataDto {
+        private List<OriginDestinationDto> OriginDestinationList;
+    }
+
+    @Data
+    class OriginDestinationDto {
+        private boolean IsReturenedFligth;
+        private SegmentDto Segment;
+    }
+
+    @Data
+    class AdditionalInformationDto {
+        private boolean IsMobileBoardingPassSignEnabled;
+        private boolean IsAnadoluJetFlight;
+        private boolean IsHomePrintedBagTagEnabled;
+        private boolean IsApisFlight;
+    }
+
+    @Data
+    class SegmentDto {
+        private String MarketingAirlineCode;
+        private AdditionalInformationDto AdditionalInformation;
+        private boolean isSegmentInterLine;
+        private ArrivalInfromationDto ArrivalInformation;
+        private String CabinClassCode;
+        private String FlightNumber;
+        private DepartureInformationDto DepartureInformation;
+        private String RPH;
+
+    }
+
+    @Data
+    class ArrivalInfromationDto {
+        private String ArrivalDate;
+        private String LocationCode;
+        private String CountryCode;
+        private String ArrivalTime;
+    }
+
+    @Data
+    class ArrivalInformationDto {
+        private String DepartureTime;
+        private String DepartureDay;
+        private String LocationCode;
+        private String DepartureDate;
+        private String CountryCode;
+    }
+
+
 
     /**
      {
@@ -24,35 +92,35 @@ public class ThyBoardingPassRestDto {
      {
      "IsReturnFlight": false,
      "Segment":
-     {
-     "MarketingAirlineCode": "TK",
-     "AdditionalInformation":
-     {
-     "IsMobileBoardingPassSignEnabled": false,
-     "IsAnadoluJetFlight": false,
-     "IsHomePrintedBagTagEnabled": false,
-     "IsApisFlight": true
-     },
-     "isSegmentInterline": false,
-     "ArrivalInformation":
-     {
-     "ArrivalDate": "2017-12-20",
-     "LocationCode": "ADF",
-     "CountryCode": "TR",
-     "ArrivalTime": "08:15"
-     },
-     "CabinClassCode": "Y",
-     "FlightNumber": "2216",
-     "DepartureInformation":
-     {
-     "DepartureTime": "06:30",
-     "DepartureDay": "WE",
-     "LocationCode": "IST",
-     "DepartureDate": "2017-12-20",
-     "CountryCode": "TR"
-     },
-     "RPH": "1"
-     }
+         {
+         "MarketingAirlineCode": "TK",
+         "AdditionalInformation":
+         {
+         "IsMobileBoardingPassSignEnabled": false,
+         "IsAnadoluJetFlight": false,
+         "IsHomePrintedBagTagEnabled": false,
+         "IsApisFlight": true
+         },
+         "isSegmentInterline": false,
+         "ArrivalInformation":
+         {
+         "ArrivalDate": "2017-12-20",
+         "LocationCode": "ADF",
+         "CountryCode": "TR",
+         "ArrivalTime": "08:15"
+         },
+         "CabinClassCode": "Y",
+         "FlightNumber": "2216",
+         "DepartureInformation":
+         {
+         "DepartureTime": "06:30",
+         "DepartureDay": "WE",
+         "LocationCode": "IST",
+         "DepartureDate": "2017-12-20",
+         "CountryCode": "TR"
+         },
+        "RPH": "1"
+        }
      }
      },
      "PassengerInfoList":

@@ -9,13 +9,13 @@ import java.util.Set;
 public class AppConfig {
 
     public static final Collection<String> SERVICE_CITIES = Set.of(
-            "BERLIN",
-            "LONDON",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
+            "Bangladesh",
+            "Barselona",
+            "Berlin",
+            "Dallas",
+            "London",
+            "New York",
+            "Paris",
+            "San Fransisco"
     );
 }
