@@ -2,10 +2,13 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import {Grid, Box} from '@mui/material';
+import {Grid, Box, Typography} from '@mui/material';
 import "../static/style/main.css"
 export default function CategoriesImaged() {
   return (
+
+    <Box container display="flex" flexDirection="column" m="auto">
+      <Typography variant="h3">alo</Typography>
 
     <ImageList sx={{ height: 400 , maxWidth:"25rem", m:'auto',justifyContent: "center",
 alignItems: "center"}} className="customScroll">
@@ -20,13 +23,13 @@ alignItems: "center"}} className="customScroll">
           <ImageListItemBar
             title={item.title}
             subtitle={<span>by: {item.author}</span>}
-            
+            position="below"
           />
         </ImageListItem>
       ))}
       
     </ImageList>
- 
+    </Box>
   );
 }
 

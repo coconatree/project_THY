@@ -62,9 +62,10 @@ export default function ActivitiesPage() {
                     </Grid>
 
                     <Grid item mt={2} mb p={3} >
-                        <Grid container mt={5}  style={{textAlign: "left", display:"flex", mX:"auto"}}>
-                            <CategoriesImaged/>
-                            <CategoriesImaged/>
+                        <Grid container mt={5} p={7}  borderRadius="6px" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} style={{textAlign: "left", display:"flex", mX:"auto"}}>
+                        <CategoriesImaged/>
+                        
+                        <CategoriesImaged/>
                             <CategoriesImaged/>
                             <CategoriesImaged/>
                         </Grid>
