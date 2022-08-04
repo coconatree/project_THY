@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Container, Grid } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 import { Link } from 'react-router-dom';
 
 import TextField from '@mui/material/TextField';
 import { createTheme, styled } from '@mui/material/styles';
+
+import "../index.css"
 
 /** 
     This component handles the reservation code and 
@@ -106,64 +108,137 @@ export default function ReservationCodeField(props) {
         await handleFormSubmit()
     }
 
-    function createReservationCodeForm() {
+    function createCard() {
         return (
-          
-                <form className = "reservationForm">
-
-                        <TextField 
-                            name = "PNR" 
-                            id = "PNR" 
-                            label = "Bilet ya da rezervasyon kodu (PNR)" 
-                            variant = "filled"  
-                            color = "error" 
-                            type = "text" 
-                            style = {{width: 280,paddingRight: '7px'}}
-                            onChange = {handleChange} value={formData.PNR} 
-                        />
-                        <TextField 
-                            name = "name" 
-                            id = "name" 
-                            label = "Yolcunun adi" 
-                            variant = "filled"  
-                            color = "error" 
-                            type = "text" 
-                            onChange = {handleChange} 
-                            value = {formData.name}
-                            style = {{paddingRight: '7px' }}
-                        />
-                                    
-                        <TextField 
-                            name = "surname" 
+            <div className = "h-3/4 flex flex-row r-5 shadow-md justify-center">
+                <div className = "basis-2/5 flex shadow-md flew row">
+                    <label className = "text-lg">
+                        PNR
+                    </label>
+                    <input 
+                        className = "p-2 m-2 w-42 h-22 bg-slate-300 text-black drop-shadow-lg " 
+                        name = "PNR" 
+                        id = "PNR" 
+                        label = "Bilet ya da rezervasyon kodu (PNR)" 
+                        variant = "filled"  
+                        color = "error" 
+                        type = "text" 
+                        onChange = {handleChange} 
+                        value={formData.PNR} 
+                    />
+                </div>
+                <div className = "basis-1/5 flex shadow-md">
+                    <label className = "text-lg">
+                        PNR
+                    </label>
+                    <input 
+                        placeholder = "Isim"
+                        className = "p-2 m-2 w-42 h-22 bg-slate-300" 
+                        name = "name" 
+                        id = "name" 
+                        label = "Yolcunun adi" 
+                        variant = "filled"  
+                        color = "error" 
+                        type = "text" 
+                        onChange = {handleChange} 
+                        value = {formData.name}
+                    />
+                </div>
+                <div className = "basis-1/5 flex flex-rowshadow-md">
+                    <div className = "basis-1/3">
+                        <label for = "surname" className = "basis-1/3 text-lg">
+                            Soyad
+                        </label>
+                    </div>
+                    <div className = "basis-2/3">
+                        <input
+                            placeholder = "Soyad"
+                            className = "basis-2/3 p-2 m-2 h-22 bg-slate-300" 
+                            name = "surname"
                             id = "surname" 
                             label = "Yolcunun soyadi" 
                             variant = "filled"  
                             color = "error" 
-                            type = "text" 
+                            type = "text"
                             onChange = {handleChange} 
                             value = {formData.surname}
-                            style = {{paddingRight: '7px'}} 
                         />
-                        <Link to = "/activities" onClick={formHandler}>
-                            <ColorButton 
-                                variant="filled" 
-                                sx={{ 
-                                    boxShadow:"2", 
-                                    backgroundColor: "#E91932", 
-                                    maxWidth: '100px', 
-                                    maxHeight: '100px', 
-                                    minHeight: '56px', 
-                                    minWidth: '50px'
-                                }
-                            }>
-                                Boost 
-                                <RocketLaunchIcon/>
-                            </ColorButton>
-                        </Link>
-                </form>     
-               
+                    </div>
+                </div>
+                
+                <div className = "basis-1/5 flex shadow-md justify-center ">
+                    <Link to = "/activities" onClick={formHandler}>
+                        <button
+                            className = "p-2 m-2 w-28 h-22 bg-red-600 flex"
+                        >
+                        <span className = "italic text-lg font-mono font-bold text-white">
+                            Boost
+                        </span>
+                            <RocketLaunchIcon className = "text-white"/>
+                        </button>
+                    </Link>
+                </div>
+            </div>
+        )
+    }
 
-          
+    function createReservationCodeForm() {
+        return (
+            <>
+                <form className = "flex justify-center w-full">
+                        <div className = "flex flex-row flex-wrap justify-between items-stretch w-full m-5">
+                            <div className = "base-1/4 bg-white bg-opacity-80 m-2 w-full">
+                                <TextField
+                                    name = "PNR" 
+                                    id = "PNR" 
+                                    label = "PNR Number" 
+                                    variant = "filled"  
+                                    color = "error" 
+                                    type = "text" 
+                                    style = {{width: 280,paddingRight: '7px'}}
+                                    onChange = {handleChange} value={formData.PNR} 
+                                />
+                            </div>
+                            <div className = "base-1/4 bg-white bg-opacity-80 m-2 w-full">
+                                <TextField
+                                    name = "name" 
+                                    id = "name" 
+                                    label = "Name" 
+                                    variant = "filled"  
+                                    color = "error" 
+                                    type = "text" 
+                                    onChange = {handleChange} 
+                                    value = {formData.name}
+                                    style = {{paddingRight: '7px' }}
+                                />
+                            </div>          
+                            <div className = "base-1/4 bg-white bg-opacity-80 m-2 w-full">
+                                <TextField 
+                                    className = "rounded-md"
+                                    name = "surname" 
+                                    id = "surname" 
+                                    label = "Surname" 
+                                    variant = "filled"  
+                                    color = "error" 
+                                    type = "text" 
+                                    onChange = {handleChange} 
+                                    value = {formData.surname}
+                                    style = {{paddingRight: '7px'}} 
+                                />
+                            </div>
+                            <div className = "base-1/4 m-2 w-full">
+                            <Link to = "/activities" onClick={formHandler}>
+                                <button className = "rounded-md p-2 bg-red-600 w-full">
+                                    <span className = "m-3 font-sans text-xl text-extrabold text-white">
+                                        Boost
+                                    </span> 
+                                    <RocketLaunchIcon className = "text-white"/>
+                                </button>
+                            </Link>
+                            </div>
+                        </div>
+                    </form>
+            </>     
         )
     }
 

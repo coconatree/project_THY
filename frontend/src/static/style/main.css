@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     height: 100vh;
+    opacity: 90%;
 }
 
 label {
@@ -10,7 +11,7 @@ label {
 
 .bacground_image {
     
-    background-image: url("../images/reservation_page_background.jpg");
+    background-image: url("../images/reservation_page_background_02.jpg");
     height: 100%;
   
     background-position: center;
