@@ -5,9 +5,6 @@ import useCityStore     from "../store/CityStore";
 import useCustomerStore from "../store/CustomerStore"
 import TextField from '@mui/material/TextField';
 import { createTheme, styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Carousel from 'react-material-ui-carousel';
 
 /** 
     This component handles the reservation code and 
