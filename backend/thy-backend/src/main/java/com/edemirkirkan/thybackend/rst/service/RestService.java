@@ -159,8 +159,8 @@ public class RestService {
                 .pnr("Res-453193191-13123")
                 .firstname("Emre")
                 .lastname("Caniklioglu")
-                .arrivalCitylatitude(geoData.getLat())
-                .arrivalCitylongitude(geoData.getLon())
+                .arrivalCityLatitude(geoData.getLat())
+                .arrivalCityLongitude(geoData.getLon())
                 .build();
     }
 }

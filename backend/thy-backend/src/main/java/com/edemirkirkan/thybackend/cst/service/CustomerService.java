@@ -22,7 +22,7 @@ public class CustomerService {
     private final CustomerMapper mapper;
     private final CustomerDao customerDao;
 
-    public CustomerDto retieveCustomerByReservationId(String pnr) throws RuntimeException {
+    public CustomerDto retieveCustomerByReservationId(String pnr, String firstname, String lastname) throws RuntimeException {
 
         Customer customer = customerDao.findByPnr(pnr);
 
@@ -42,18 +42,18 @@ public class CustomerService {
 
             // If so retrive location data from the amedeus data for the city
 
-            RestGeoDataDto restGeoDto = amedeusRestService.geoDataRequest(arrivalCityName);
+            // RestGeoDataDto restGeoDto = amedeusRestService.geoDataRequest(arrivalCityName);
 
             // Create the customer dto
 
             customer = Customer.builder()
-                    .firstname(customer.getFirstname())
-                    .lastname(customer.getLastname())
-                    .pnr(customer.getPnr())
+                    .firstname(firstname)
+                    .lastname(lastname)
+                    .pnr(pnr)
                     .departureCityName("")
                     .arrivalCityName("")
-                    .arrivalCitylatitude(restGeoDto.getLat())
-                    .arrivalCitylongitude(restGeoDto.getLon())
+                    .arrivalCitylatitude("")
+                    .arrivalCitylongitude("")
                     .build();
 
             customer = customerDao.save(customer);

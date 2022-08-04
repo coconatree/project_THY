@@ -23,6 +23,6 @@ public class CustomerController {
         @PathVariable(name = "surname") String surname
     )
     {
-        return ResponseEntity.ok(customerService.retieveCustomerByReservationId(pnr));
+        return ResponseEntity.ok(customerService.retieveCustomerByReservationId(pnr, name, surname));
     }
 }

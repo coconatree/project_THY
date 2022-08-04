@@ -13,6 +13,6 @@ public class CustomerDto {
     private String lastname;
     private String departureCityName;
     private String arrivalCityName;
-    private String arrivalCitylatitude;
-    private String arrivalCitylongitude;
+    private String arrivalCityLatitude;
+    private String arrivalCityLongitude;
 }
