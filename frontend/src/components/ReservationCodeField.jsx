@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import useCityStore     from "../store/CityStore";
-import useCustomerStore from "../store/CustomerStore"
+
+import { Link } from 'react-router-dom';
+
 import TextField from '@mui/material/TextField';
 import { createTheme, styled } from '@mui/material/styles';
 
@@ -11,7 +12,9 @@ import { createTheme, styled } from '@mui/material/styles';
     related communications with the backend   
 */
 
-export default function ReservationCodeField() {
+import useTicketStore from "../store/TicketStore"
+
+export default function ReservationCodeField(props) {
 
 
     const theme = createTheme({
@@ -37,43 +40,52 @@ export default function ReservationCodeField() {
         PNR: ""
     });
     
-    const setCity = useCityStore((state) => state.setCity)
-    const setInfo = useCustomerStore((state => state.setInfo))
+    const setTicketInfo = useTicketStore((state => state.setTicketInfo))
     
-    const {firstname, lastname} = useCustomerStore((state) => ({firstname: state.firstname, lastname: state.lastname }))
+    const state = useTicketStore((state) => state)
 
-    function handleFormSubmit(event) {
-        event.preventDefault()
-        fetchCustomerInfo()
+    async function handleFormSubmit(event) {
+    
+        let json = await fetchCustomerInfo()
+        
+        console.log(json)
+
+        setTicketInfo({
+            pnr: json.pnr,
+            firstname: json.firstname,
+            lastname: json.lastname,
+            departureCityName: json.departureCityName,
+            arrivalCityName: json.arricalCityName,
+            arrivalCityLatitude: json.arrivalCityLatitude,
+            arrivalCityLongitude: json.arrivalCityLongitude,
+            isLogged: true,
+        })
+
+        console.log(state)
+
+        
     }
 
     function handleChange(event) {
         setFormData({  ...formData, [event.target.name]: event.target.value });
     }
 
-
     async function fetchCustomerInfo() {
         
-        let response = await fetch(`http://localhost:8080/api/v1/customers/${formData.PNR}`)
-            .catch(e => alert("Error retrievig the data please try at a later time"))
+        let response = await fetch(`http://localhost:8080/api/v1/customers/search/${formData.PNR}/${formData.name}/${formData.surname}`)
+            .catch(e => alert("PNR number does not exists"))
+
+        /** 
+            Need to find a way to show that the given city is not in our service area
+        */
         
         if (!response.ok) {
             alert("There are no reservations with the given reservation code please check that it is correct")
             return
         }
-
         let json = await response.json()
 
-        console.log(json)
-
-        setInfo(json.firstname, json.lastname)
-        setCity(json.latitude, json.longitude)
-
-        /** 
-            If succesfull this function will redirect to the events 
-            page and will pass the data to it using the react <Link/> 
-            component's functionality. 
-        */
+        return json
     }
 
     const ColorButton = styled(Button)(({ theme }) => ({
@@ -82,31 +94,72 @@ export default function ReservationCodeField() {
         '&:active': {
           backgroundColor: "#E91932",
         },
-        '&:focus': {
+            '&:focus': {
             backgroundColor: "#E91932",
-          },
-          '&:hover': {
+        },
+            '&:hover': {
             backgroundColor: "#E91932",
-          },
-      }));
+        },
+    }));
+
+    const formHandler = async () => {
+        await handleFormSubmit()
+    }
 
     function createReservationCodeForm() {
         return (
           
-                <form className = "reservationForm" onSubmit = {event => handleFormSubmit(event)}>
+                <form className = "reservationForm">
 
- <TextField name="PNR" id="PNR" label="Bilet ya da rezervasyon kodu (PNR)" variant="filled"  color="error" type     = "text" style = {{width: 280,paddingRight: '7px'}}
-                            
-                                onChange={handleChange} value={formData.PNR} />
-                        <TextField name="name" id="name" label="Yolcunun adı" variant="filled"  color="error" type= "text" onChange={handleChange} value={formData.name}  style = {{paddingRight: '7px' }}/>
-                                
-                            
-                         <TextField name="surname" id="surname" label="Yolcunun soyadı" variant="filled"  color="error" type= "text" onChange={handleChange} value={formData.surname}  style = {{paddingRight: '7px'}} />
-            
-                    <ColorButton  variant="filled" sx={{ boxShadow:"2", backgroundColor: "#E91932", maxWidth: '100px', maxHeight: '100px' , minHeight: '56px', minWidth: '50px'}}>
-                        Boost <RocketLaunchIcon />
-                    </ColorButton>
-                      
+                        <TextField 
+                            name = "PNR" 
+                            id = "PNR" 
+                            label = "Bilet ya da rezervasyon kodu (PNR)" 
+                            variant = "filled"  
+                            color = "error" 
+                            type = "text" 
+                            style = {{width: 280,paddingRight: '7px'}}
+                            onChange = {handleChange} value={formData.PNR} 
+                        />
+                        <TextField 
+                            name = "name" 
+                            id = "name" 
+                            label = "Yolcunun adi" 
+                            variant = "filled"  
+                            color = "error" 
+                            type = "text" 
+                            onChange = {handleChange} 
+                            value = {formData.name}
+                            style = {{paddingRight: '7px' }}
+                        />
+                                    
+                        <TextField 
+                            name = "surname" 
+                            id = "surname" 
+                            label = "Yolcunun soyadi" 
+                            variant = "filled"  
+                            color = "error" 
+                            type = "text" 
+                            onChange = {handleChange} 
+                            value = {formData.surname}
+                            style = {{paddingRight: '7px'}} 
+                        />
+                        <Link to = "/activities" onClick={formHandler}>
+                            <ColorButton 
+                                variant="filled" 
+                                sx={{ 
+                                    boxShadow:"2", 
+                                    backgroundColor: "#E91932", 
+                                    maxWidth: '100px', 
+                                    maxHeight: '100px', 
+                                    minHeight: '56px', 
+                                    minWidth: '50px'
+                                }
+                            }>
+                                Boost 
+                                <RocketLaunchIcon/>
+                            </ColorButton>
+                        </Link>
                 </form>     
                
 

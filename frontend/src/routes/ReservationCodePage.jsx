@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import { responsiveFontSizes,  ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import { alpha } from "@mui/material/styles";
+import TicketInfoTest from '../components/TicketInfoTest';
 export default function ReservationCodePage() {
 
     
@@ -44,8 +45,6 @@ export default function ReservationCodePage() {
             </Grid>
             
             </Grid>
-       
-           
         </Box>  
      </ThemeProvider>
     )

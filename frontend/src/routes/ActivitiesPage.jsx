@@ -13,6 +13,7 @@ import bg01 from "../static/images/reservation_page_background.jpg"
 
 import "../static/style/main.css"
 import CategoriesImaged from "../components/CategoriesImaged";
+import TicketInfoTest from "../components/TicketInfoTest";
 
 export default function ActivitiesPage() {
 
@@ -35,7 +36,7 @@ export default function ActivitiesPage() {
 
     return (
         <Box >
-            <ImageContainer image_url = {bg01}>
+                <TicketInfoTest/>
                 <div>
                     
                     <Grid item  ml = {0} mt={4} p={3} spacing={0} style={{textAlign: "left"}}>
@@ -52,14 +53,7 @@ export default function ActivitiesPage() {
 
                 <CategoriesImaged/>
                 </Grid>
-
-           
-            </ImageContainer>
-          
-
-          
-   
-   
+                <TicketInfoTest/>
         </Box> 
     )
 }

@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import ReservationCodePage from "./routes/ReservationCodePage";
 import ActivitiesPage from "./routes/ActivitiesPage";
 
-import ImageBackground from "./components/ImageContainer"
 import Navbar from "./components/NavBar";
 
 import "./static/style/main.css"
