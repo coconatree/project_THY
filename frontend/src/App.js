@@ -5,20 +5,21 @@ import ActivitiesPage from "./routes/ActivitiesPage";
 import Navbar from "./components/NavBar";
 
 import "./static/style/main.css"
-import TestPage from "./routes/TestPage";
+
+import "./index.css"
 
 function App() {
 	return (
-		<div className="bacground_image">
-			<Navbar/>
-			<Routes>
-				<Route path='/' element={<ReservationCodePage />} />
-				<Route path='/activities' element={<ActivitiesPage />} />
-				<Route path='/test' element=
-				{
-					<TestPage></TestPage>	
-				} />
-			</Routes>
+		<div className="bacground_image bg-black h-full w-full">
+			<div className = "h-full w-full">
+				<Navbar className = "brightness-110 bg-slate-900 bg-opacity-30 w-full"/>
+				<div className = "flex flex-col bg-slate-900 bg-opacity-60 justify-center brightness-110 h-full w-full">
+					<Routes>
+						<Route path='/' element={<ReservationCodePage />} />
+						<Route path='/activities' element={<ActivitiesPage />} />
+					</Routes>
+				</div>
+			</div>
 		</div>
 	);
 }
