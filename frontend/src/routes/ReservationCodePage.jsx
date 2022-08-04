@@ -25,7 +25,7 @@ export default function ReservationCodePage() {
                     </h5>
                 </div>
                 <div className = "flex justify-start p-2">
-                    <h1 className = "text-2xl font-sans md:text-4xl font-bold leading-normal rounded-md text-white">
+                    <h1 className = "text-2xl font-sans md:text-5xl font-bold leading-normal md:leading-snug rounded-md text-white">
                         Bring excitement to your journeys with 
                         <br></br>
                         <span className = "underline decoration-red-600 decoration-4">
