@@ -3,20 +3,15 @@ package com.edemirkirkan.thybackend.act.converter;
 import com.edemirkirkan.thybackend.act.dto.ActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityGeoCodeDto;
-import com.edemirkirkan.thybackend.act.dto.RestActivityPriceDto;
 import com.edemirkirkan.thybackend.act.entity.Activity;
-import com.edemirkirkan.thybackend.act.entity.ActivityImage;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-03T23:38:56+0300",
+    date = "2022-08-04T05:09:56+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -32,15 +27,13 @@ public class ActivityMapperImpl extends ActivityMapper {
 
         activity.setLatitude( restActivityDtoGeoCodeLatitude( restActivityDto ) );
         activity.setLongitude( restActivityDtoGeoCodeLongitude( restActivityDto ) );
-        activity.setCurrencyCode( restActivityDtoPriceCurrencyCode( restActivityDto ) );
-        activity.setAmount( restActivityDtoPriceAmount( restActivityDto ) );
         activity.setId( restActivityDto.getId() );
         activity.setName( restActivityDto.getName() );
         activity.setRating( restActivityDto.getRating() );
         activity.setBookingLink( restActivityDto.getBookingLink() );
-        Set<ActivityImage> set = restActivityDto.getPictures();
-        if ( set != null ) {
-            activity.setPictures( new LinkedHashSet<ActivityImage>( set ) );
+        List<String> list = restActivityDto.getPictures();
+        if ( list != null ) {
+            activity.setPictures( new ArrayList<String>( list ) );
         }
 
         return activity;
@@ -71,13 +64,11 @@ public class ActivityMapperImpl extends ActivityMapper {
         activityDto.setId( activity.getId() );
         activityDto.setName( activity.getName() );
         activityDto.setRating( activity.getRating() );
-        Set<ActivityImage> set = activity.getPictures();
-        if ( set != null ) {
-            activityDto.setPictures( new LinkedHashSet<ActivityImage>( set ) );
+        List<String> list = activity.getPictures();
+        if ( list != null ) {
+            activityDto.setPictures( new ArrayList<String>( list ) );
         }
         activityDto.setBookingLink( activity.getBookingLink() );
-        activityDto.setCurrencyCode( activity.getCurrencyCode() );
-        activityDto.setAmount( activity.getAmount() );
 
         customMapping( activity, activityDto );
 
@@ -126,35 +117,5 @@ public class ActivityMapperImpl extends ActivityMapper {
             return null;
         }
         return longitude;
-    }
-
-    private String restActivityDtoPriceCurrencyCode(RestActivityDto restActivityDto) {
-        if ( restActivityDto == null ) {
-            return null;
-        }
-        RestActivityPriceDto price = restActivityDto.getPrice();
-        if ( price == null ) {
-            return null;
-        }
-        String currencyCode = price.getCurrencyCode();
-        if ( currencyCode == null ) {
-            return null;
-        }
-        return currencyCode;
-    }
-
-    private BigDecimal restActivityDtoPriceAmount(RestActivityDto restActivityDto) {
-        if ( restActivityDto == null ) {
-            return null;
-        }
-        RestActivityPriceDto price = restActivityDto.getPrice();
-        if ( price == null ) {
-            return null;
-        }
-        BigDecimal amount = price.getAmount();
-        if ( amount == null ) {
-            return null;
-        }
-        return amount;
     }
 }

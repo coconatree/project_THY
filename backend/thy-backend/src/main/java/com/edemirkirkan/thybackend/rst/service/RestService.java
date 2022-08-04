@@ -2,10 +2,11 @@ package com.edemirkirkan.thybackend.rst.service;
 
 import com.edemirkirkan.thybackend.act.dto.RestActivityListDto;
 import com.edemirkirkan.thybackend.cst.dto.CustomerDto;
+import com.edemirkirkan.thybackend.geo.dto.GeoDataDto;
 import com.edemirkirkan.thybackend.rst.dto.RestAccessTokenDto;
-import com.edemirkirkan.thybackend.geo.rst.RestGeoDataDto;
-import com.edemirkirkan.thybackend.geo.rst.RestGeoDto;
+import com.edemirkirkan.thybackend.geo.dto.RestGeoDataDto;
 import com.edemirkirkan.thybackend.rst.dto.RestConstant;
+import com.edemirkirkan.thybackend.wtr.dto.RestWeatherDto;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,29 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 @Service
 public class RestService {
     HttpEntity<Void> httpEntity = setAuthenticationHeaders();
 
+    public RestWeatherDto weatherRequest(String latitude, String longitude) {
+        URIBuilder builder = getURIBuilder(RestConstant.WEATHER_HOST, RestConstant.WEATHER_PATH);
+        String url = buildUrlWithParams(builder,
+                "lat", latitude,
+                "lon", longitude,
+                "appid", RestConstant.WEATHER_APP_ID,
+                "units", RestConstant.WEATHER_UNIT,
+                "lang", RestConstant.WEATHER_LANG);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<RestWeatherDto> responseEntity = restTemplate.getForEntity(url, RestWeatherDto.class);
+
+        if (responseEntity.getStatusCodeValue() != 200) {
+            throw new RuntimeException("Bad activity request");
+        }
+
+        return responseEntity.getBody();
+    }
     public RestActivityListDto activityRequest(String latitude, String longitude) {
         URIBuilder builder = getURIBuilder(RestConstant.HOST, RestConstant.ACITIVITY_PATH);
         String url = buildUrlWithParams(builder,
@@ -37,24 +56,26 @@ public class RestService {
         return responseEntity.getBody();
     }
 
-    public RestGeoDto geoDataRequest(String cityName) {
-        URIBuilder builder = getURIBuilder(RestConstant.HOST, RestConstant.CITY_SEARCH_PATH);
-        String url = buildUrlWithParams(builder, "keyword", cityName, "max", "10");
+    public RestGeoDataDto geoDataRequest(String cityName) {
+        URIBuilder builder = getURIBuilder(RestConstant.WEATHER_HOST,
+                 RestConstant.GEO_DATA_PATH);
+
+        String url = buildUrlWithParams(builder, "q", cityName, "limit", "1",
+                "appid", RestConstant.WEATHER_APP_ID);
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<RestGeoDataDto> responseEntity = restTemplate.
-                exchange(url, HttpMethod.GET, httpEntity, RestGeoDataDto.class);
+        ResponseEntity<RestGeoDataDto[]> responseEntity = restTemplate.
+                getForEntity(url, RestGeoDataDto[].class);
         if (responseEntity.getStatusCodeValue() != 200) {
             throw new RuntimeException("Bad geo data request");
         }
 
-        RestGeoDataDto restGeoDataDto = responseEntity.getBody();
 
-        if (restGeoDataDto == null || restGeoDataDto.getData() == null || restGeoDataDto.getData().size() == 0) {
-            throw new RuntimeException("Empty geo data response");
+        if ( responseEntity.getBody() == null ||  responseEntity.getBody().length == 0) {
+            throw new RuntimeException("Empty or null geo data response");
         }
 
-        return restGeoDataDto.getData().get(0);
+        return responseEntity.getBody()[0];
     }
 
 
@@ -122,8 +143,7 @@ public class RestService {
         HttpHeaders headers = new HttpHeaders();
         String token = getAccessToken();
         headers.setBearerAuth(token);
-        HttpEntity<Void> httpEntity = new HttpEntity<>(headers);
-        return httpEntity;
+        return new HttpEntity<>(headers);
     }
 
     public CustomerDto customerRequest(String reservationId) {
@@ -132,19 +152,15 @@ public class RestService {
 
         // Amedeus API
 
-        RestGeoDto geoData = this.geoDataRequest("PARIS");
+        RestGeoDataDto geoData = this.geoDataRequest("PARIS");
 
-        if (geoData.getType() != null && geoData.getSubtype() != null &&
-                (!geoData.getType().equals("location") || !geoData.getSubtype().equals("city"))) {
-            throw new RuntimeException("Invalid City Name");
-        }
 
         return CustomerDto.builder()
                 .pnr("Res-453193191-13123")
                 .firstname("Emre")
                 .lastname("Caniklioglu")
-                .arrivalCitylatitude(geoData.getGeoCode().getLatitude())
-                .arrivalCitylongitude(geoData.getGeoCode().getLongitude())
+                .arrivalCitylatitude(geoData.getLat())
+                .arrivalCitylongitude(geoData.getLon())
                 .build();
     }
 }

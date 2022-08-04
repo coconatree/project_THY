@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table
@@ -30,15 +30,10 @@ public class Activity {
     @Column(length = 1024)
     private String bookingLink;
 
-    private String currencyCode;
-
-    @Column(precision = 19, scale = 2)
-    private BigDecimal amount;
-
     private String queryLat;
 
     private String queryLon;
 
-    @OneToMany(targetEntity = ActivityImage.class, mappedBy = "activity")
-    private Set<ActivityImage> pictures;
+    @ElementCollection
+    private List<String> pictures;
 }
