@@ -50,7 +50,7 @@ export default function ActivitiesPage() {
               spacing={0}
               style={{ textAlign: "left" }}
             >
-              <Grid container direction="column">
+              <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
                 <Grid item>
                   <Typography
                     variant="h2"
@@ -64,22 +64,27 @@ export default function ActivitiesPage() {
                 </Grid>
                 <Grid item>
                   <WeatherCard />
+                  
                 </Grid>
-                <Grid mt={17}
+                
+              </Grid>
+            </Grid>
+            <Grid 
                   item
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    alignItems: "flex-end",
+                    
                   }}
+                  mt={14}
                 >
                   <ArrowDownwardOutlinedIcon
                     className="svgIcons" 
                     style={{ color: "#fdfdfd" }}
+                    
                   />
                 </Grid>
-              </Grid>
-            </Grid>
           </Grid>
         </ParallaxLayer>
 
