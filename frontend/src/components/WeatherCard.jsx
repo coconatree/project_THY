@@ -48,7 +48,7 @@ export default function WeatherCard() {
             sx={{ textShadow: "3px 3px 4px black" }}
             align="right"
           >
-            “Its the not the Destination, It's the journey.”
+            “It's not the destination, it's the journey.”
             <br/>
             <Typography>― Ralph Waldo Emerson</Typography>
           </Typography>
