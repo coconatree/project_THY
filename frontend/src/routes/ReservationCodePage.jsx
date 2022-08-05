@@ -21,26 +21,21 @@ export default function ReservationCodePage() {
             <div className = "flex flex-col w-full mt-1 p-2 lg:p-5 ">
                 <div className = "flex justify-start sm:w-full p-2">
                     <h5 className = "italic text-white font-sans text-l text-bold">
-                        With helps of Turkish Arilines
+                    <span className = "underline decoration-red-600 decoration-4">
+                        Widen Your World
+                        </span>
                     </h5>
                 </div>
                 <div className = "flex justify-start p-2">
-                    <h1 className = "text-2xl font-sans md:text-5xl font-bold leading-normal md:leading-snug rounded-md text-white">
-                        Bring excitement to your journeys with 
+                    <h1 className = "text-2xl font-sans md:text-5xl font-bold leading-normal md:leading-snug rounded-md text-white drop-shadow-lg shadow-black">
+                        Fill your journey with unforgettable experiences with 
                         <br></br>
                         <span className = "underline decoration-red-600 decoration-4">
-                            Turkish Airlines Trip Boaster
-                        </span>
+                            Turkish Airlines Trip Booster
+                            </span>
                     </h1>
                 </div> 
-                <div className = "flex justify-start p-2">
-                    <h3 className = "font-sans text-sm md:text-xl font-normal text-white">
-                        This is a minimal vialable product developed for a competition orginized by 
-                        <span> 
-                            Turkish Airlines 
-                        </span>
-                    </h3>
-                </div>
+
                 <div className = "p-2">
                     <ReservationCodeField/>
                 </div>

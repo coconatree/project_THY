@@ -5,7 +5,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import {Grid, Box, Typography} from '@mui/material';
 import "../static/style/main.css";
 
-
+import CreateFoodDialog from "../components/FoodDialog";
 export default function CategoriesImaged(props) {
   return (
 
@@ -23,10 +23,11 @@ alignItems: "center"}} className="customScroll">
             loading="lazy"
           />
           <ImageListItemBar
-            title={item.title}
-            subtitle={<span>by: {item.author}</span>}
+            title={<div style={{display: 'flex',alignItems: 'center',flexWrap: 'wrap'}}> {item.title} <CreateFoodDialog title={item.title}/></div>  }
+            subtitle={<span>Rating: 4 </span>}
             position="below"
           />
+          
         </ImageListItem>
       ))}
       
