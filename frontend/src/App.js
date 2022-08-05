@@ -7,20 +7,42 @@ import Navbar from "./components/NavBar";
 import "./static/style/main.css"
 
 import "./index.css"
+import Footer from "./components/Footer";
 
 function App() {
 	return (
-		<div className="bacground_image bg-black h-full w-full">
-			<div className = "h-full w-full">
-				<Navbar className = "brightness-110 bg-slate-900 bg-opacity-30 w-full"/>
-				<div className = "flex flex-col bg-slate-900 bg-opacity-60 justify-center brightness-110 h-full w-full">
-					<Routes>
-						<Route path='/' element={<ReservationCodePage />} />
-						<Route path='/activities' element={<ActivitiesPage />} />
-					</Routes>
-				</div>
-			</div>
-		</div>
+		<>
+			<Navbar className ="
+				brightness-110 
+				bg-[#1b1527] 
+				bg-opacity-50 
+				h-full 
+				w-full
+				"
+			/>
+			<section className ="
+					flex 
+					flex-col 
+					bg-[#292138] 
+					bg-opacity-20 
+					justify-start 
+					h-full
+					w-full
+					"
+				>
+				<Routes>
+					<Route path='/' element = {
+						<ReservationCodePage/>
+						} 
+					/>
+					<Route path='/activities' element = {
+						<ActivitiesPage />
+						} 
+					/>
+				</Routes>
+			</section>
+			<Footer/>
+		</>
 	);
 }
 

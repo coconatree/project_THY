@@ -69,7 +69,16 @@ export default function ReservationCodeField(props) {
     }
 
     function handleChange(event) {
+        if (event.target.name == "PNR") {
+            if (event.target.value.length == 0) {
+                setPnrHelper("")
+            } else {
+                setPnrHelper("PNR")
+            }
+        }
+        console.log("HERE")
         setFormData({  ...formData, [event.target.name]: event.target.value });
+        console.log("FORM" + formData)
     }
 
     async function fetchCustomerInfo() {
@@ -89,6 +98,8 @@ export default function ReservationCodeField(props) {
 
         return json
     }
+
+    const [pnrHelper, setPnrHelper] = useState("");
 
     const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "#E91932",
@@ -187,17 +198,44 @@ export default function ReservationCodeField(props) {
             <>
                 <form className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
                         <div className = "flex flex-row flex-wrap  justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
-                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-5/12 lg:w-3/12">
-                                <TextField
+                            <div className = "base-3/12 m-2 w-full md:w-5/12 lg:w-3/12">
+                                <input
+                                    className = "bg-opacity-0 text-center w-full h-12 rounded-md p-2 shadow-sm shadow-white"
+                                    placeholder = "PNR Number"
                                     name = "PNR" 
                                     id = "PNR" 
-                                    label = "PNR Number" 
                                     variant = "filled"  
-                                    color = "error" 
                                     type = "text" 
-                                    style = {{width: 280,paddingRight: '7px'}}
                                     onChange = {handleChange} value={formData.PNR} 
                                 />
+                            </div>
+                            <div>
+                            <input
+                                type="email"
+                                class="
+                                    form-control
+                                    block
+                                    w-full
+                                    h-15
+                                    px-3
+                                    py-1.5
+                                    text-base
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out
+                                    focus:text-black focus:bg-white focus:border-slate-600 focus:outline-none
+                                "
+                                name = "PNR"
+                                onChange = {e => handleChange(e)}
+                                value = {state.PNR}
+                                id="PNR"
+                                placeholder="PNR"
+                                />
+                                <div class="text-sm text-white ml-1 mt-1">{pnrHelper}</div>
                             </div>
                             <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-5/12 lg:w-4/12">
                                 <TextField
@@ -228,10 +266,11 @@ export default function ReservationCodeField(props) {
                             </div>
                             <div className = "base-3/12 m-2 w-full">
                                 <Link to = "/activities" onClick={formHandler}>
-                                    <button className = "m-max rounded-md p-2 bg-red-600 w-full md:w-5/12 lg:w-3/12">
+                                    <button className = "m-max rounded-md p-2 bg-red-600 w-full md:w-5/12 lg:w-3/12 flex justify-center">
                                         <span className = "font-sans text-xl text-extrabold text-white">
                                             Boost
-                                        </span> 
+                                        </span>
+                                        <div className = "w-2"></div> 
                                         <RocketLaunchIcon className = "text-white"/>
                                     </button>
                                 </Link>

@@ -27,8 +27,13 @@ const ResponsiveAppBar = () => {
   return (
     
     <div className = "shadow-white shadow-sm bg-slate-900 bg-opacity-60 flex flex-row brightness-110 w-full">
-      <div className = "flex base-1/2 m-3 h-15">
-        <THYLogo/>
+      <div className = "flex flex-row -justify-start base-1/2 m-3 h-14">
+        <THYLogo className = "h-12"/> 
+        <div className = "flex justify-items-center">
+          <span className = "h-full text-sans text-xl text-white text-bold ml-3"> 
+            | Trip Booster 
+          </span>
+        </div>
       </div>
       <hr></hr>
     </div>
