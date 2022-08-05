@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-04T13:22:06+0300",
+    date = "2022-08-05T05:32:34+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -26,7 +26,6 @@ public class WeatherMapperImpl extends WeatherMapper {
         weather.setTemperature( restWeatherDtoMainTemp( restWeatherDto ) );
         weather.setFeelsLikeTemperature( restWeatherDtoMainFeels_like( restWeatherDto ) );
         weather.setDt( restWeatherDto.getDt() );
-        weather.setName( restWeatherDto.getName() );
 
         customMapping( restWeatherDto, weather );
 
@@ -44,7 +43,6 @@ public class WeatherMapperImpl extends WeatherMapper {
         weatherDto.setMainDescription( weather.getMainDescription() );
         weatherDto.setTemperature( weather.getTemperature() );
         weatherDto.setFeelsLikeTemperature( weather.getFeelsLikeTemperature() );
-        weatherDto.setName( weather.getName() );
 
         customMapping( weather, weatherDto );
 

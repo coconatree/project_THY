@@ -6,7 +6,6 @@ import com.edemirkirkan.thybackend.act.dto.ActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityDto;
 import com.edemirkirkan.thybackend.act.dto.RestActivityListDto;
 import com.edemirkirkan.thybackend.act.entity.Activity;
-import com.edemirkirkan.thybackend.rst.service.RestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ActivityService {
-    private final RestService restService;
+    private final ActivityRestService restService;
     private final ActivityMapper mapper;
     private final ActivityDao activityDao;
 

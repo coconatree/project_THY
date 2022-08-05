@@ -13,8 +13,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Set;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public abstract class WeatherMapper {
@@ -33,23 +31,22 @@ public abstract class WeatherMapper {
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
         String dayPeriod = "";
         if(timeOfDay >= 0 && timeOfDay < 5){
-            dayPeriod = "Gece";
+            dayPeriod = "Night";
         }
         else if(timeOfDay >= 5 && timeOfDay < 12){
-            dayPeriod = "Sabah";
+            dayPeriod = "Morning";
         }
         else if(timeOfDay >= 12 && timeOfDay < 16){
-            dayPeriod = "Öğlen";
+            dayPeriod = "Afternoon";
         }
         else if(timeOfDay >= 16 && timeOfDay < 21){
-            dayPeriod = "Akşam";
+            dayPeriod = "Evening";
         }
         else if(timeOfDay >= 21 && timeOfDay < 24){
-            dayPeriod = "Gece";
+            dayPeriod = "Night";
         }
 
-        String pattern = "dd MMMM yyyy";
-        DateFormat df = new SimpleDateFormat(pattern, new Locale("tr"));
+        DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
         String currentDateStr = df.format(currentDate) + " " + dayPeriod;
 
         weatherDto.setDayAndHour(currentDateStr);

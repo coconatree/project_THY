@@ -1,65 +1,47 @@
 package com.edemirkirkan.thybackend.cst.service;
 
-
-import com.edemirkirkan.thybackend.config.AppConfig;
-import com.edemirkirkan.thybackend.cst.converter.CustomerMapper;
-import com.edemirkirkan.thybackend.cst.dao.CustomerDao;
 import com.edemirkirkan.thybackend.cst.dto.CustomerDto;
-import com.edemirkirkan.thybackend.cst.entity.Customer;
-import com.edemirkirkan.thybackend.geo.dto.RestGeoDataDto;
-import com.edemirkirkan.thybackend.rst.service.RestService;
-import com.edemirkirkan.thybackend.thy.dto.ThyBoardingPassRestDto;
-import com.edemirkirkan.thybackend.thy.service.ThyRestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+import java.util.Stack;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private final ThyRestService thyRestService;
-    private final RestService amedeusRestService;
-    private final CustomerMapper mapper;
-    private final CustomerDao customerDao;
+    private final CustomerRestService restService;
 
-    public CustomerDto retieveCustomerByReservationId(String pnr, String firstname, String lastname) throws RuntimeException {
+    public CustomerDto retieveCustomerByReservationId(String pnr)  {
+        LinkedHashMap data = restService.getCustomerBoardingPassData(pnr);
+        // TODO build customer by using retriveFieldByKey on each field
+        CustomerDto customerDto = CustomerDto.builder().build();
+        return customerDto;
+    }
 
-        Customer customer = customerDao.findByPnr(pnr);
+    private Object retrieveFieldByKey(LinkedHashMap data, String key) {
+        Stack<LinkedHashMap> stack = new Stack<>();
+        stack.push(data);
 
-        if (customer == null) {
-            ThyBoardingPassRestDto boardingPass = thyRestService.printBoardingPass(pnr);
-
-            //TODO
-
-            // Get the city code for destination
-
-            // Convert city code to city name
-
-            String arrivalCityName = "";
-
-            // Check if it is in our list
-
-
-            // If so retrive location data from the amedeus data for the city
-
-            // RestGeoDataDto restGeoDto = amedeusRestService.geoDataRequest(arrivalCityName);
-
-            // Create the customer dto
-
-            customer = Customer.builder()
-                    .firstname(firstname)
-                    .lastname(lastname)
-                    .pnr(pnr)
-                    .departureCityName("")
-                    .arrivalCityName("")
-                    .arrivalCitylatitude("")
-                    .arrivalCitylongitude("")
-                    .build();
-
-            customer = customerDao.save(customer);
+        while (!stack.empty()) {
+            LinkedHashMap top = stack.pop();
+            if (top.containsKey(key)) {
+                return top.get(key);
+            }
+            for (var k : top.keySet()) {
+                var newData = top.get(k);
+                if (!(newData instanceof LinkedHashMap)) {
+                    if (k.equals(key))
+                        return newData;
+                    else
+                        continue;
+                }
+                stack.push((LinkedHashMap) newData);
+            }
         }
 
-        return mapper.convertToDto(customer);
+        return null;
     }
 
 }

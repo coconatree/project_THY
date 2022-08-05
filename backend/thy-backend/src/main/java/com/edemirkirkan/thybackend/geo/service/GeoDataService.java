@@ -5,7 +5,6 @@ import com.edemirkirkan.thybackend.geo.dao.GeoDataDao;
 import com.edemirkirkan.thybackend.geo.dto.GeoDataDto;
 import com.edemirkirkan.thybackend.geo.entity.GeoData;
 import com.edemirkirkan.thybackend.geo.dto.RestGeoDataDto;
-import com.edemirkirkan.thybackend.rst.service.RestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class GeoDataService {
 
     private final GeoDataDao  geoDataDao;
-    private final RestService restService;
+    private final GeoDataRestService restService;
 
     private final GeoDataMapper mapper;
 

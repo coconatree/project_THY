@@ -25,7 +25,4 @@ public class Weather {
     private String feelsLikeTemperature;
 
     private Long dt;
-
-    private String name;
-
 }

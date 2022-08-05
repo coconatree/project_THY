@@ -1,6 +1,5 @@
 package com.edemirkirkan.thybackend.wtr.service;
 
-import com.edemirkirkan.thybackend.rst.service.RestService;
 import com.edemirkirkan.thybackend.wtr.converter.WeatherMapper;
 import com.edemirkirkan.thybackend.wtr.dao.WeatherDao;
 import com.edemirkirkan.thybackend.wtr.dto.RestWeatherDto;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class WeatherService {
-    private final RestService restService;
+    private final WeatherRestService restService;
     private final WeatherMapper mapper;
     private final WeatherDao dao;
 

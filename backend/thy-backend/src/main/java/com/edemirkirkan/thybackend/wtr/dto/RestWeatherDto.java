@@ -9,5 +9,4 @@ public class RestWeatherDto {
     List<RestSummaryDto> weather;
     RestMainDto main;
     Long dt;
-    String name;
 }
