@@ -55,12 +55,12 @@ export default function ActivitiesPage() {
                             
                         </Grid>
                     </Grid>
-
-                
-                    <Grid item xs={7} mt={5} p={4} spacing={2} justifyContent="center" alignItems="center" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} borderRadius="6px" style={{textAlign: "center"}}>
+           </Grid>
+           <Grid container direction="column" backgroundColor="black">    
+                    <Grid item xs={7} mt={5} p={4} spacing={2} justifyContent="center" alignItems="center" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} borderRadius="6px" style={{textAlign: "center", bgColor:"black"}}>
                         <MainPage/>
                     </Grid>
-
+           
                     <Grid item mt={2} mb p={3} >
                         <Grid container mt={5} p={7}  borderRadius="6px" boxShadow="3" backgroundColor={alpha("#E5E4E2", 0.9)} style={{textAlign: "left", display:"flex", mX:"auto"}}>
                         <CategoriesImaged titleName="Yemek"/>
@@ -69,7 +69,7 @@ export default function ActivitiesPage() {
                         <CategoriesImaged titleName="Gece Hayatı" />  
                         </Grid>
                     </Grid>
-            </Grid>
+         </Grid>
             
         </Box> 
 
