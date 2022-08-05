@@ -10,6 +10,7 @@ import "../static/style/main.css";
 import CategoriesImaged from "../components/CategoriesImaged";
 import WeatherCard from "../components/WeatherCard";
 
+import useGeoStore from "../store/GeoStore";
 export default function ActivitiesPage() {
   //   const [activities, setActivities] = useState([]);
 
@@ -28,6 +29,8 @@ export default function ActivitiesPage() {
 
     //       setActivities(json.activities)
   }
+
+  const geoData = useGeoStore((state) => state.geoData)
 
   return (
     <Box>
@@ -59,7 +62,7 @@ export default function ActivitiesPage() {
                     color="#fdfdfd"
                     sx={{ textShadow: "3px 3px 4px black" }}
                   >
-                    Welcome to Paris
+                    Welcome to {geoData.name}
                   </Typography>
                 </Grid>
                 <Grid item>

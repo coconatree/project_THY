@@ -15,26 +15,10 @@ import "../index.css"
 */
 
 import useTicketStore from "../store/TicketStore"
+import useGeoStore from "../store/GeoStore";
+import useWeatherStore from "../store/WeatherStore";
 
 export default function ReservationCodeField(props) {
-
-
-    const theme = createTheme({
-      palette: {
-        primary: {
-          light: '#757ce8',
-          main: '#3f50b5',
-          dark: '#002884',
-          contrastText: '#fff',
-        },
-        secondary: {
-          light: '#ff7961',
-          main: '#f44336',
-          dark: '#ba000d',
-          contrastText: '#000',
-        },
-      },
-    });
 
     const [formData, setFormData] = useState({
         name: "",
@@ -42,29 +26,40 @@ export default function ReservationCodeField(props) {
         PNR: ""
     });
     
-    const setTicketInfo = useTicketStore((state => state.setTicketInfo))
+    const setTicketInfo = useTicketStore((ticket => ticket.setTicketInfo))
+    const setWeatherInfo = useWeatherStore((weather) => weather.setWeatherInfo)
+    const setGeoInfo = useGeoStore((state) => state.setGeoInfo)
     
-    const state = useTicketStore((state) => state)
+    const ticketState = useTicketStore((ticket) => ticket)
+    const weatherData = useWeatherStore((weather) => weather.weatherData)
+    const geoData = useGeoStore((state) => state.geoData)
+
 
     async function handleFormSubmit(event) {
     
-        let json = await fetchCustomerInfo()
+        // json = await fetchCustomerInfo()
         
-        console.log(json)
+        // console.log(json)
 
-        setTicketInfo({
-            pnr: json.pnr,
-            firstname: json.firstname,
-            lastname: json.lastname,
-            departureCityName: json.departureCityName,
-            arrivalCityName: json.arricalCityName,
-            arrivalCityLatitude: json.arrivalCityLatitude,
-            arrivalCityLongitude: json.arrivalCityLongitude,
-            isLogged: true,
-        })
+        // setTicketInfo({
+        //     pnr: json.pnr,
+        //     firstname: json.firstname,
+        //     lastname: json.lastname,
+        //     departureCityName: json.departureCityName,
+        //     arrivalCityName: json.arricalCityName,
+        //     arrivalCityLatitude: json.arrivalCityLatitude,
+        //     arrivalCityLongitude: json.arrivalCityLongitude,
+        //     isLogged: true,
+        // })
 
-        console.log(state)
+        // console.log(ticketState)
 
+        let json = await fetchGeoInfo()
+
+        setGeoInfo(json)
+
+        let weatherInfo = await fetchWeatherInfo()
+        setWeatherInfo(weatherInfo)
         
     }
 
@@ -74,112 +69,59 @@ export default function ReservationCodeField(props) {
 
     async function fetchCustomerInfo() {
         
-        let response = await fetch(`http://localhost:8080/api/v1/customers/search/${formData.PNR}/${formData.name}/${formData.surname}`)
+        let response = await fetch(`http://localhost:8080/api/v1/customers/search/${formData.PNR}/`)
             .catch(e => alert("PNR number does not exists"))
 
         /** 
             Need to find a way to show that the given city is not in our service area
         */
-        
+
         if (!response.ok) {
             alert("There are no reservations with the given reservation code please check that it is correct")
             return
         }
         let json = await response.json()
+        
+        return json
+    }
+
+    async function fetchGeoInfo() {
+        
+        
+        let response = await fetch(`http://localhost:8080/api/v1/geodata/cologne`)
+            .catch(e => alert("City is not valid"))
+
+            console.log(response)
+        if (!response.ok) {
+            alert("There is no city with given name")
+            return
+        }
+
+        let json = await response.json()
 
         return json
     }
 
-    const ColorButton = styled(Button)(({ theme }) => ({
-        backgroundColor: "#E91932",
-        color: "#fff",
-        '&:active': {
-          backgroundColor: "#E91932",
-        },
-            '&:focus': {
-            backgroundColor: "#E91932",
-        },
-            '&:hover': {
-            backgroundColor: "#E91932",
-        },
-    }));
+    async function fetchWeatherInfo() {
+        
+        console.log(geoData)
+        let response = await fetch(`http://localhost:8080/api/v1/weather/${geoData.latitude}/${geoData.longitude}`)
+            .catch(e => alert("Latitude or Longitude is not valid"))
+
+            console.log(response)
+        if (!response.ok) {
+            alert("Latitude or Longitude is not valid")
+            return
+        }
+
+        let json = await response.json()
+
+        return json
+    }
+    
 
     const formHandler = async () => {
         await handleFormSubmit()
-    }
-
-    function createCard() {
-        return (
-            <div className = "h-3/4 flex flex-row r-5 shadow-md justify-center">
-                <div className = "basis-2/5 flex shadow-md flew row">
-                    <label className = "text-lg">
-                        PNR
-                    </label>
-                    <input 
-                        className = "p-2 m-2 w-42 h-22 bg-slate-300 text-black drop-shadow-lg " 
-                        name = "PNR" 
-                        id = "PNR" 
-                        label = "Bilet ya da rezervasyon kodu (PNR)" 
-                        variant = "filled"  
-                        color = "error" 
-                        type = "text" 
-                        onChange = {handleChange} 
-                        value={formData.PNR} 
-                    />
-                </div>
-                <div className = "basis-1/5 flex shadow-md">
-                    <label className = "text-lg">
-                        PNR
-                    </label>
-                    <input 
-                        placeholder = "Isim"
-                        className = "p-2 m-2 w-42 h-22 bg-slate-300" 
-                        name = "name" 
-                        id = "name" 
-                        label = "Yolcunun adi" 
-                        variant = "filled"  
-                        color = "error" 
-                        type = "text" 
-                        onChange = {handleChange} 
-                        value = {formData.name}
-                    />
-                </div>
-                <div className = "basis-1/5 flex flex-rowshadow-md">
-                    <div className = "basis-1/3">
-                        <label for = "surname" className = "basis-1/3 text-lg">
-                            Soyad
-                        </label>
-                    </div>
-                    <div className = "basis-2/3">
-                        <input
-                            placeholder = "Soyad"
-                            className = "basis-2/3 p-2 m-2 h-22 bg-slate-300" 
-                            name = "surname"
-                            id = "surname" 
-                            label = "Yolcunun soyadi" 
-                            variant = "filled"  
-                            color = "error" 
-                            type = "text"
-                            onChange = {handleChange} 
-                            value = {formData.surname}
-                        />
-                    </div>
-                </div>
-                
-                <div className = "basis-1/5 flex shadow-md justify-center ">
-                    <Link to = "/activities" onClick={formHandler}>
-                        <button
-                            className = "p-2 m-2 w-28 h-22 bg-red-600 flex"
-                        >
-                        <span className = "italic text-lg font-mono font-bold text-white">
-                            Boost
-                        </span>
-                            <RocketLaunchIcon className = "text-white"/>
-                        </button>
-                    </Link>
-                </div>
-            </div>
-        )
     }
 
     function createReservationCodeForm() {

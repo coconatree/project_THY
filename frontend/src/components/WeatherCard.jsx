@@ -5,30 +5,25 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+import useWeatherStore from "../store/WeatherStore";
+import useGeoStore from "../store/GeoStore";
 
 export default function WeatherCard() {
+  const weatherData = useWeatherStore((state) => state.weatherData)
+  const geoData = useGeoStore((state) => state.geoData)
   return (
     <Box display="flex" justifyContent="space-between" >
     <Card sx={{ width: '30%', minHeight:'220px', minWidth:"250px"}}>
       <CardContent display="flex" >
         <Box component="div">
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Weather in Paris, France.
+          Weather in {geoData.name}, {geoData.country}.
         </Typography>
         <Typography variant="h3" component="div">
-          30 &deg;C
+          {weatherData.temperature} &deg;C
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Sunny
+          {weatherData.description}
         </Typography>
         <Typography variant="body2">
           H:32&deg; L:23&deg;
