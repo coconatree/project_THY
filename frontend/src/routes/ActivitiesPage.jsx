@@ -39,10 +39,11 @@ export default function ActivitiesPage() {
   useEffect( async () => {
 
     let result = await fetchAllInfo()
-   
+   if(result && result.geoData && result.weatherData && result.activityData) {
     setGeoData( {...result.geoData})
     setWeatherData({...result.weatherData})
-    
+    setActivityData(result.activityData)
+   }
   }, [])
 
   async function fetchAllInfo() {
@@ -50,7 +51,7 @@ export default function ActivitiesPage() {
     let response = await fetch("http://localhost:8080/api/v1/geodata/" + ticketData.arrivalCityName)
         .catch(e => alert("City is not valid"))
 
-        console.log(response)
+      
     if (!response.ok) {
         alert("There is no city with given name")
         return
@@ -63,7 +64,6 @@ export default function ActivitiesPage() {
     response = await fetch(`http://localhost:8080/api/v1/weather/${json.latitude}/${json.longitude}`)
         .catch(e => alert("Latitude or Longitude is not valid"))
 
-        console.log(response)
     if (!response.ok) {
         alert("Latitude or Longitude is not valid")
         return
@@ -75,26 +75,27 @@ export default function ActivitiesPage() {
       ...result, weatherData:json
     }
 
+    response = await fetch(`http://localhost:8080/api/v1/activities/${json.latitude}/${json.longitude}`)
+        .catch(e => alert("Activities error"))
+
+    
+    if (!response.ok) {
+        alert("Activities error")
+        return
+    }
+
+    json = await response.json()
+
+    console.log(json)    
+    result = {
+      ...result, activityData:json
+    }
+
     return result
 
 }
 
-async function fetchWeatherInfo() {
-    
-    console.log(geoData)
-    let response = await fetch(`http://localhost:8080/api/v1/weather/${geoData.latitude}/${geoData.longitude}`)
-        .catch(e => alert("Latitude or Longitude is not valid"))
 
-        console.log(response)
-    if (!response.ok) {
-        alert("Latitude or Longitude is not valid")
-        return
-    }
-
-    let json = await response.json()
-
-    return json
-}
 
 // async function retrieveActivityList() {
   //   let response = await fetch("http://localhost:8080/api/v1/activities").catch(

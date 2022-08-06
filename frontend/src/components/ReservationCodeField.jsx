@@ -41,7 +41,7 @@ export default function ReservationCodeField(props) {
             isLogged: false,
         }
 
-        json = {...json, arrivalCityName:"bonn"};
+        json = {...json, arrivalCityName:"lisbon"};
 
          setTicketInfo(json)
         
