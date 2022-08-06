@@ -17,7 +17,7 @@ const bull = (
 
 export default function WeatherCard() {
   return (
-    <Card sx={{ width: '24%', maxHeight:'220px'}}>
+    <Card sx={{ width: '24%', minHeight:'220px', minWidth:"250px"}}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Weather in Paris, France.

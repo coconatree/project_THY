@@ -10,5 +10,4 @@ public class WeatherDto {
     private String temperature;
     private String feelsLikeTemperature;
     private String dayAndHour;
-    private String name;
 }

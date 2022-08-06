@@ -187,7 +187,7 @@ export default function ReservationCodeField(props) {
             <>
                 <form className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
                         <div className = "flex flex-row flex-wrap  justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
-                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-5/12 lg:w-3/12">
+                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-3/12 lg:w-3/12">
                                 <TextField
                                     name = "PNR" 
                                     id = "PNR" 
@@ -199,7 +199,7 @@ export default function ReservationCodeField(props) {
                                     onChange = {handleChange} value={formData.PNR} 
                                 />
                             </div>
-                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-5/12 lg:w-4/12">
+                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-3/12 lg:w-3/12">
                                 <TextField
                                     name = "name" 
                                     id = "name" 
@@ -212,7 +212,7 @@ export default function ReservationCodeField(props) {
                                     style = {{paddingRight: '7px' }}
                                 />
                             </div>          
-                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-5/12 lg:w-4/12">
+                            <div className = "base-3/12 bg-white bg-opacity-80 m-2 w-full md:w-3/12 lg:w-3/12">
                                 <TextField 
                                     className = "rounded-md"
                                     name = "surname" 
@@ -226,9 +226,9 @@ export default function ReservationCodeField(props) {
                                     style = {{paddingRight: '7px'}} 
                                 />
                             </div>
-                            <div className = "base-3/12 m-2 w-full">
+                            <div className = "base-3/12 m-2 w-full ">
                                 <Link to = "/activities" onClick={formHandler}>
-                                    <button className = "m-max rounded-md p-2 bg-red-600 w-full md:w-5/12 lg:w-3/12">
+                                    <button className = "m-max rounded-md p-2 bg-red-600 w-full md:w-3/12 lg:w-3/12"  >
                                         <span className = "font-sans text-xl text-extrabold text-white">
                                             Boost
                                         </span> 

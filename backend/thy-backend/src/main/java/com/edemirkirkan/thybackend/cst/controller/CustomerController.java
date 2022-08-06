@@ -9,20 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/customers")
+@RequestMapping("api/v1/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
     
-    @GetMapping("search/{pnr}/{name}/{surname}")
-    public ResponseEntity<CustomerDto> getCustomer(
-        @PathVariable(name = "pnr") String pnr,
-        @PathVariable(name = "name") String name,
-        @PathVariable(name = "surname") String surname
-    )
-    {
-        return ResponseEntity.ok(customerService.retieveCustomerByReservationId(pnr, name, surname));
+    @GetMapping("search/{pnr}")
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable(name = "pnr") String pnr) {
+        CustomerDto customerDto = customerService.retieveCustomerByReservationId(pnr);
+        return ResponseEntity.ok(customerDto);
     }
 }

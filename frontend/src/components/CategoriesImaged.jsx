@@ -5,14 +5,14 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import {Grid, Box, Typography} from '@mui/material';
 import "../static/style/main.css";
 
-
+import CreateFoodDialog from "../components/FoodDialog";
 export default function CategoriesImaged(props) {
   return (
 
-    <Box container display="flex" sx = {{letterSpacing: 1 ,fontStyle: 'helvetica', fontWeight: 'medium' }} flexDirection="column" m="auto">
+    <Box container display="flex" backgroundColor="black" p={2} borderRadius="4px" sx = {{letterSpacing: 1 ,fontStyle: 'helvetica', fontWeight: 'medium' }} flexDirection="column" m="auto">
       <Typography   variant="h4">{props.titleName}</Typography>
 
-    <ImageList sx={{ height: 400 , maxWidth:"25rem", m:'auto',justifyContent: "center",
+    <ImageList sx={{ height: 400 , maxWidth:"18rem", m:'auto',justifyContent: "center",
 alignItems: "center"}} className="customScroll">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
@@ -23,10 +23,11 @@ alignItems: "center"}} className="customScroll">
             loading="lazy"
           />
           <ImageListItemBar
-            title={item.title}
-            subtitle={<span>by: {item.author}</span>}
+            title={<div style={{display: 'flex',alignItems: 'center',flexWrap: 'wrap'}}> {item.title} <CreateFoodDialog title={item.title}/></div>  }
+            subtitle={<span>Rating: 4 </span>}
             position="below"
           />
+          
         </ImageListItem>
       ))}
       
