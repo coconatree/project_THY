@@ -17,7 +17,7 @@ export default function ReservationCodePage() {
     theme = responsiveFontSizes(theme);
 
     return (
-        <div className = "flex flex-col mt-2 ml-5 mr-5 mb-1 lg:m-20 h-full sm:w-max-full w-max-6xl">
+        <div className = "flex flex-col mt-20 ml-5 mr-5 mb-1 lg:m-20 h-full sm:w-max-full w-max-6xl">
             <div className = "flex flex-col w-full mt-1 p-2 lg:p-5 ">
                 <div className = "flex justify-start sm:w-full p-2">
                     <h5 className = "italic text-white font-sans text-l text-bold">
@@ -32,7 +32,7 @@ export default function ReservationCodePage() {
                         <br></br>
                         <span className = "underline decoration-red-600 decoration-4">
                             Turkish Airlines Trip Booster
-                            </span>
+                        </span>
                     </h1>
                 </div> 
 
