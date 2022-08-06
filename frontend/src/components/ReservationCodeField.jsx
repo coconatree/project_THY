@@ -26,12 +26,14 @@ export default function ReservationCodeField(props) {
 
     async function handleFormSubmit(event) {
     
+        let response = await fetchCustomerInfo();
+
         let json = {
             pnr: formData.PNR,
-            firstname: "name",
-            lastname: "surname",
-            departureCityName: "",
-            arrivalCityName: "",
+            firstname: response.firstname,
+            lastname: response.lastname,
+            departureCityName: response.departureCityName,
+            arrivalCityName: response.arrivalCityName,
             arrivalCityLatitude: "",
             arrivalCityLongitude: "",
             isLogged: false,
@@ -82,7 +84,7 @@ export default function ReservationCodeField(props) {
         return (
             <>
                 <form className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
-                        <div className = "flex flex-row flex-wrap  justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
+                        <div className = "flex flex-row flex  justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
                             <div className = "base-8/12 bg-white bg-opacity-80 m-2 w-full md:w-8/12 lg:w-8/12">
                                 <TextField 
                                     className = "rounded-md"
@@ -97,9 +99,9 @@ export default function ReservationCodeField(props) {
                                     style = {{paddingRight: '7px'}} 
                                 />
                             </div>
-                            <div className = "base-3/12 m-2 w-full ">
+                            <div className = "base-3/12 m-2 w-full">
                                 <Link to = "/activities" onClick={formHandler}>
-                                    <button className = "m-max rounded-md p-2 bg-red-600 w-full md:w-3/12 lg:w-3/12"  >
+                                    <button className = "h-12 m-max rounded-md p-2 bg-red-600 w-full md:w-3/12 lg:w-3/12"  >
                                         <span className = "font-sans text-xl text-extrabold text-white">
                                             Boost
                                         </span> 

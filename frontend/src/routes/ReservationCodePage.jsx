@@ -32,7 +32,7 @@ export default function ReservationCodePage() {
                         <br></br>
                         <span className = "underline decoration-red-600 decoration-4">
                             Turkish Airlines Trip Booster
-                            </span>
+                        </span>
                     </h1>
                 </div> 
 
