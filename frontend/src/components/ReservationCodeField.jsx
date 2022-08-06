@@ -15,8 +15,6 @@ import "../index.css"
 */
 
 import useTicketStore from "../store/TicketStore"
-import useGeoStore from "../store/GeoStore";
-import useWeatherStore from "../store/WeatherStore";
 
 export default function ReservationCodeField(props) {
 
@@ -27,39 +25,25 @@ export default function ReservationCodeField(props) {
     });
     
     const setTicketInfo = useTicketStore((ticket => ticket.setTicketInfo))
-    const setWeatherInfo = useWeatherStore((weather) => weather.setWeatherInfo)
-    const setGeoInfo = useGeoStore((state) => state.setGeoInfo)
-    
-    const ticketState = useTicketStore((ticket) => ticket)
-    const weatherData = useWeatherStore((weather) => weather.weatherData)
-    const geoData = useGeoStore((state) => state.geoData)
-
 
     async function handleFormSubmit(event) {
     
-        // json = await fetchCustomerInfo()
-        
-        // console.log(json)
+        //let json = await fetchCustomerInfo()
 
-        // setTicketInfo({
-        //     pnr: json.pnr,
-        //     firstname: json.firstname,
-        //     lastname: json.lastname,
-        //     departureCityName: json.departureCityName,
-        //     arrivalCityName: json.arricalCityName,
-        //     arrivalCityLatitude: json.arrivalCityLatitude,
-        //     arrivalCityLongitude: json.arrivalCityLongitude,
-        //     isLogged: true,
-        // })
+        let json = {
+            pnr: "",
+            firstname: "",
+            lastname: "",
+            departureCityName: "",
+            arrivalCityName: "",
+            arrivalCityLatitude: "",
+            arrivalCityLongitude: "",
+            isLogged: false,
+        }
 
-        // console.log(ticketState)
+        json = {...json, arrivalCityName:"bonn"};
 
-        let json = await fetchGeoInfo()
-
-        setGeoInfo(json)
-
-        let weatherInfo = await fetchWeatherInfo()
-        setWeatherInfo(weatherInfo)
+         setTicketInfo(json)
         
     }
 
@@ -82,40 +66,6 @@ export default function ReservationCodeField(props) {
         }
         let json = await response.json()
         
-        return json
-    }
-
-    async function fetchGeoInfo() {
-        
-        
-        let response = await fetch(`http://localhost:8080/api/v1/geodata/cologne`)
-            .catch(e => alert("City is not valid"))
-
-            console.log(response)
-        if (!response.ok) {
-            alert("There is no city with given name")
-            return
-        }
-
-        let json = await response.json()
-
-        return json
-    }
-
-    async function fetchWeatherInfo() {
-        
-        console.log(geoData)
-        let response = await fetch(`http://localhost:8080/api/v1/weather/${geoData.latitude}/${geoData.longitude}`)
-            .catch(e => alert("Latitude or Longitude is not valid"))
-
-            console.log(response)
-        if (!response.ok) {
-            alert("Latitude or Longitude is not valid")
-            return
-        }
-
-        let json = await response.json()
-
         return json
     }
     

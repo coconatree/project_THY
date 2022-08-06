@@ -1,4 +1,4 @@
-import useState from "react";
+import {useState} from "react";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -10,27 +10,109 @@ import "../static/style/main.css";
 import CategoriesImaged from "../components/CategoriesImaged";
 import WeatherCard from "../components/WeatherCard";
 
-import useGeoStore from "../store/GeoStore";
+import useTicketStore from "../store/TicketStore";
+import { useEffect } from "react";
+
 export default function ActivitiesPage() {
   //   const [activities, setActivities] = useState([]);
 
-  async function retrieveActivityList() {
-    let response = await fetch("http://localhost:8080/api/v1/activities").catch(
-      (e) => alert("Error retrievig the data please try at a later time")
-    );
+  const ticketData = useTicketStore((state) => state.data);
 
+  const [geoData, setGeoData] = useState({
+    name: "",
+    country: "",
+    latitude: "",
+    longitude: "",
+  })
+
+  const [weatherData, setWeatherData] = useState({
+    mainDescription: "",
+		description: "",
+		iconLink: "",
+		temperature: "",
+		feelsLikeTemperature: "",
+		dayAndHour: "",
+  })
+
+  const [activityData, setActivityData] = useState([]);
+
+  useEffect( async () => {
+
+    let result = await fetchAllInfo()
+   
+    setGeoData( {...result.geoData})
+    setWeatherData({...result.weatherData})
+    
+  }, [])
+
+  async function fetchAllInfo() {
+        
+    let response = await fetch("http://localhost:8080/api/v1/geodata/" + ticketData.arrivalCityName)
+        .catch(e => alert("City is not valid"))
+
+        console.log(response)
     if (!response.ok) {
-      alert(
-        "There are no activities in the given location plese try another one"
-      );
+        alert("There is no city with given name")
+        return
     }
 
-    let json = await response.json();
+    let json = await response.json()
 
-    //       setActivities(json.activities)
-  }
+    let result = {geoData:json};
 
-  const geoData = useGeoStore((state) => state.geoData)
+    response = await fetch(`http://localhost:8080/api/v1/weather/${json.latitude}/${json.longitude}`)
+        .catch(e => alert("Latitude or Longitude is not valid"))
+
+        console.log(response)
+    if (!response.ok) {
+        alert("Latitude or Longitude is not valid")
+        return
+    }
+
+    json = await response.json()
+
+    result = {
+      ...result, weatherData:json
+    }
+
+    return result
+
+}
+
+async function fetchWeatherInfo() {
+    
+    console.log(geoData)
+    let response = await fetch(`http://localhost:8080/api/v1/weather/${geoData.latitude}/${geoData.longitude}`)
+        .catch(e => alert("Latitude or Longitude is not valid"))
+
+        console.log(response)
+    if (!response.ok) {
+        alert("Latitude or Longitude is not valid")
+        return
+    }
+
+    let json = await response.json()
+
+    return json
+}
+
+// async function retrieveActivityList() {
+  //   let response = await fetch("http://localhost:8080/api/v1/activities").catch(
+  //     (e) => alert("Error retrievig the data please try at a later time")
+  //   );
+
+  //   if (!response.ok) {
+  //     alert(
+  //       "There are no activities in the given location plese try another one"
+  //     );
+  //   }
+
+
+    
+  //   let json = await response.json();
+
+  //   //       setActivities(json.activities)
+  // }
 
   return (
     <Box>
@@ -66,7 +148,7 @@ export default function ActivitiesPage() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <WeatherCard />
+                  <WeatherCard geo={geoData} weather={weatherData} />
                   
                 </Grid>
                 
