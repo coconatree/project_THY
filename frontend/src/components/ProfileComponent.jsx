@@ -7,8 +7,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
-import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
+import Grid from "@mui/material/Grid";
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {ThemeProvider, createTheme} from "@mui/material"
 
 
@@ -26,7 +27,7 @@ function PaperComponent(props) {
   );
 }
 
-export default function CreateFoodDialog(props) {
+export default function CreateProfileDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -39,9 +40,11 @@ export default function CreateFoodDialog(props) {
 
   return (
     <div>
-      <IconButton variant="outlined" onClick={handleClickOpen}>
-        <InfoTwoToneIcon/>
+          <Grid container justifyContent="flex-end" p = {1} style={{ textAlign: "right" }}  sx={{mt:{xs:0, md:0}, p:{xs:0, md:0}}}>
+      <IconButton  variant="outlined" onClick={handleClickOpen}>
+      <AccountCircleIcon sx={{ fontSize: 50 }}/>
       </IconButton>
+      </Grid>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -49,12 +52,26 @@ export default function CreateFoodDialog(props) {
         aria-labelledby="draggable-dialog-title"
       >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          Details about {props.title}
+          Details about you
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+          pnr:  <br/>
+          firstName: <br/>
+          lastName: <br/>
+          departureCityName: <br/>
+          departureCountryCode: <br/>
+          arrivalCityName: <br/>
+          arrivalCountryCode: <br/>
+          departureDate: <br/>
+          boardingTime: <br/>
+          departureTime: <br/>
+          flightNumber: <br/>
+          ticketNumber: <br/>
+          seatNumber: <br/>
+          arrivalDate: <br/>
+          arrivalTime: <br/>
+          namePrefix: <br/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -62,10 +79,6 @@ export default function CreateFoodDialog(props) {
         <Button autoFocus onClick={handleClose} variant="outlined" color="primary" style={{ backgroundColor: "#e81932"}}>
            Okay 
            </Button>
-            <Button autoFocus onClick={handleClose} style={{ backgroundColor: "#e81932"}}>
-              Konumu Gör
-             </Button>
-          <Button onClick={handleClose}  color="primary" style={{ backgroundColor: "#e81932"}}>Rezervasyon Yap</Button>
           </ThemeProvider>
  </DialogActions>
       </Dialog>

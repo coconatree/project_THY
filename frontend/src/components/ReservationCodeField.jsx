@@ -22,7 +22,7 @@ export default function ReservationCodeField(props) {
         PNR: ""
     });
     
-    const setTicketInfo = useTicketStore((ticket => ticket.setTicketInfo))
+    const setTicketInfo = useTicketStore((state => state.setTicketInfo))
 
     async function handleFormSubmit(event) {
     
@@ -57,7 +57,7 @@ export default function ReservationCodeField(props) {
 
     async function fetchCustomerInfo() {
         
-        let response = await fetch(`http://localhost:8080/api/v1/customers/search/${formData.PNR}/`)
+        let response = await fetch(`http://localhost:8080/api/v1/customer/search/${formData.PNR}`)
             .catch(e => alert("PNR number does not exists"))
 
         /** 
@@ -69,7 +69,7 @@ export default function ReservationCodeField(props) {
             return
         }
         let json = await response.json()
-        
+
         return json
     }
     
