@@ -8,6 +8,8 @@ import com.edemirkirkan.thybackend.geo.dto.RestGeoDataDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
+
 @Service
 @RequiredArgsConstructor
 public class GeoDataService {
@@ -18,8 +20,7 @@ public class GeoDataService {
     private final GeoDataMapper mapper;
 
     public GeoDataDto retrieveGeoData(String cityName) {
-
-        GeoData geoData = geoDataDao.findByName(cityName);
+        GeoData geoData = geoDataDao.findByNameIgnoreCase(cityName);
 
         if (geoData == null) {
             RestGeoDataDto restGeoDto = restService.geoDataRequest(cityName);
