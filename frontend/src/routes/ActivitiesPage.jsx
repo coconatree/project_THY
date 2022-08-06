@@ -1,10 +1,13 @@
 
-import Grid from '@mui/material/Grid';
+import {useState} from "react";
 
+import Grid from '@mui/material/Grid';
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
+
+import TicketInfoTest from "../components/TicketInfoTest"
 
 import "../static/style/main.css"
 
@@ -15,24 +18,129 @@ import "../static/style/main.css";
 import CategoriesImaged from "../components/CategoriesImaged";
 import WeatherCard from "../components/WeatherCard";
 
+import useTicketStore from "../store/TicketStore";
+import { useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 export default function ActivitiesPage() {
-  //   const [activities, setActivities] = useState([]);
 
-  async function retrieveActivityList() {
-    let response = await fetch("http://localhost:8080/api/v1/activities").catch(
-      (e) => alert("Error retrievig the data please try at a later time")
-    );
+    const {arrivalCityName, isLogged} = useTicketStore((state) => ({
+      arrivalCityName: state.arrivalCityName,
+      isLogged: state.isLogged
+    }));
 
-    if (!response.ok) {
-      alert(
-        "There are no activities in the given location plese try another one"
-      );
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isLogged) {
+        alert("You need to login !!!")
+        navigate("/");
+      }
+      else {
+        fetchAndSetData()
+      }
+    }, [])
+
+    
+    const [geoData, setGeoData] = useState({
+      name: "",
+      country: "",
+      latitude: "",
+      longitude: "",
+    })
+
+    const [weatherData, setWeatherData] = useState({
+      mainDescription: "",
+		  description: "",
+		  iconLink: "",
+		  temperature: "",
+		  feelsLikeTemperature: "",
+		  dayAndHour: "",
+    })
+
+  const [activityData, setActivityData] = useState([]);
+
+  const fetchAndSetData = async () => {
+
+    let result = await fetchAllInfo()
+   if(result && result.geoData && result.weatherData && result.activityData) {
+      setGeoData( {...result.geoData})
+      setWeatherData({...result.weatherData})
+      setActivityData(result.activityData)
+   }
+  };
+
+  async function fetchAllInfo() {
+        
+    let response = await fetch("http://localhost:8080/api/v1/geodata/" + arrivalCityName)
+    .catch(e => alert("City is not valid"))
+
+    console.log(response)
+      
+    if (!response.ok()) {
+        alert("There is no city with given name")
+        return
     }
 
-    let json = await response.json();
+    let json = await response.json()
 
-    //       setActivities(json.activities)
-  }
+    let result = {geoData:json};
+
+    response = await fetch(`http://localhost:8080/api/v1/weather/${json.latitude}/${json.longitude}`)
+        .catch(e => alert("Latitude or Longitude is not valid"))
+
+    if (!response.ok) {
+        alert("Latitude or Longitude is not valid")
+        return
+    }
+
+    json = await response.json()
+
+    result = {
+      ...result, weatherData:json
+    }
+
+    response = await fetch(`http://localhost:8080/api/v1/activities/${json.latitude}/${json.longitude}`)
+        .catch(e => alert("Activities error"))
+
+    
+    if (!response.ok) {
+        alert("Activities error")
+        return
+    }
+
+    json = await response.json()
+
+    console.log(json)    
+    result = {
+      ...result, activityData:json
+    }
+
+    return result
+
+}
+
+
+
+// async function retrieveActivityList() {
+  //   let response = await fetch("http://localhost:8080/api/v1/activities").catch(
+  //     (e) => alert("Error retrievig the data please try at a later time")
+  //   );
+
+  //   if (!response.ok) {
+  //     alert(
+  //       "There are no activities in the given location plese try another one"
+  //     );
+  //   }
+
+
+    
+  //   let json = await response.json();
+
+  //   //       setActivities(json.activities)
+  // }
 
   return (
     <Box>
@@ -55,7 +163,7 @@ export default function ActivitiesPage() {
               spacing={0}
               style={{ textAlign: "left" }}
             >
-              <Grid container direction="column">
+              <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
                 <Grid item>
                   <Typography
                     variant="h2"
@@ -64,27 +172,33 @@ export default function ActivitiesPage() {
                     color="#fdfdfd"
                     sx={{ textShadow: "3px 3px 4px black" }}
                   >
-                    Welcome to Paris
+                    Welcome to {geoData.name}
+                    <TicketInfoTest/>
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <WeatherCard />
+                  <WeatherCard geo={geoData} weather={weatherData} />
+                  
                 </Grid>
-                <Grid mt={17}
+                
+              </Grid>
+            </Grid>
+            <Grid 
                   item
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    alignItems: "flex-end",
+                    
                   }}
+                  mt={14}
                 >
                   <ArrowDownwardOutlinedIcon
                     className="svgIcons" 
                     style={{ color: "#fdfdfd" }}
+                    
                   />
                 </Grid>
-              </Grid>
-            </Grid>
           </Grid>
         </ParallaxLayer>
 

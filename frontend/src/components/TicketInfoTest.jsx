@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import useTicketStore from "../store/TicketStore"
 
 export default function TicketInfoTest() {
@@ -7,11 +6,7 @@ export default function TicketInfoTest() {
         pnr, 
         firstname, 
         lastname,
-        departureCityName,
         arrivalCityName,
-        arrivalCitylatitude,
-        arrivalCitylongitude,
-        isLogged 
     } = useTicketStore(
         (state) => ({ 
             pnr: state.pnr,
@@ -25,17 +20,11 @@ export default function TicketInfoTest() {
         })
       )
 
-    useEffect(() => {
-        if (!isLogged) {
-            alert("Go TO PNR Page Empty Data")
-        }
-    }, [])
-
     return (
         <div>
             <p>
                 <br></br>
-                EMRE
+                EMRE EMRE EMRE EMRE EMRE
                 <br></br>
                 {pnr}
                 <br></br>
@@ -43,13 +32,7 @@ export default function TicketInfoTest() {
                 <br></br>
                 {lastname}
                 <br></br>
-                {departureCityName}
-                <br></br>
                 {arrivalCityName}
-                <br></br>
-                {arrivalCitylatitude}
-                <br></br>
-                {arrivalCitylongitude}
             </p>
         </div>
     )
