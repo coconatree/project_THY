@@ -42,7 +42,7 @@ export default function CreateProfileDialog(props) {
     <div>
           <Grid container justifyContent="flex-end" p = {1} style={{ textAlign: "right" }}  sx={{mt:{xs:0, md:0}, p:{xs:0, md:0}}}>
       <IconButton  variant="outlined" onClick={handleClickOpen}>
-      <AccountCircleIcon sx={{ fontSize: 50 }}/>
+      <AccountCircleIcon sx={{ fontSize: 60 }}/>
       </IconButton>
       </Grid>
       <Dialog

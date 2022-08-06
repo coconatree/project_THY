@@ -29,7 +29,6 @@ export default function ReservationCodeField(props) {
     
         let json = await fetchCustomerInfo();
 
-        json = {...json, arrivalCityName:"lisbon"};
 
         setTicketInfo(
             json.pnr,

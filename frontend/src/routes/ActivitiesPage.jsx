@@ -8,13 +8,11 @@ import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
-
-
-import TicketInfoTest from "../components/TicketInfoTest"
+import CircularProgress from '@mui/material/CircularProgress';
 
 import "../static/style/main.css"
 import "../index.css"
-
+import { red } from '@mui/material/colors';
 import CreateProfileDialog from "../components/ProfileComponent";
 
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
@@ -30,7 +28,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ActivitiesPage() {
-
+  const color = red[500];
     const {arrivalCityName, isLogged} = useTicketStore((state) => ({
       arrivalCityName: state.arrivalCityName,
       isLogged: state.isLogged
@@ -47,7 +45,7 @@ export default function ActivitiesPage() {
     };
 
     const navigate = useNavigate();
-
+    const [isLoaded, setIsLoaded] = useState(false)
     useEffect(() => {
       if (!isLogged) {
         alert("You need to login !!!")
@@ -55,6 +53,7 @@ export default function ActivitiesPage() {
       }
       else {
         fetchAndSetData()
+        
       }
     }, [])
 
@@ -135,212 +134,222 @@ export default function ActivitiesPage() {
       ...result, activityData:json
     }
 
-    setIsLoaded(true)
+    setIsLoaded(prev => !prev)
 
     return result
   }
 
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  function createLoading() {
-    return (
-      <div className = "w-full h-full flex justify-center">
-        <h1 className = "text-white text-4xl">
-          LOADING ....
-        </h1>
-      </div>
-    )
-  }
-
-    function createPage() {
-      return (
-      <Box>
-        <Parallax pages={4} style={{ top: "0", left: "0" }}>
-          <ParallaxLayer
-            offset={0}
-            speed={2.5}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+  let pageContent = (<Box>
+    <Parallax pages={4} style={{ top: "0", left: "0" }}>
+      <ParallaxLayer
+        offset={0}
+        speed={2.5}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Grid container direction="column">
+          <Grid
+            item
+            ml={0}
+            mt={4}
+            p={3}
+            spacing={0}
+            style={{ textAlign: "left" }}
           >
-            <Grid container direction="column">
-              <Grid p={3} sx={{ width: "100%" }}>
-              <CreateProfileDialog/>
-              </Grid>
-              <Grid
-                item
-                ml={0}
-                mt={4}
-                p={3}
-                spacing={0}
-                style={{ textAlign: "left" }}
-              >
-                <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
-                  <Grid item>
-                    <Typography
-                      variant="h2"
-                      gutterBottom
-                      component="div"
-                      color="#fdfdfd"
-                      sx={{ textShadow: "3px 3px 4px black" }}
-                    >
-                      Welcome to {geoData.name}
-                      <TicketInfoTest/>
-                    </Typography>
-
-                  </Grid>
-                  <Grid item>
-                    <WeatherCard geo={geoData} weather={weatherData} />
-                    
-                  </Grid>
-                  
-                </Grid>
-              </Grid>
-              <Grid 
-                    item
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "flex-end",
-                      
-                    }}
-                    mt={14}
-                  >
-                    <ArrowDownwardOutlinedIcon
-                      className="svgIcons" 
-                      style={{ color: "#fdfdfd" }}
-                      
-                    />
-                  </Grid>
-            </Grid>
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={1}
-            speed={0.1}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-            }}
-          >
-            <Typography
-              variant="h2"
-              gutterBottom
-              component="div"
-              color="#fdfdfd"
-              sx={{ textShadow: "3px 3px 4px black" }}
-            >
-              Widen your world.
-            </Typography>
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={2}
-            speed={2}
-            style={{ backgroundColor: "#c70a0c" }}
-          />
-
-          <ParallaxLayer
-            offset={2}
-            speed={0.5}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-            }}
-          >
-            <Grid container direction="column" mt={5} p={7}>
-              <Typography
-                variant="h2"
-                color="#fdfdfd"
-                sx={{ textShadow: "0px 2px 4px black" }} className = "underline decoration-black decoration-4"
-              >
-                Activities
-              </Typography>
-              <Grid
-                item
-                xs={7}
-                mt={5}
-                p={4}
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-                boxShadow="3"
-                backgroundColor={alpha("#E5E4E2", 0.9)}
-                borderRadius="6px"
-                style={{ textAlign: "center", width: "100%" }}
-              >
-                <MainPage activities={activityData} />
-              </Grid>
-            </Grid>
-          </ParallaxLayer>
-          <ParallaxLayer
-            offset={3}
-            speed={2}
-            style={{ backgroundColor: "#c70a0c" }}
-          />
-          <ParallaxLayer
-            offset={3}
-            speed={1}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              width:"100%"
-            }}
-          >
-            <Grid container direction="column" mt={10}>
-              <Typography ml={4}  
-                variant="h2"
-                color="#fdfdfd"
-                sx={{ textShadow: "0px 2px 4px black" }} className = "underline decoration-black decoration-4"
-              >
-                Places
-              </Typography>
-              <Grid item p={3} sx={{ width: "100%" }}>
-                <Grid
-                  container
-                  p={4}
-                  borderRadius="6px"
-                  boxShadow="3"
-                  backgroundColor={alpha("#E5E4E2", 0.95)}
-                  style={{
-                    textAlign: "left",
-                    display: "flex",
-                    mX: "auto",
-                    width: "100%",
-                  }}
+            <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
+            <CreateProfileDialog/>
+              <Grid item>
+                <Typography
+                  variant="h2"
+                  gutterBottom
+                  component="div"
+                  color="#fdfdfd"
+                  sx={{ textShadow: "3px 3px 4px black" }}
                 >
-                  <CategoriesImaged titleName="Food" />
-                  <CategoriesImaged titleName="Sights" />
-                  <CategoriesImaged titleName="Shopping" />
-                  <CategoriesImaged titleName="Nightlife" />
-                </Grid>
+                  Welcome to {geoData.name} 
+                </Typography>
+
               </Grid>
+              <Grid item>
+            
+                <WeatherCard geo={geoData} weather={weatherData} />
+                
+              </Grid>
+              
             </Grid>
-          </ParallaxLayer>
-        </Parallax>
-      </Box>
-      )
-    }
+          </Grid>
+          <Grid 
+                item
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                  
+                }}
+                mt={14}
+              >
+                <ArrowDownwardOutlinedIcon
+                  className="svgIcons" 
+                  style={{ color: "#fdfdfd" }}
+                  
+                />
+                
+              </Grid>
+              
+        </Grid>
+        
+      </ParallaxLayer>
 
-    function render() {
-      if(!isLoaded) {
-        return createLoading()
-      } else {
-        return createPage()
-      }
-    }
+      <ParallaxLayer
+        offset={1}
+        speed={0.1}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "white",
+        }}
+      >
+        <Typography
+          variant="h2"
+          gutterBottom
+          component="div"
+          color="#fdfdfd"
+          sx={{ textShadow: "3px 3px 4px black" }}
+        >
+          Widen your world.
+        </Typography>
+      </ParallaxLayer>
 
-  return (
-      <>
-        {render()}
-      </>
+      <ParallaxLayer
+        offset={2}
+        speed={2}
+        style={{ backgroundColor: "#c70a0c" }}
+      />
+
+      <ParallaxLayer
+        offset={2}
+        speed={0.5}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "white",
+        }}
+      >
+        <Grid container direction="column" mt={5} p={7}>
+          <Typography
+            variant="h2"
+            color="#fdfdfd"
+            sx={{ textShadow: "0px 2px 4px black" }} className = "underline decoration-black decoration-4"
+          >
+            Activities
+          </Typography>
+          <Grid
+            item
+            xs={7}
+            mt={5}
+            p={4}
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+            boxShadow="3"
+            backgroundColor={alpha("#E5E4E2", 0.9)}
+            borderRadius="6px"
+            style={{ textAlign: "center", width: "100%" }}
+          >
+            <MainPage activities={activityData} />
+          </Grid>
+        </Grid>
+      </ParallaxLayer>
+      <ParallaxLayer
+        offset={3}
+        speed={2}
+        style={{ backgroundColor: "#c70a0c" }}
+      />
+      <ParallaxLayer
+        offset={3}
+        speed={1}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "white",
+          width:"100%"
+        }}
+      >
+        <Grid container direction="column" mt={10}>
+          <Typography ml={4}  
+            variant="h2"
+            color="#fdfdfd"
+            sx={{ textShadow: "0px 2px 4px black" }} className = "underline decoration-black decoration-4"
+          >
+            Places
+          </Typography>
+          <Grid item p={3} sx={{ width: "100%" }}>
+            <Grid
+              container
+              p={4}
+              borderRadius="6px"
+              boxShadow="3"
+              backgroundColor={alpha("#E5E4E2", 0.95)}
+              style={{
+                textAlign: "left",
+                display: "flex",
+                mX: "auto",
+                width: "100%",
+              }}
+            >
+              <CategoriesImaged titleName="Food" />
+              <CategoriesImaged titleName="Sights" />
+              <CategoriesImaged titleName="Shopping" />
+              <CategoriesImaged titleName="Nightlife" />
+            </Grid>
+          </Grid>
+        </Grid>
+      </ParallaxLayer>
+    </Parallax>
+  </Box>
+  )
+
+  let loadingContent = (<Box height="100vh" sx={{ display:"flex", justifyContent:"center", alignItems:"center", backgroundColor:"rgba(0,0,0,0.8)"}}>
+   
+        <Grid container  sx={{ display:"flex", justifyContent:"center", alignItems:"center"}}>
+          <Grid
+            item
+            ml={0}
+            mt={0}
+            p={3}
+            spacing={0}
+            style={{ textAlign: "center" }}
+          >
+            <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
+              <Grid item>
+              <CircularProgress color="error" />
+              <Typography
+          variant="h4"
+          gutterBottom
+          component="div"
+          color="#fdfdfd"
+          sx={{ textShadow: "3px 3px 4px black" }}
+        >
+          Boosting your journey...
+        </Typography>
+              </Grid>
+
+              
+            </Grid>
+    
+        </Grid>
+        </Grid>
+  </Box> )
+  return ( <>
+    
+    {isLoaded ? pageContent : loadingContent}
+
+    </>
   );
 }
