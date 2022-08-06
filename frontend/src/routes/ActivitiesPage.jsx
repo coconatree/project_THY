@@ -1,9 +1,11 @@
 import {useState} from "react";
+import * as React from 'react';
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
+import CreateProfileDialog from "../components/ProfileComponent";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import "../static/style/main.css";
@@ -12,11 +14,20 @@ import WeatherCard from "../components/WeatherCard";
 
 import useTicketStore from "../store/TicketStore";
 import { useEffect } from "react";
-import PersonIcon from '@mui/icons-material/Person';
-import IconButton from '@mui/material/IconButton';
+
 
 export default function ActivitiesPage() {
   //   const [activities, setActivities] = useState([]);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const ticketData = useTicketStore((state) => state.data);
 
@@ -112,11 +123,9 @@ export default function ActivitiesPage() {
           }}
         >
           <Grid container direction="column">
-          <Grid container justifyContent="flex-end" >
-      <IconButton variant="contained" size="large"className = "m-max rounded-md p-2 bg-red-600  md:w-3/12 lg:w-3/12" >
-        <PersonIcon/>
-      </IconButton>
-      </Grid>
+            <Grid p={3} sx={{ width: "100%" }}>
+            <CreateProfileDialog/>
+            </Grid>
             <Grid
               item
               ml={0}
