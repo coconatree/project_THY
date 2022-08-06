@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     height: 100vh;
-    opacity: 90%;
+    opacity: 100%;
 }
 
 label {
@@ -9,12 +9,14 @@ label {
     position: absolute;
 }
 
+.opacityBackground {
+  background-color: rgba(0,0,0,0.3);
+}
+
 .bacground_image {
    
-    background-image: url("../images/reservation_page_background_02.jpg");
+    background: url("../images/reservation_page_background.jpg");
     height: 100%;
-  
-
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -39,9 +41,14 @@ label {
     width: 5px;
     height: 8px;
     background-color: #aaa; /* or add it to the track */
+    border-radius: 6px;
   }
   
 .customScroll::-webkit-scrollbar-thumb{
-    background: #000;
+    background: #c70a0c;
     border-radius: 6px;
+  }
+
+  .svgIcons {
+    transform: scale(2.5);
   }
