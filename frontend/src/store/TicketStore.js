@@ -21,7 +21,7 @@ const useTicketStore = create((set) => ({
 	firstname: "",
 	lastname: "",
 	isLogged: false,
-	
+
 	setTicketInfo: (
 		pnr,
 		isReturnFlight,
@@ -40,11 +40,11 @@ const useTicketStore = create((set) => ({
 		departureCountryCode,
 		checkInInfo,
 		namePrefix,
-		firstname,
-		lastname,
+		firstName,
+		lastName,
 		isLogged
 	) =>
-		set((state) => ({ 
+		set((state) => ({
 			pnr: pnr,
 			isReturnFlight: isReturnFlight,
 			flightNumber: flightNumber,
@@ -62,8 +62,8 @@ const useTicketStore = create((set) => ({
 			departureCountryCode: departureCountryCode,
 			checkInInfo: checkInInfo,
 			namePrefix: namePrefix,
-			firstname: firstname,
-			lastname: lastname,
+			firstname: firstName,
+			lastname: lastName,
 			isLogged: isLogged,
 		})),
 }));
