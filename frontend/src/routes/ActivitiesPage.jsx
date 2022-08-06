@@ -95,7 +95,7 @@ export default function ActivitiesPage() {
 
     console.log(response)
       
-    if (!response.ok()) {
+    if (!response.ok) {
         alert("There is no city with given name")
         return
     }

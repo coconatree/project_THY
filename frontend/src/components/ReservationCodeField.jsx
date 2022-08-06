@@ -9,6 +9,8 @@ import { createTheme, styled } from '@mui/material/styles';
 
 import "../index.css"
 
+import { useNavigate } from "react-router-dom";
+
 /** 
     This component handles the reservation code and 
     related communications with the backend   
@@ -24,33 +26,37 @@ export default function ReservationCodeField(props) {
     
     const setTicketInfo = useTicketStore((state => state.setTicketInfo))
 
+    const navigate = useNavigate()
+
     async function handleFormSubmit(event) {
     
-        let response = await fetchCustomerInfo();
-
-        let json = {
-            pnr: formData.PNR,
-            firstname: response.firstname,
-            lastname: response.lastname,
-            departureCityName: response.departureCityName,
-            arrivalCityName: response.arrivalCityName,
-            arrivalCityLatitude: "",
-            arrivalCityLongitude: "",
-            isLogged: false,
-        }
+        let json = await fetchCustomerInfo();
 
         json = {...json, arrivalCityName:"lisbon"};
 
-         setTicketInfo(
-            json.pnr, 
-            json.firstname, 
-            json.lastname, 
-            json.departureCityName, 
-            "lisbon", 
-            json.arrivalCityLatitude, 
-            json.arrivalCityLongitude, 
+        setTicketInfo(
+            json.pnr,
+		    json.isReturnFlight,
+		    json.flightNumber,
+		    json.ticketNumber,
+		    json.boardingPassQrCode,
+		    json.seatNumber,
+		    json.arrivalDate,
+		    json.arrivalTime,
+		    json.arrivalCityName,
+		    json.arrivalCountryCode,
+		    json.departureDate,
+		    json.boardingTime,
+		    json.departureTime,
+		    json.departureCityName,
+		    json.departureCountryCode,
+		    json.checkInInfo,
+		    json.namePrefix,
+		    json.firstname,
+		    json.lastname,
             true
         )
+        navigate("/activities")
     }
 
     function handleChange(event) {
@@ -83,7 +89,7 @@ export default function ReservationCodeField(props) {
     function createReservationCodeForm() {
         return (
             <>
-                <form className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
+                <div className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
                         <div className = "flex flex-row flex  justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
                             <div className = "base-8/12 bg-white bg-opacity-80 m-2 w-full md:w-8/12 lg:w-8/12">
                                 <TextField 
@@ -99,18 +105,16 @@ export default function ReservationCodeField(props) {
                                     style = {{paddingRight: '7px'}} 
                                 />
                             </div>
-                            <div className = "base-3/12 m-2 w-full">
-                                <Link to = "/activities" onClick={formHandler}>
-                                    <button className = "h-12 m-max rounded-md p-2 bg-red-600 w-full md:w-3/12 lg:w-3/12"  >
-                                        <span className = "font-sans text-xl text-extrabold text-white">
-                                            Boost
-                                        </span> 
-                                        <RocketLaunchIcon className = "text-white"/>
-                                    </button>
-                                </Link>
+                            <div className = "base-3/12 m-2 w-full">                    
+                                <button onClick={formHandler} className = "h-12 m-max rounded-md p-2 bg-red-600 w-full md:w-3/12 lg:w-3/12"  >
+                                    <span className = "font-sans text-xl text-extrabold text-white">
+                                        Boost
+                                    </span> 
+                                    <RocketLaunchIcon className = "text-white"/>
+                                </button>
                             </div>
                         </div>
-                    </form>
+                    </div>
             </>     
         )
     }
