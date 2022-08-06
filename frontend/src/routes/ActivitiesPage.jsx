@@ -12,6 +12,8 @@ import WeatherCard from "../components/WeatherCard";
 
 import useTicketStore from "../store/TicketStore";
 import { useEffect } from "react";
+import PersonIcon from '@mui/icons-material/Person';
+import IconButton from '@mui/material/IconButton';
 
 export default function ActivitiesPage() {
   //   const [activities, setActivities] = useState([]);
@@ -61,7 +63,7 @@ export default function ActivitiesPage() {
 
     let result = {geoData:json};
 
-    response = await fetch(`http://localhost:8080/api/v1/weather/${json.latitude}/${json.longitude}`)
+    response = await fetch(`http://localhost:8080/api/v1/weather/${result.geoData.latitude}/${result.geoData.longitude}`)
         .catch(e => alert("Latitude or Longitude is not valid"))
 
     if (!response.ok) {
@@ -75,7 +77,9 @@ export default function ActivitiesPage() {
       ...result, weatherData:json
     }
 
-    response = await fetch(`http://localhost:8080/api/v1/activities/${json.latitude}/${json.longitude}`)
+    console.log(result.geoData)
+
+    response = await fetch(`http://localhost:8080/api/v1/activities/${result.geoData.latitude}/${result.geoData.longitude}`)
         .catch(e => alert("Activities error"))
 
     
@@ -92,28 +96,8 @@ export default function ActivitiesPage() {
     }
 
     return result
-
 }
 
-
-
-// async function retrieveActivityList() {
-  //   let response = await fetch("http://localhost:8080/api/v1/activities").catch(
-  //     (e) => alert("Error retrievig the data please try at a later time")
-  //   );
-
-  //   if (!response.ok) {
-  //     alert(
-  //       "There are no activities in the given location plese try another one"
-  //     );
-  //   }
-
-
-    
-  //   let json = await response.json();
-
-  //   //       setActivities(json.activities)
-  // }
 
   return (
     <Box>
@@ -128,6 +112,11 @@ export default function ActivitiesPage() {
           }}
         >
           <Grid container direction="column">
+          <Grid container justifyContent="flex-end" >
+      <IconButton variant="contained" size="large"className = "m-max rounded-md p-2 bg-red-600  md:w-3/12 lg:w-3/12" >
+        <PersonIcon/>
+      </IconButton>
+      </Grid>
             <Grid
               item
               ml={0}
@@ -147,6 +136,7 @@ export default function ActivitiesPage() {
                   >
                     Welcome to {geoData.name}
                   </Typography>
+
                 </Grid>
                 <Grid item>
                   <WeatherCard geo={geoData} weather={weatherData} />
@@ -232,7 +222,7 @@ export default function ActivitiesPage() {
               borderRadius="6px"
               style={{ textAlign: "center", width: "100%" }}
             >
-              <MainPage />
+              <MainPage activities={activityData} />
             </Grid>
           </Grid>
         </ParallaxLayer>
