@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Box, Button, Container, Grid } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
-import { Link } from 'react-router-dom';
-
 import TextField from '@mui/material/TextField';
-import { createTheme, styled } from '@mui/material/styles';
 
 import "../index.css"
 
@@ -90,7 +87,7 @@ export default function ReservationCodeField(props) {
         return (
             <>
                 <div className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
-                        <div className = "flex flex-row flex  justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
+                        <div className = "flex flex-row justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
                             <div className = "base-8/12 bg-white bg-opacity-80 m-2 w-full md:w-8/12 lg:w-8/12">
                                 <TextField 
                                     className = "rounded-md"
