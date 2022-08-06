@@ -1,47 +1,52 @@
 package com.edemirkirkan.thybackend.cst.service;
 
+import com.edemirkirkan.thybackend.cst.converter.CustomerMapper;
+import com.edemirkirkan.thybackend.cst.dao.CustomerDao;
 import com.edemirkirkan.thybackend.cst.dto.CustomerDto;
+import com.edemirkirkan.thybackend.cst.entity.Customer;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
-import java.util.Stack;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
 
     private final CustomerRestService restService;
+    private final CustomerFactory customerFactory;
+    private final CustomerDao customerDao;
+    private final CustomerMapper customerMapper;
 
     public CustomerDto retieveCustomerByReservationId(String pnr)  {
-        LinkedHashMap data = restService.getCustomerBoardingPassData(pnr);
-        // TODO build customer by using retriveFieldByKey on each field
-        CustomerDto customerDto = CustomerDto.builder().build();
-        return customerDto;
-    }
+        if (!StringUtils.isAlphanumeric(pnr)
+                || !isAllUpperCase(pnr)
+                || pnr.length() != 7) {
+            throw new RuntimeException("Invalid PNR number!");
+        }
+        Customer customer = customerDao.findByPnr(pnr);
 
-    private Object retrieveFieldByKey(LinkedHashMap data, String key) {
-        Stack<LinkedHashMap> stack = new Stack<>();
-        stack.push(data);
-
-        while (!stack.empty()) {
-            LinkedHashMap top = stack.pop();
-            if (top.containsKey(key)) {
-                return top.get(key);
-            }
-            for (var k : top.keySet()) {
-                var newData = top.get(k);
-                if (!(newData instanceof LinkedHashMap)) {
-                    if (k.equals(key))
-                        return newData;
-                    else
-                        continue;
-                }
-                stack.push((LinkedHashMap) newData);
-            }
+        if (customer == null) {
+            LinkedHashMap data = restService.getCustomerBoardingPassData(pnr);
+            CustomerDto customerDto = customerFactory.getCustomer(pnr, data);
+            customer = customerMapper.convertToEntity(customerDto);
+            customer = customerDao.save(customer);
         }
 
-        return null;
+        return customerMapper.convertToDto(customer);
     }
+
+    private boolean isAllUpperCase(String pnr) {
+        for (int i = 0, n = pnr.length(); i < n; i++) {
+            char ch = pnr.charAt(i);
+            if (Character.isLetter(ch) && Character.isLowerCase(ch)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
 }
