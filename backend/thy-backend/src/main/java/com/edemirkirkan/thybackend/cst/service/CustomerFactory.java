@@ -15,8 +15,10 @@ public class CustomerFactory {
 
 
     public CustomerDto getCustomer(String pnr, LinkedHashMap data) {
-        Pair<String, String> arrivalCityCode = (Pair<String, String>) any(customerData.cityCode.toArray());
-        Pair<String, String> departureCityCode = (Pair<String, String>) any(customerData.cityCode.toArray());
+        Pair<String, String> arrivalCityCode = (Pair<String, String>)
+                any(customerData.arrCityCode.toArray());
+        Pair<String, String> departureCityCode = (Pair<String, String>)
+                any(customerData.depCityCode.toArray());
         Pair<String, String> name = (Pair<String, String>) any(customerData.name.toArray());
         return CustomerDto.builder()
                 .pnr(pnr).isReturnFlight((Boolean) any(customerData.isReturnFlight))

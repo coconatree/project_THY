@@ -7,6 +7,7 @@ public class RestConstant {
     public static final String SCHEME = "https";
     public static final String AMADEUS_HOST = "test.api.amadeus.com/v1";
     public static final String ACITIVITY_PATH = "/shopping/activities";
+    public static final String PLACE_PATH = "/reference-data/locations/pois";
     public static final String ACTIVITY_RADIUS = "20";
     public static final String WEATHER_APP_ID = "0b008e5c56952101fcd851de8fe708a6";
     public static final String WEATHER_HOST = "api.openweathermap.org";

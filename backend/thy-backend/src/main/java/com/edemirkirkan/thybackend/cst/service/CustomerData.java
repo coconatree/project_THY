@@ -11,22 +11,25 @@ import java.util.List;
 public class CustomerData {
     public final Boolean[] isReturnFlight = new Boolean[]{true, false};
 
-    public final List<Pair<String, String>> cityCode = new ArrayList<>(List.of(
-            Pair.of("Istanbul", "TUR"),
-            Pair.of("London", "GBR"),
-            Pair.of("New York", "USA"),
-            Pair.of("Paris", "FRA"),
-            Pair.of("Berlin", "DEU"),
-            Pair.of("San Francisco", "USA"),
-            Pair.of("Amsterdam", "NLD"),
-            Pair.of("Madrid", "ESP"),
-            Pair.of("Barcelona", "ESP"),
-            Pair.of("Roma", "ITA"),
-            Pair.of("Beijing", "CHN"),
-            Pair.of("Moscow", "RUS"),
-            Pair.of("Dallas", "USA"),
-            Pair.of("Sao Paulo", "BRA"),
-            Pair.of("Toronto", "CAN")
+    public final List<Pair<String, String>> depCityCode = new ArrayList<>(List.of(
+            Pair.of("Istanul", "TR"),
+            Pair.of("San Francisco", "US"),
+            Pair.of("Amsterdam", "NL"),
+            Pair.of("Madrid", "ES"),
+            Pair.of("Roma", "IT"),
+            Pair.of("Beijing", "CN"),
+            Pair.of("Moscow", "RU"),
+            Pair.of("Dallas", "US"),
+            Pair.of("Sao Paulo", "BR"),
+            Pair.of("Toronto", "CA")
+    ));
+
+    public final List<Pair<String, String>> arrCityCode = new ArrayList<>(List.of(
+            Pair.of("London", "GB"),
+            Pair.of("Paris", "FR"),
+            Pair.of("Barcelona", "ES"),
+            Pair.of("New York", "US"),
+            Pair.of("Berlin", "DE")
     ));
 
     public final List<Pair<String, String>> name = new ArrayList<>(List.of(

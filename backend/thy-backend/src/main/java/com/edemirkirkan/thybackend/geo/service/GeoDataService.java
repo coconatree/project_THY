@@ -8,8 +8,6 @@ import com.edemirkirkan.thybackend.geo.dto.RestGeoDataDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
-
 @Service
 @RequiredArgsConstructor
 public class GeoDataService {
