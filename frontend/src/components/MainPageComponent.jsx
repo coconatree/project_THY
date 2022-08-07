@@ -10,19 +10,19 @@ export default function ActivitiesGrid(props) {
 			headerName: "Activity name",
 			width: 900,
 			sortable: true,
-			editable: true,
+			editable: false,
 		},
 		{
 			field: "star",
 			headerName: "Rating",
 			width: 300,
-			editable: true,
+			editable: false,
 		},
 		{
 			field: "info",
 			headerName: "Info",
 			width: 300,
-			editable: true,
+			editable: false,
 			renderCell: (params) => (
 				<div>
 				  <CreateActivityDialog title={params.value.name} googleLink={params.value.googleLocLink} appleLink={params.value.appleLocLink} rating={params.value.rating} bookingLink={params.value.bookingLink} pictures={params.value.pictures}/>

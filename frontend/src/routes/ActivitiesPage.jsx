@@ -3,11 +3,11 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
-import CircularProgress from "@mui/material/CircularProgress";
+
 
 import "../static/style/main.css";
 import "../index.css";
@@ -292,7 +292,7 @@ export default function ActivitiesPage() {
         <ParallaxLayer
           offset={2}
           speed={2}
-          style={{ backgroundColor: "#c70a0c" }}
+          style={{ backgroundColor: "#2d4191" }}
         />
 
         <ParallaxLayer
@@ -334,7 +334,7 @@ export default function ActivitiesPage() {
         <ParallaxLayer
           offset={3}
           speed={2}
-          style={{ backgroundColor: "#c70a0c" }}
+          style={{ backgroundColor: "#2d4191" }}
         />
         <ParallaxLayer
           offset={3}
@@ -383,49 +383,50 @@ export default function ActivitiesPage() {
     </Box>
   );
 
-  let loadingContent = (
+  const loadingPage = (
     <Box
-      height="100vh"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "rgba(0,0,0,0.8)",
-      }}
-    >
-      <Grid
-        container
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Grid
-          item
-          ml={0}
-          mt={0}
-          p={3}
-          spacing={0}
-          style={{ textAlign: "center" }}
+          height="100vh"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0,0,0,0.8)",
+          }}
         >
           <Grid
             container
-            direction="column"
-            sx={{ p: { xs: 0, md: 0, lg: 6, xl: 12 } }}
+            sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
-            <Grid item>
-              <CircularProgress color="error" />
-              <Typography
-                variant="h4"
-                gutterBottom
-                component="div"
-                color="#fdfdfd"
-                sx={{ textShadow: "3px 3px 4px black" }}
+            <Grid
+              item
+              ml={0}
+              mt={0}
+              p={3}
+              spacing={0}
+              style={{ textAlign: "center" }}
+            >
+              <Grid
+                container
+                direction="column"
+                sx={{ p: { xs: 0, md: 0, lg: 6, xl: 12 } }}
               >
-                Boosting your journey...
-              </Typography>
+                <Grid item>
+                  <CircularProgress color="error" />
+                  <Typography
+                    variant="h4"
+                    gutterBottom
+                    component="div"
+                    color="#fdfdfd"
+                    sx={{ textShadow: "3px 3px 4px black" }}
+                  >
+                    Boosting your journey...
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-  return <>{isLoaded ? pageContent : loadingContent}</>;
+        </Box>
+  )
+
+  return <>{isLoaded ? pageContent : loadingPage}</>;
 }

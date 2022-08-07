@@ -10,6 +10,11 @@ import "./static/style/main.css";
 import "./index.css";
 
 function App() {
+
+	const images = {
+		background_image_01 = ""
+	}
+
 	return (
 		<div className='bacground_image bg-black h-full w-full'>
 			<div className='h-full w-full opacityBackground'>
