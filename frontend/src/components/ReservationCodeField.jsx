@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, Container, Grid } from "@mui/material";
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 
 import TextField from '@mui/material/TextField';
 
@@ -18,7 +18,7 @@ import useTicketStore from "../store/TicketStore"
 export default function ReservationCodeField(props) {
 
     const [formData, setFormData] = useState({
-        PNR: ""
+        PNR: "",
     });
     
     const setTicketInfo = useTicketStore((state => state.setTicketInfo))
@@ -62,7 +62,7 @@ export default function ReservationCodeField(props) {
     async function fetchCustomerInfo() {
         
         let response = await fetch(`http://localhost:8080/api/v1/customer/search/${formData.PNR}`)
-            .catch(e => alert("PNR number does not exists"))
+            .catch(e => alert("There are no reservations with the given reservation code please check that it is correct"))
 
         /** 
             Need to find a way to show that the given city is not in our service area
@@ -85,28 +85,28 @@ export default function ReservationCodeField(props) {
     function createReservationCodeForm() {
         return (
             <>
-                <div className = "flex flex-col justify-center w-full md:mt-20 lg:mt-5">
+                <div className = "flex flex-col justify-center w-full md:mt-2 lg:mt-5">
                         <div className = "flex flex-row justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
-                            <div className = "base-8/12 bg-white bg-opacity-80 m-2 w-full md:w-8/12 lg:w-8/12">
+                            <div className = "base-8/12 bg-white bg-opacity-80 m-2 w-8/12 sm:w-9/12 md:w-6/12 lg:w-4/12">
                                 <TextField 
-                                    className = "rounded-md"
+                                    className = "w-full h-full"
                                     name = "PNR" 
                                     id = "PNR" 
-                                    label = "PNR" 
+                                    label = "Reservation Code (PNR)" 
                                     variant = "filled"  
                                     color = "error" 
                                     type = "text" 
                                     onChange = {handleChange} 
                                     value = {formData.PNR}
-                                    style = {{paddingRight: '7px'}} 
                                 />
                             </div>
-                            <div className = "base-3/12 m-2 w-full">                    
-                                <button onClick={formHandler} className = "h-12 m-max rounded-md p-2 bg-red-600 w-full md:w-3/12 lg:w-3/12"  >
-                                    <span className = "font-sans text-xl text-extrabold text-white">
-                                        Boost
+                            <div className = "inline-block align-middle base-3/12 m-2 w-4/12 sm:w-3/12 md:w-3/12 lg:w-3/12">                    
+                                <button onClick={formHandler} className = "h-full m-max rounded-md p-2 bg-red-700 w-full md:w-full lg:w-9/12"  >
+                                    <RocketLaunchOutlinedIcon fontSize="large" className = "text-white inline-block align-middle"/>
+                                    <span className = "align-middle h-full font-sans text-xl font-bold text-white pr-3 pl-3">
+                                    Boost  
                                     </span> 
-                                    <RocketLaunchIcon className = "text-white"/>
+                     
                                 </button>
                             </div>
                         </div>

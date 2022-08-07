@@ -21,7 +21,7 @@ const ResponsiveAppBar = () => {
   <AppBar sx={{ bgcolor: "#232B38", margin:"0px"}}>
   <Container maxWidth="xl">
     <Toolbar disableGutters>
-      <THYLogo />
+      <THYLogo/>
       <Typography
         variant="h6"
         noWrap
@@ -32,12 +32,11 @@ const ResponsiveAppBar = () => {
           display: { xs: 'none', md: 'flex' },
           fontFamily: 'monospace',
           fontWeight: 700,
-          letterSpacing: '.3rem',
           color: 'inherit',
           textDecoration: 'none',
         }}
       >
-        | Trip Booster
+        &nbsp; | &nbsp; Trip Booster
       </Typography>
     
       <Typography
@@ -51,12 +50,11 @@ const ResponsiveAppBar = () => {
           flexGrow: 1,
           fontFamily: 'monospace',
           fontWeight: 700,
-          letterSpacing: '.1rem',
           color: 'inherit',
           textDecoration: 'none',
         }}
       >
-        |Trip Booster
+        &nbsp; | &nbsp; Trip Booster
       </Typography>
 
       

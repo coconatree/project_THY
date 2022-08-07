@@ -48,7 +48,7 @@ export default function ActivitiesPage() {
     const [isLoaded, setIsLoaded] = useState(false)
     useEffect(() => {
       if (!isLogged) {
-        alert("You need to login !!!")
+        alert("Session expired. Please enter your reservation code again.")
         navigate("/");
       }
       else {
@@ -65,14 +65,14 @@ export default function ActivitiesPage() {
       longitude: "",
     })
 
-    const [weatherData, setWeatherData] = useState({
+    const [weatherData, setWeatherData] = useState( [ {
       mainDescription: "",
 		  description: "",
 		  iconLink: "",
 		  temperature: "",
 		  feelsLikeTemperature: "",
-		  dayAndHour: "",
-    })
+		  dayAndHour: ""
+    } ] )
 
     const [activityData, setActivityData] = useState([]);
 
@@ -160,9 +160,10 @@ export default function ActivitiesPage() {
             style={{ textAlign: "left" }}
           >
             <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
-            <CreateProfileDialog/>
-              <Grid item>
-                <Typography
+            <div style={{ padding: 2}}>
+              <Grid container spacing={2}>
+              <Grid item xs={6} md={8}>
+              <Typography
                   variant="h2"
                   gutterBottom
                   component="div"
@@ -171,14 +172,17 @@ export default function ActivitiesPage() {
                 >
                   Welcome to {geoData.name} 
                 </Typography>
-
               </Grid>
-              <Grid item>
-            
+              <Grid item xs={6} md={4}>
+                <CreateProfileDialog/>
+              </Grid>
+              </Grid>
+              </div>
+              <div style={{ padding: 2}}>      
+              <Grid>
                 <WeatherCard geo={geoData} weather={weatherData} />
-                
-              </Grid>
-              
+              </Grid> 
+              </div>
             </Grid>
           </Grid>
           <Grid 
@@ -189,7 +193,7 @@ export default function ActivitiesPage() {
                   alignItems: "flex-end",
                   
                 }}
-                mt={14}
+                mt={8}
               >
                 <ArrowDownwardOutlinedIcon
                   className="svgIcons" 

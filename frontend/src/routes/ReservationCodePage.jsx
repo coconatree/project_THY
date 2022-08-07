@@ -21,7 +21,7 @@ export default function ReservationCodePage() {
             <div className = "flex flex-col w-full mt-1 p-2 lg:p-5 ">
                 <div className = "flex justify-start sm:w-full p-2">
                     <h5 className = "italic text-white font-sans text-l text-bold">
-                    <span className = "underline decoration-red-600 decoration-4">
+                    <span className = "decoration-red-600 decoration-4">
                         Widen Your World
                         </span>
                     </h5>
@@ -30,7 +30,7 @@ export default function ReservationCodePage() {
                     <h1 className = "text-2xl font-sans md:text-5xl font-bold leading-normal md:leading-snug rounded-md text-white drop-shadow-lg shadow-black">
                         Fill your journey with unforgettable experiences with 
                         <br></br>
-                        <span className = "underline decoration-red-600 decoration-4">
+                        <span className = "underline decoration-red-700 decoration-4" style={{textUnderlineOffset: 11}}>
                             Turkish Airlines Trip Booster
                         </span>
                     </h1>
