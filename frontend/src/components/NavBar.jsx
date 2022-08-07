@@ -12,8 +12,6 @@ import { ReactComponent as THYLogo } from '../static/vector/THYLogo.svg';
 
 import "../index.css"
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
 

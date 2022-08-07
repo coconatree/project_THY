@@ -14,16 +14,15 @@ label {
 }
 
 .bacground_image {
-   
-    background: url("../images/reservation_page_background.jpg");
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-width:100%;
-    min-height: 100%;
-    background-size: cover;
-    background-position: center;
+  background:  url("../images/reservation_page_background.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width:100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
 }
 
 .full-size {

@@ -1,7 +1,10 @@
 import { useState } from "react";
-import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import React from 'react';
-import TextField from "@mui/material/TextField";
+
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+
+import TextField from '@mui/material/TextField';
+
 import "../index.css";
 
 import { useNavigate } from "react-router-dom";
@@ -16,7 +19,7 @@ import useTicketStore from "../store/TicketStore";
 export default function ReservationCodeField(props) {
 
     const [formData, setFormData] = useState({
-        PNR: "",
+        PNR: ""
     });
     
     const setTicketInfo = useTicketStore((state => state.setTicketInfo))
@@ -60,7 +63,7 @@ export default function ReservationCodeField(props) {
     async function fetchCustomerInfo() {
         
         let response = await fetch(`http://localhost:8080/api/v1/customer/search/${formData.PNR}`)
-            .catch(e => alert("There are no reservations with the given reservation code please check that it is correct"))
+            .catch(e => alert("PNR number does not exists"))
 
         /** 
             Need to find a way to show that the given city is not in our service area
@@ -87,7 +90,7 @@ export default function ReservationCodeField(props) {
                         <div className = "flex flex-row justify-between ml-0 lg:mt-0 md:justify-start w-full m-5">
                             <div className = "base-8/12 bg-white bg-opacity-80 m-2 w-8/12 sm:w-9/12 md:w-6/12 lg:w-4/12">
                                 <TextField 
-                                    className = "w-full h-full"
+                                    className = "rounded-xl"
                                     name = "PNR" 
                                     id = "PNR" 
                                     label = "Reservation Code (PNR)" 
@@ -96,6 +99,7 @@ export default function ReservationCodeField(props) {
                                     type = "text" 
                                     onChange = {handleChange} 
                                     value = {formData.PNR}
+                                    style = {{width: '100%', height: '100%', borderRadius: '20px'}} 
                                 />
                             </div>
                             <div className = "inline-block align-middle base-3/12 m-2 w-4/12 sm:w-3/12 md:w-3/12 lg:w-3/12">                    
@@ -107,6 +111,7 @@ export default function ReservationCodeField(props) {
                      
                                 </button>
                             </div>
+                            
                         </div>
                     </div>
             </>     

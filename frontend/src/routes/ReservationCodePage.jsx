@@ -7,7 +7,7 @@ import React from 'react';
 import ReservationCodeField from "../components/ReservationCodeField";
 
 import "../index.css"
-
+import '../static/style/main.css'
 import '../static/style/reservationPage.css'
 
 export default function ReservationCodePage() {

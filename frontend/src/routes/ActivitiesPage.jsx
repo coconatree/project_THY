@@ -10,6 +10,7 @@ import MainPage from "../components/MainPageComponent";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import "../static/style/main.css";
+import "../static/style/reservationPage.css";
 import "../index.css";
 import CreateProfileDialog from "../components/ProfileComponent";
 
@@ -201,10 +202,12 @@ export default function ActivitiesPage() {
 
     setIsLoaded((prev) => !prev);
 
+    
     return result;
   }
 
   let pageContent = (
+
     <Box>
       <Parallax pages={4} style={{ top: "0", left: "0" }}>
         <ParallaxLayer
@@ -216,11 +219,10 @@ export default function ActivitiesPage() {
             alignItems: "center",
           }}
         >
-          <Grid container direction="column">
+          <Grid container direction="column" mt={0}>
             <Grid
               item
               ml={0}
-              mt={4}
               p={3}
               spacing={0}
               style={{ textAlign: "left" }}
@@ -228,23 +230,18 @@ export default function ActivitiesPage() {
               <Grid
                 container
                 direction="column"
-                sx={{ p: { xs: 0, md: 0, lg: 6, xl: 12 } }}
+                sx={{ p: { xs: 0, md: 0, lg: 3, xl: 9 } }}
               >
                 <div style={{ padding: 2 }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6} md={8}>
-                      <Typography variant="h2" gutterBottom component="div">
-                        Welcome to {geoData.name}
+                  <Grid container spacing={2} alignItems="center" >
+                    <Grid item xs={6} md={8} alignItems="center">
+                      <Typography sx={{ fontFamily: 'monospace', fontWeight: 700}} className="inline-block align-middle text-neutral-200" variant="h2" gutterBottom component="div">
+                        Welcome {ticketData.isReturnFlight && 'back'} to {geoData.name}
                       </Typography>
                     </Grid>
                     <Grid item xs={6} md={4}>
                       <CreateProfileDialog t={ticketData} />
                     </Grid>
-                  </Grid>
-                </div>
-                <div style={{ padding: 2 }}>
-                  <Grid>
-                    <WeatherCard geo={geoData} weather={weatherData} />
                   </Grid>
                 </div>
               </Grid>
@@ -256,6 +253,11 @@ export default function ActivitiesPage() {
 				justifyContent="center"
 				mt={8}
 				>
+              <div style={{ padding: 2}} className="mb-24">
+                  <Grid>
+                    <WeatherCard geo={geoData} weather={weatherData} />
+                  </Grid>
+                </div>
 					<ArrowDownwardOutlinedIcon
 					className="svgIcons"
 					style={{ color: "#fdfdfd" }}

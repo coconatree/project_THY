@@ -4,16 +4,16 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import Typography from "@mui/material/Typography";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import Draggable from "react-draggable";
 import Grid from "@mui/material/Grid";
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { ThemeProvider, createTheme } from "@mui/material";
 
 const whiteTheme = createTheme({ palette: { primary: { main: "#fdfdfd" } } });
-const redTheme = createTheme({ palette: { primary: { main: "#c70a0c" } } });
 
 function PaperComponent(props) {
 	return (
@@ -27,6 +27,15 @@ function PaperComponent(props) {
 }
 
 export default function CreateProfileDialog(props) {
+	function toTitleCase(str) {
+		return str.replace(
+		  /\w\S*/g,
+		  function(txt) {
+			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		  }
+		);
+	  }
+
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -43,10 +52,15 @@ export default function CreateProfileDialog(props) {
 				container
 				justifyContent='flex-end'
 				style={{ textAlign: "right" }}
-				sx={{ mt: { xs: 0, md: 0 }, p: { xs: 0, md: 0 } }}
-			>
-				<IconButton variant='outlined' onClick={handleClickOpen}>
-					<AccountCircleIcon sx={{ fontSize: 60 }} />
+				sx={{ mt: { xs: 0, md: 0 }, p: { xs: 0, md: 0 }}}
+				alignItems="center">
+				
+				<IconButton sx={{display: 'flex',  flexDirection:'column'}} className="inline-block align-middle"  variant='outlined' onClick={handleClickOpen}>
+				<PersonOutlineOutlinedIcon className="text-neutral-200" sx={{ flex: 9, fontSize: 50 }} />
+				<Typography sx={{flex: 1, fontFamily: 'monospace',fontWeight: 500}} className="inline-block align-middle text-neutral-200" variant="h4" gutterBottom component="div">
+					  {props.t.firstName} {toTitleCase(props.t.lastName)}
+                    </Typography>
+				
 				</IconButton>
 			</Grid>
 			<Dialog
@@ -61,7 +75,7 @@ export default function CreateProfileDialog(props) {
 				<DialogContent>
 					<DialogContentText>
 						PNR: {props.t.pnr} <br />
-						Name: {props.t.namePrefix} {props.t.firstname} {props.t.lastname}{" "}
+						Name: {props.t.namePrefix} {props.t.firstName} {props.t.lastName}{" "}
 						<br />
 						Route: From {props.t.departureCityName},{" "}
 						{props.t.departureCountryCode} to {props.t.arrivalCityName},{" "}

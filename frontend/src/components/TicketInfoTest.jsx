@@ -4,14 +4,14 @@ export default function TicketInfoTest() {
     
     const { 
         pnr, 
-        firstname, 
-        lastname,
+        firstName, 
+        lastName,
         arrivalCityName,
     } = useTicketStore(
         (state) => ({ 
             pnr: state.pnr,
-            firstname: state.firstname,
-            lastname: state.lastname,
+            firstName: state.firstName,
+            lastName: state.lastName,
             departureCityName: state.departureCityName,
             arrivalCityName: state.arrivalCityName,
             arrivalCityLatitude: state.arrivalCityLatitude,
@@ -28,9 +28,9 @@ export default function TicketInfoTest() {
                 <br></br>
                 {pnr}
                 <br></br>
-                {firstname}
+                {firstName}
                 <br></br>
-                {lastname}
+                {lastName}
                 <br></br>
                 {arrivalCityName}
             </p>
