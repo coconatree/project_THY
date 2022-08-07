@@ -1,20 +1,16 @@
+import { useState } from "react";
 
-import {useState} from "react";
+import Grid from "@mui/material/Grid";
 
-import Grid from '@mui/material/Grid';
-
-import * as React from 'react';
+import * as React from "react";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
+import CircularProgress from "@mui/material/CircularProgress";
 
-
-import TicketInfoTest from "../components/TicketInfoTest"
-
-import "../static/style/main.css"
-import "../index.css"
-
+import "../static/style/main.css";
+import "../index.css";
 import CreateProfileDialog from "../components/ProfileComponent";
 
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
@@ -30,317 +26,401 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ActivitiesPage() {
+	const {
+		pnr,
+		isReturnFlight,
+		flightNumber,
+		ticketNumber,
+		boardingPassQrCode,
+		seatNumber,
+		arrivalDate,
+		arrivalTime,
+		arrivalCityName,
+		arrivalCountryCode,
+		departureDate,
+		boardingTime,
+		departureTime,
+		departureCityName,
+		departureCountryCode,
+		checkInInfo,
+		namePrefix,
+		firstname,
+		lastname,
+		isLogged,
+	} = useTicketStore((state) => ({
+		pnr: state.pnr,
+		isReturnFlight: state.isReturnFlight,
+		flightNumber: state.flightNumber,
+		ticketNumber: state.ticketNumber,
+		boardingPassQrCode: state.boardingPassQrCode,
+		seatNumber: state.seatNumber,
+		arrivalDate: state.arrivalDate,
+		arrivalTime: state.arrivalTime,
+		arrivalCityName: state.arrivalCityName,
+		arrivalCountryCode: state.arrivalCountryCode,
+		departureDate: state.departureDate,
+		boardingTime: state.boardingTime,
+		departureTime: state.departureTime,
+		departureCityName: state.departureCityName,
+		departureCountryCode: state.departureCountryCode,
+		checkInInfo: state.checkInInfo,
+		namePrefix: state.namePrefix,
+		firstname: state.firstname,
+		lastname: state.lastname,
+		isLogged: state.isLogged,
+	}));
 
-    const {arrivalCityName, isLogged} = useTicketStore((state) => ({
-      arrivalCityName: state.arrivalCityName,
-      isLogged: state.isLogged
-    }));
+	const navigate = useNavigate();
+	const [isLoaded, setIsLoaded] = useState(false);
+	useEffect(() => {
+		if (!isLogged) {
+			alert("You need to login !!!");
+			navigate("/");
+		} else {
+			fetchAndSetData();
+		}
+	}, []);
 
-    const [open, setOpen] = React.useState(false);
+	const ticketData = {
+		pnr,
+		isReturnFlight,
+		flightNumber,
+		ticketNumber,
+		boardingPassQrCode,
+		seatNumber,
+		arrivalDate,
+		arrivalTime,
+		arrivalCityName,
+		arrivalCountryCode,
+		departureDate,
+		boardingTime,
+		departureTime,
+		departureCityName,
+		departureCountryCode,
+		checkInInfo,
+		namePrefix,
+		firstname,
+		lastname,
+		isLogged,
+	};
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+	const [geoData, setGeoData] = useState({
+		name: "",
+		country: "",
+		latitude: "",
+		longitude: "",
+	});
 
-    const handleClose = () => {
-      setOpen(false);
-    };
+	const [weatherData, setWeatherData] = useState({
+		mainDescription: "",
+		description: "",
+		iconLink: "",
+		temperature: "",
+		feelsLikeTemperature: "",
+		dayAndHour: "",
+	});
 
-    const navigate = useNavigate();
+	const [activityData, setActivityData] = useState([]);
+	const [placeData, setPlaceData] = useState([]);
 
-    useEffect(() => {
-      if (!isLogged) {
-        alert("You need to login !!!")
-        navigate("/");
-      }
-      else {
-        fetchAndSetData()
-      }
-    }, [])
+	const fetchAndSetData = async () => {
+		let result = await fetchAllInfo();
+		if (result && result.geoData && result.weatherData && result.activityData) {
+			setGeoData({ ...result.geoData });
+			setWeatherData({ ...result.weatherData });
+			setActivityData(result.activityData);
+			setPlaceData(result.placeData);
+		}
+	};
 
-    
-    const [geoData, setGeoData] = useState({
-      name: "",
-      country: "",
-      latitude: "",
-      longitude: "",
-    })
+	async function fetchAllInfo() {
+		let response = await fetch(
+			"http://localhost:8080/api/v1/geodata/" + arrivalCityName
+		).catch((e) => alert("City is not valid"));
 
-    const [weatherData, setWeatherData] = useState({
-      mainDescription: "",
-		  description: "",
-		  iconLink: "",
-		  temperature: "",
-		  feelsLikeTemperature: "",
-		  dayAndHour: "",
-    })
+		if (!response.ok) {
+			alert("There is no city with given name");
+			return;
+		}
 
-    const [activityData, setActivityData] = useState([]);
+		let json = await response.json();
 
-    const fetchAndSetData = async () => {
+		let result = { geoData: json };
 
-    let result = await fetchAllInfo()
-      if(result && result.geoData && result.weatherData && result.activityData) {
-          setGeoData( {...result.geoData})
-          setWeatherData({...result.weatherData})
-          setActivityData(result.activityData)
-      }
-    };
+		response = await fetch(
+			`http://localhost:8080/api/v1/weather/${result.geoData.latitude}/${result.geoData.longitude}`
+		).catch((e) => alert("Latitude or Longitude is not valid"));
 
-    async function fetchAllInfo() {
-        
-    let response = await fetch("http://localhost:8080/api/v1/geodata/" + arrivalCityName)
-    .catch(e => alert("City is not valid"))
+		if (!response.ok) {
+			alert("Latitude or Longitude is not valid");
+			return;
+		}
 
-    console.log(response)
-      
-    if (!response.ok) {
-        alert("There is no city with given name")
-        return
-    }
+		json = await response.json();
 
-    let json = await response.json()
+		result = {
+			...result,
+			weatherData: json,
+		};
 
-    let result = {geoData:json};
+		response = await fetch(
+			`http://localhost:8080/api/v1/activities/${result.geoData.latitude}/${result.geoData.longitude}`
+		).catch((e) => alert("Activities error"));
 
-    response = await fetch(`http://localhost:8080/api/v1/weather/${result.geoData.latitude}/${result.geoData.longitude}`)
-        .catch(e => alert("Latitude or Longitude is not valid"))
+		if (!response.ok) {
+			alert("Activities error");
+			return;
+		}
 
-    if (!response.ok) {
-        alert("Latitude or Longitude is not valid")
-        return
-    }
+		json = await response.json();
 
-    json = await response.json()
+		console.log(json);
+		result = {
+			...result,
+			activityData: json,
+		};
 
-    result = {
-      ...result, weatherData:json
-    }
+		response = await fetch(
+			`http://localhost:8080/api/v1/places/${result.geoData.latitude}/${result.geoData.longitude}`
+		).catch((e) => alert("Places error"));
 
-    console.log(result.geoData)
+		if (!response.ok) {
+			alert("Places error");
+			return;
+		}
 
-    response = await fetch(`http://localhost:8080/api/v1/activities/${result.geoData.latitude}/${result.geoData.longitude}`)
-        .catch(e => alert("Activities error"))
+		json = await response.json();
 
-    
-    if (!response.ok) {
-        alert("Activities error")
-        return
-    }
+		console.log(json);
+		result = {
+			...result,
+			placeData: json,
+		};
 
-    json = await response.json()
+		setIsLoaded((prev) => !prev);
 
-    console.log(json)    
-    result = {
-      ...result, activityData:json
-    }
+		return result;
+	}
 
-    setIsLoaded(true)
+	let pageContent = (
+		<Box>
+			<Parallax pages={4} style={{ top: "0", left: "0" }}>
+				<ParallaxLayer
+					offset={0}
+					speed={2.5}
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<Grid container direction='column'>
+						<Grid
+							item
+							ml={0}
+							mt={4}
+							p={3}
+							spacing={0}
+							style={{ textAlign: "left" }}
+						>
+							<Grid
+								container
+								direction='column'
+								sx={{ p: { xs: 0, md: 0, lg: 6, xl: 12 }, mb: 10 }}
+							>
+								<CreateProfileDialog t={ticketData} />
+								<Grid item>
+									<Typography
+										variant='h2'
+										gutterBottom
+										component='div'
+										color='#fdfdfd'
+										sx={{ textShadow: "3px 3px 4px black" }}
+									>
+										Welcome to {geoData.name}
+									</Typography>
+								</Grid>
+								<Grid item>
+									<WeatherCard geo={geoData} weather={weatherData} />
+								</Grid>
+							</Grid>
+						</Grid>
+						<Grid
+							item
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "flex-end",
+							}}
+							mt={14}
+						>
+							<ArrowDownwardOutlinedIcon
+								className='svgIcons'
+								style={{ color: "#fdfdfd" }}
+							/>
+						</Grid>
+					</Grid>
+				</ParallaxLayer>
 
-    return result
-  }
+				<ParallaxLayer
+					offset={1}
+					speed={0.1}
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						color: "white",
+					}}
+				>
+					<Typography
+						variant='h2'
+						gutterBottom
+						component='div'
+						color='#fdfdfd'
+						sx={{ textShadow: "3px 3px 4px black" }}
+					>
+						Take that step, <br />
+						widen your world.
+					</Typography>
+				</ParallaxLayer>
 
-  const [isLoaded, setIsLoaded] = useState(false)
+				<ParallaxLayer
+					offset={2}
+					speed={2}
+					style={{ backgroundColor: "#c70a0c" }}
+				/>
 
-  function createLoading() {
-    return (
-      <div className = "w-full h-full flex justify-center">
-        <h1 className = "text-white text-4xl">
-          LOADING ....
-        </h1>
-      </div>
-    )
-  }
+				<ParallaxLayer
+					offset={2}
+					speed={0.5}
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						color: "white",
+					}}
+				>
+					<Grid container direction='column' mt={5} p={7}>
+						<Typography
+							variant='h2'
+							color='#fdfdfd'
+							sx={{ textShadow: "0px 2px 4px black" }}
+							className='underline decoration-black decoration-4'
+						>
+							Activities
+						</Typography>
+						<Grid
+							item
+							xs={7}
+							mt={5}
+							p={4}
+							spacing={2}
+							justifyContent='center'
+							alignItems='center'
+							boxShadow='3'
+							backgroundColor={alpha("#E5E4E2", 0.9)}
+							borderRadius='6px'
+							style={{ textAlign: "center", width: "100%" }}
+						>
+							<MainPage activities={activityData} />
+						</Grid>
+					</Grid>
+				</ParallaxLayer>
+				<ParallaxLayer
+					offset={3}
+					speed={2}
+					style={{ backgroundColor: "#c70a0c" }}
+				/>
+				<ParallaxLayer
+					offset={3}
+					speed={1}
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						color: "white",
+						width: "100%",
+					}}
+				>
+					<Grid container direction='column' mt={10}>
+						<Typography
+							ml={4}
+							variant='h2'
+							color='#fdfdfd'
+							sx={{ textShadow: "0px 2px 4px black" }}
+							className='underline decoration-black decoration-4'
+						>
+							Places
+						</Typography>
+						<Grid item p={3} sx={{ width: "100%" }}>
+							<Grid
+								container
+								p={4}
+								borderRadius='6px'
+								boxShadow='3'
+								backgroundColor={alpha("#E5E4E2", 0.95)}
+								style={{
+									textAlign: "left",
+									display: "flex",
+									mX: "auto",
+									width: "100%",
+								}}
+							>
+								<CategoriesImaged titleName='Food' places={placeData} />
+								<CategoriesImaged titleName='Sights' places={placeData} />
+								<CategoriesImaged titleName='Shopping' places={placeData} />
+								<CategoriesImaged titleName='Nightlife' places={placeData} />
+							</Grid>
+						</Grid>
+					</Grid>
+				</ParallaxLayer>
+			</Parallax>
+		</Box>
+	);
 
-    function createPage() {
-      return (
-      <Box>
-        <Parallax pages={4} style={{ top: "0", left: "0" }}>
-          <ParallaxLayer
-            offset={0}
-            speed={2.5}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Grid container direction="column">
-              <Grid p={3} sx={{ width: "100%" }}>
-              <CreateProfileDialog/>
-              </Grid>
-              <Grid
-                item
-                ml={0}
-                mt={4}
-                p={3}
-                spacing={0}
-                style={{ textAlign: "left" }}
-              >
-                <Grid container direction="column" sx={{p:{xs:0, md:0, lg:6, xl:12}}} >
-                  <Grid item>
-                    <Typography
-                      variant="h2"
-                      gutterBottom
-                      component="div"
-                      color="#fdfdfd"
-                      sx={{ textShadow: "3px 3px 4px black" }}
-                    >
-                      Welcome to {geoData.name}
-                      <TicketInfoTest/>
-                    </Typography>
-
-                  </Grid>
-                  <Grid item>
-                    <WeatherCard geo={geoData} weather={weatherData} />
-                    
-                  </Grid>
-                  
-                </Grid>
-              </Grid>
-              <Grid 
-                    item
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "flex-end",
-                      
-                    }}
-                    mt={14}
-                  >
-                    <ArrowDownwardOutlinedIcon
-                      className="svgIcons" 
-                      style={{ color: "#fdfdfd" }}
-                      
-                    />
-                  </Grid>
-            </Grid>
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={1}
-            speed={0.1}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-            }}
-          >
-            <Typography
-              variant="h2"
-              gutterBottom
-              component="div"
-              color="#fdfdfd"
-              sx={{ textShadow: "3px 3px 4px black" }}
-            >
-              Widen your world.
-            </Typography>
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={2}
-            speed={2}
-            style={{ backgroundColor: "#c70a0c" }}
-          />
-
-          <ParallaxLayer
-            offset={2}
-            speed={0.5}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-            }}
-          >
-            <Grid container direction="column" mt={5} p={7}>
-              <Typography
-                variant="h2"
-                color="#fdfdfd"
-                sx={{ textShadow: "0px 2px 4px black" }} className = "underline decoration-black decoration-4"
-              >
-                Activities
-              </Typography>
-              <Grid
-                item
-                xs={7}
-                mt={5}
-                p={4}
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-                boxShadow="3"
-                backgroundColor={alpha("#E5E4E2", 0.9)}
-                borderRadius="6px"
-                style={{ textAlign: "center", width: "100%" }}
-              >
-                <MainPage activities={activityData} />
-              </Grid>
-            </Grid>
-          </ParallaxLayer>
-          <ParallaxLayer
-            offset={3}
-            speed={2}
-            style={{ backgroundColor: "#c70a0c" }}
-          />
-          <ParallaxLayer
-            offset={3}
-            speed={1}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              width:"100%"
-            }}
-          >
-            <Grid container direction="column" mt={10}>
-              <Typography ml={4}  
-                variant="h2"
-                color="#fdfdfd"
-                sx={{ textShadow: "0px 2px 4px black" }} className = "underline decoration-black decoration-4"
-              >
-                Places
-              </Typography>
-              <Grid item p={3} sx={{ width: "100%" }}>
-                <Grid
-                  container
-                  p={4}
-                  borderRadius="6px"
-                  boxShadow="3"
-                  backgroundColor={alpha("#E5E4E2", 0.95)}
-                  style={{
-                    textAlign: "left",
-                    display: "flex",
-                    mX: "auto",
-                    width: "100%",
-                  }}
-                >
-                  <CategoriesImaged titleName="Food" />
-                  <CategoriesImaged titleName="Sights" />
-                  <CategoriesImaged titleName="Shopping" />
-                  <CategoriesImaged titleName="Nightlife" />
-                </Grid>
-              </Grid>
-            </Grid>
-          </ParallaxLayer>
-        </Parallax>
-      </Box>
-      )
-    }
-
-    function render() {
-      if(!isLoaded) {
-        return createLoading()
-      } else {
-        return createPage()
-      }
-    }
-
-  return (
-      <>
-        {render()}
-      </>
-  );
+	let loadingContent = (
+		<Box
+			height='100vh'
+			sx={{
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
+				backgroundColor: "rgba(0,0,0,0.8)",
+			}}
+		>
+			<Grid
+				container
+				sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+			>
+				<Grid
+					item
+					ml={0}
+					mt={0}
+					p={3}
+					spacing={0}
+					style={{ textAlign: "center" }}
+				>
+					<Grid
+						container
+						direction='column'
+						sx={{ p: { xs: 0, md: 0, lg: 6, xl: 12 } }}
+					>
+						<Grid item>
+							<CircularProgress color='error' />
+							<Typography
+								variant='h4'
+								gutterBottom
+								component='div'
+								color='#fdfdfd'
+								sx={{ textShadow: "3px 3px 4px black" }}
+							>
+								Boosting your journey...
+							</Typography>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Box>
+	);
+	return <>{isLoaded ? pageContent : loadingContent}</>;
 }
