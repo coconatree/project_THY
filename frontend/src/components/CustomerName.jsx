@@ -6,10 +6,10 @@ import useCustomerStore from "../store/CustomerStore"
 
 export default function CustomerName() {
 
-    const {firstname, lastname} = useCustomerStore((state) => (
+    const {firstName, lastName} = useCustomerStore((state) => (
         {
-            firstname: state.firstname,
-            lastname:  state.lastname
+            firstName: state.firstName,
+            lastName:  state.lastName
         }
     ))
 

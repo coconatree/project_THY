@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Box, Button, Container, Grid } from "@mui/material";
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+import React from 'react';
 import TextField from "@mui/material/TextField";
 import "../index.css";
 
@@ -46,8 +46,8 @@ export default function ReservationCodeField(props) {
 		    json.departureCountryCode,
 		    json.checkInInfo,
 		    json.namePrefix,
-		    json.firstname,
-		    json.lastname,
+		    json.firstName,
+		    json.lastName,
             true
         )
         navigate("/activities")

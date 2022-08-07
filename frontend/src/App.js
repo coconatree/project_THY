@@ -4,6 +4,7 @@ import ActivitiesPage from "./routes/ActivitiesPage";
 
 import Navbar from "./components/NavBar";
 
+import React from 'react';
 import "./static/style/main.css";
 
 import "./index.css";

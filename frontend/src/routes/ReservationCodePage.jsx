@@ -1,9 +1,8 @@
 
-import {Container, createTheme, Typography} from '@mui/material';
-import { Box } from '@mui/material';
-import { responsiveFontSizes,  ThemeProvider } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import { alpha } from "@mui/material/styles";
+import {createTheme} from '@mui/material';
+import { responsiveFontSizes } from '@mui/material/styles';
+import React from 'react';
+
 
 import ReservationCodeField from "../components/ReservationCodeField";
 

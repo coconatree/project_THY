@@ -18,8 +18,8 @@ const useTicketStore = create((set) => ({
 	departureCountryCode: "",
 	checkInInfo: "",
 	namePrefix: "",
-	firstname: "",
-	lastname: "",
+	firstName: "",
+	lastName: "",
 	isLogged: false,
 
 	setTicketInfo: (
@@ -62,8 +62,8 @@ const useTicketStore = create((set) => ({
 			departureCountryCode: departureCountryCode,
 			checkInInfo: checkInInfo,
 			namePrefix: namePrefix,
-			firstname: firstName,
-			lastname: lastName,
+			firstName: firstName,
+			lastName: lastName,
 			isLogged: isLogged,
 		})),
 }));
