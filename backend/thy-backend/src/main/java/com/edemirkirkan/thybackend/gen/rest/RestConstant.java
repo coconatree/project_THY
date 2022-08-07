@@ -1,8 +1,8 @@
 package com.edemirkirkan.thybackend.gen.rest;
 
 public class RestConstant {
-    public static final String CLIENT_ID = "5z0ij0EbetfkeI9bwpqsIUGMWIA9K0nG";
-    public static final String CLIENT_SECRET = "AHJs7ASZZ2Gbk5E2";
+    public static final String CLIENT_ID = "WAeLSLDQWW1Gfdt94ktPMdTitsGbBQkR";
+    public static final String CLIENT_SECRET = "WHXG85TA5nBHNlgO";
     public static final String GRANT_TYPE = "client_credentials";
     public static final String SCHEME = "https";
     public static final String AMADEUS_HOST = "test.api.amadeus.com/v1";
