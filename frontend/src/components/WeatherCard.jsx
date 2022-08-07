@@ -1,72 +1,146 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
+import { styled } from "@mui/material/styles";
+
+
+
 
 export default function WeatherCard(props) {
-	return (
-		<Box display='flex' justifyContent='space-between'>
-			<Card
-				sx={{
-					width: "30%",
-					minHeight: "220px",
-					minWidth: "250px",
-					backgroundColor: "#DADADA",
-				}}
-			>
-				<CardContent display='flex'>
-					<Box component='div'>
-						<Box component='div' display='flex' justifyContent='space-between'>
-							<Box component='div'>
-								<Typography
-									sx={{ fontSize: 14 }}
-									color='text.secondary'
-									gutterBottom
-								>
-									Weather in {props.geo.name}, {props.geo.country}.
-								</Typography>
-								<Typography variant='h3' component='div'>
-									{props.weather.temperature} &deg;C
-								</Typography>
-								<Typography sx={{ mb: 1.5 }} color='text.secondary'>
-									{props.weather.mainDescription}
-								</Typography>
-							</Box>
-							<Box
-								component='img'
-								sx={{
-									maxHeight: { xs: 100, md: 100 },
-									maxWidth: { xs: 100, md: 100 },
-								}}
-								alt='Weather Logo'
-								src={props.weather.iconLink}
-							/>
-						</Box>
-						<Typography variant='body2'>
-							{props.weather.description}
-							<br />
-							Feels like: {props.weather.feelsLikeTemperature} &deg;C
-							<br />
-							Day-Hour: {props.weather.dayAndHour}
-						</Typography>
-					</Box>
-				</CardContent>
-			</Card>
-			<Typography
-				maxWidth='30%'
-				variant='h4'
-				component='div'
-				color='#fdfdfd'
-				sx={{ textShadow: "3px 3px 4px black" }}
-				align='right'
-			>
-				“The journey of a thousand miles begins with one step.”
-				<br />
-				<Typography>― Lao Tzu</Typography>
-			</Typography>
-		</Box>
-	);
+  const CardContentLessPadding = styled(CardContent)(`padding: 1;`);
+
+  return (
+    <Grid container spacing={15}>
+  <Grid item md={3}>
+  <Card sx={{ width: '10%', minHeight:'220px', minWidth:"250px", alignItems:'center', borderRadius: "20px",
+    overflow: "hidden"}} >
+    <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+      <CardContentLessPadding>
+        <Typography sx={{ textAlign:'center', fontSize: 17 }} color="text.primary" gutterBottom>
+          Weather in {props.geo.name}, {props.geo.country}.
+        </Typography>
+        <Typography sx={{textAlign:'center'}} variant="h4" component="div">
+          {props.weather[0].temperature} &deg;C
+        </Typography>
+        <Box sx={{display: 'flex'}} alignItems="center">
+        <Typography sx={{ textAlign:'center', fontSize: 20, mb: 0, mp: 0, flex: 3}} color="text.secondary">
+          {props.weather[0].description}
+        </Typography>
+        <CardMedia component="img" sx={{ width: 2, flex: 2}} image={props.weather[0].iconLink} alt="Weather in {props.geo.name}, {props.geo.country} "
+        />
+        </Box>
+        <Typography sx={{ textAlign:'center', fontSize: 16 }} color="text.secondary" gutterBottom>
+          {props.weather[0].dayAndHour}
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} color="text.secondary" gutterBottom>
+          Feels Like: {props.weather[0].feelsLikeTemperature} &deg;C
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
+          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        </Typography>
+      </CardContentLessPadding>
+    </Box>
+  </Card>
+  </Grid>
+  <Grid item md={3}>
+  <Card sx={{ width: '10%', minHeight:'220px', minWidth:"250px", alignItems:'center', borderRadius: "20px",
+    overflow: "hidden"}} >
+    <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+      <CardContentLessPadding>
+        <Typography sx={{ textAlign:'center', fontSize: 17 }} color="text.primary" gutterBottom>
+          Weather in {props.geo.name}, {props.geo.country}.
+        </Typography>
+        <Typography sx={{textAlign:'center'}} variant="h4" component="div">
+          {props.weather[1].temperature} &deg;C
+        </Typography>
+        <Box sx={{display: 'flex'}} alignItems="center">
+        <Typography sx={{ textAlign:'center', fontSize: 20, mb: 0, mp: 0, flex: 3}} color="text.secondary">
+          {props.weather[1].description}
+        </Typography>
+        <CardMedia component="img" sx={{ width: 2, flex: 2}} image={props.weather[1].iconLink} alt="Weather in {props.geo.name}, {props.geo.country} "
+        />
+        </Box>
+        <Typography sx={{ textAlign:'center', fontSize: 16 }} color="text.secondary" gutterBottom>
+          {props.weather[1].dayAndHour}
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} color="text.secondary" gutterBottom>
+          Feels Like: {props.weather[1].feelsLikeTemperature} &deg;C
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
+          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        </Typography>
+      </CardContentLessPadding>
+    </Box>
+  </Card>
+  </Grid>
+  <Grid item md={3}>
+  <Card sx={{ width: '10%', minHeight:'220px', minWidth:"250px", alignItems:'center', borderRadius: "20px",
+    overflow: "hidden"}} >
+    <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+      <CardContentLessPadding>
+        <Typography sx={{ textAlign:'center', fontSize: 17 }} color="text.primary" gutterBottom>
+          Weather in {props.geo.name}, {props.geo.country}.
+        </Typography>
+        <Typography sx={{textAlign:'center'}} variant="h4" component="div">
+          {props.weather[2].temperature} &deg;C
+        </Typography>
+        <Box sx={{display: 'flex'}} alignItems="center">
+        <Typography sx={{ textAlign:'center', fontSize: 20, mb: 0, mp: 0, flex: 3}} color="text.secondary">
+          {props.weather[2].description}
+        </Typography>
+        <CardMedia component="img" sx={{ width: 2, flex: 2}} image={props.weather[2].iconLink} alt="Weather in {props.geo.name}, {props.geo.country} "
+        />
+        </Box>
+        <Typography sx={{ textAlign:'center', fontSize: 16 }} color="text.secondary" gutterBottom>
+          {props.weather[2].dayAndHour}
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} color="text.secondary" gutterBottom>
+          Feels Like: {props.weather[2].feelsLikeTemperature} &deg;C
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
+          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        </Typography>
+      </CardContentLessPadding>
+    </Box>
+  </Card>
+  </Grid>
+
+  <Grid item md={3}>
+  <Card sx={{ width: '10%', minHeight:'220px', minWidth:"250px", alignItems:'center', borderRadius: "20px",
+    overflow: "hidden"}} >
+    <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+      <CardContentLessPadding>
+        <Typography sx={{ textAlign:'center', fontSize: 17 }} color="text.primary" gutterBottom>
+          Weather in {props.geo.name}, {props.geo.country}.
+        </Typography>
+        <Typography sx={{textAlign:'center'}} variant="h4" component="div">
+          {props.weather[3].temperature} &deg;C
+        </Typography>
+        <Box sx={{display: 'flex'}} alignItems="center">
+        <Typography sx={{ textAlign:'center', fontSize: 20, mb: 0, mp: 0, flex: 3}} color="text.secondary">
+          {props.weather[3].description}
+        </Typography>
+        <CardMedia component="img" sx={{ width: 2, flex: 2}} image={props.weather[3].iconLink} alt="Weather in {props.geo.name}, {props.geo.country} "
+        />
+        </Box>
+        <Typography sx={{ textAlign:'center', fontSize: 16 }} color="text.secondary" gutterBottom>
+          {props.weather[3].dayAndHour}
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} color="text.secondary" gutterBottom>
+          Feels Like: {props.weather[3].feelsLikeTemperature} &deg;C
+        </Typography>
+        <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
+          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        </Typography>
+      </CardContentLessPadding>
+    </Box>
+  </Card>
+  </Grid>
+  </Grid>
+    
+);
 }

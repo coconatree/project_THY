@@ -25,21 +25,19 @@ export default function ActivitiesGrid(props) {
 		},
 	];
 
-	const rows = props.activities.map((activity, i = 1) => ({
-		activityName: activity.name,
-		star: activity.rating,
-		id: i++,
-	}));
-	console.log(rows);
-	return (
-		<Box sx={{ height: 400, minWidth: "100%" }}>
-			<DataGrid
-				rows={rows}
-				columns={columns}
-				pageSize={5}
-				rowsPerPageOptions={[5]}
-				disableSelectionOnClick
-			/>
-		</Box>
-	);
+  
+  const rows = props.activities.map( (activity, i=1) => ({activityName:activity.name, star:activity.rating, id:i++}));
+  console.log(rows)
+
+  return (
+    <Box sx={{ height: 400, minWidth: '100%' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        disableSelectionOnClick
+      />
+    </Box>
+  );
 }
