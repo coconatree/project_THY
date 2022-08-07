@@ -7,6 +7,15 @@ import "../static/style/main.css";
 
 import CreateFoodDialog from "../components/FoodDialog";
 export default function CategoriesImaged(props) {
+
+	const filteredList = props.places.filter( place => {
+		return place.category === props.titleName
+	})
+
+	const itemData = filteredList.map( place => ({
+		title:place.name, rating:place.rank, img:"https://images.unsplash.com/photo-1551782450-a2132b4ba21d", id:place.id,
+		tags:place.tags, googleLink:place.googleLocLink, appleLink:place.appleLocLink
+	}))
 	return (
 		<Box
 			container
@@ -30,8 +39,11 @@ export default function CategoriesImaged(props) {
 				}}
 				className='customScroll'
 			>
+			{ itemData.length < 1 &&
+					<Typography variant='h6'>No suggestions for {props.titleName.toLowerCase()}</Typography>
+				}
 				{itemData.map((item) => (
-					<ImageListItem key={item.img}>
+					<ImageListItem key={item.id}>
 						<img
 							src={`${item.img}?w=250&fit=crop&auto=format`}
 							srcSet={`${item.img}?w=250&fit=crop&auto=format&dpr=2 2x`}
@@ -45,13 +57,14 @@ export default function CategoriesImaged(props) {
 										display: "flex",
 										alignItems: "center",
 										flexWrap: "wrap",
+										overflow:"overflow-wrap",
+										whiteSpace: 'normal'
 									}}
 								>
-									{" "}
-									{item.title} <CreateFoodDialog title={item.title} />
+									{item.title} <CreateFoodDialog title={item.title} id={item.id} googleLink={item.googleLink} rating={item.rating} tags={item.tags} appleLink={item.appleLink} />
 								</div>
 							}
-							subtitle={<span>Rating: 4 </span>}
+							subtitle={<span>Rating {item.rating}</span>}
 							position='below'
 						/>
 					</ImageListItem>
@@ -61,65 +74,3 @@ export default function CategoriesImaged(props) {
 	);
 }
 
-const itemData = [
-	{
-		img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-		title: "Breakfast",
-		author: "@bkristastucchio",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-		title: "Burger",
-		author: "@rollelflex_graphy726",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-		title: "Camera",
-		author: "@helloimnik",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-		title: "Coffee",
-		author: "@nolanissac",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-		title: "Hats",
-		author: "@hjrc33",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-		title: "Honey",
-		author: "@arwinneil",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-		title: "Basketball",
-		author: "@tjdragotta",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-		title: "Fern",
-		author: "@katie_wasserman",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-		title: "Mushrooms",
-		author: "@silverdalex",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-		title: "Tomato basil",
-		author: "@shelleypauls",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-		title: "Sea star",
-		author: "@peterlaster",
-	},
-	{
-		img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-		title: "Bike",
-		author: "@southside_customs",
-	},
-];

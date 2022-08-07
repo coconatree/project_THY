@@ -1,6 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import CreateActivityDialog from "./ActivityDialog";
 
 export default function ActivitiesGrid(props) {
 	const columns = [
@@ -22,11 +23,16 @@ export default function ActivitiesGrid(props) {
 			headerName: "Info",
 			width: 300,
 			editable: true,
+			renderCell: (params) => (
+				<div>
+				  <CreateActivityDialog title={params.value.name} googleLink={params.value.googleLocLink} appleLink={params.value.appleLocLink} rating={params.value.rating} bookingLink={params.value.bookingLink} pictures={params.value.pictures}/>
+				</div>
+			  )
 		},
 	];
 
   
-  const rows = props.activities.map( (activity, i=1) => ({activityName:activity.name, star:activity.rating, id:i++}));
+  const rows = props.activities.map( (activity, i=1) => ({id:i++, activityName:activity.name, star:activity.rating, info:activity}));
   console.log(rows)
 
   return (

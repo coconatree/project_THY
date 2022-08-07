@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IconButton, Button, Chip} from '@mui/material';
+import {IconButton, Button, Chip, Rating, ImageList, ImageListItem} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -26,10 +26,15 @@ function PaperComponent(props) {
   );
 }
 
-export default function CreateFoodDialog(props) {
+export default function CreateActivityDialog(props) {
+
 
 
   const [open, setOpen] = React.useState(false);
+
+  const itemData = props.pictures.map( picture => ({
+    img:picture, title:props.name
+  }))
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,8 +43,8 @@ export default function CreateFoodDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
   const [value, setValue] = React.useState(props.rating);
+
 
   return (
     <div>
@@ -53,15 +58,26 @@ export default function CreateFoodDialog(props) {
         aria-labelledby="draggable-dialog-title"
       >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          {props.title} 
+          {props.title}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          
-            Tags <br/> {props.tags.map(tag => {
-              return (<Chip label={tag} variant="outlined" />)
-            })}
+          <Rating name="read-only" value={value} precision={0.1} readOnly /> <br/>
           </DialogContentText>
+
+          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={250}>
+            {itemData.map((item) => (
+                <ImageListItem key={item.img}>
+                <img
+                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
+                />
+                </ImageListItem>
+            ))}
+    </ImageList>
+
         </DialogContent>
         <DialogActions>
     <ThemeProvider theme={whiteTheme}>
@@ -73,6 +89,9 @@ export default function CreateFoodDialog(props) {
              </Button>
              <Button autoFocus onClick={(e) => {e.preventDefault(); window.open(props.appleLink);}} style={{ backgroundColor: "#e81932"}}>
               See on Apple Maps
+             </Button>
+             <Button autoFocus onClick={(e) => {e.preventDefault(); window.open(props.bookingLink);}} style={{ backgroundColor: "#e81932"}}>
+              Book
              </Button>
           </ThemeProvider>
  </DialogActions>
