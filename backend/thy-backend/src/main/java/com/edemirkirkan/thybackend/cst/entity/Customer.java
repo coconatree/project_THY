@@ -29,6 +29,7 @@ public class Customer {
     private String arrivalTime;
     private String arrivalCityName;
     private String arrivalCountryCode;
+    private String arrivalCountryName;
     private String departureDate;
     private String boardingTime;
     private String departureTime;

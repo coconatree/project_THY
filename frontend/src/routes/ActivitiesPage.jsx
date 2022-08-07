@@ -1,18 +1,16 @@
+import { useState } from "react";
 
-import {useState} from "react";
+import Grid from "@mui/material/Grid";
 
-import Grid from '@mui/material/Grid';
-
-import * as React from 'react';
+import * as React from "react";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
-import "../static/style/main.css"
-import "../index.css"
-import { red } from '@mui/material/colors';
+import "../static/style/main.css";
+import "../index.css";
 import CreateProfileDialog from "../components/ProfileComponent";
 
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";

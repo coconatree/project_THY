@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Box, Button, Container, Grid } from "@mui/material";
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-
-import TextField from '@mui/material/TextField';
-
-import "../index.css"
+import TextField from "@mui/material/TextField";
+import "../index.css";
 
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +11,7 @@ import { useNavigate } from "react-router-dom";
     related communications with the backend   
 */
 
-import useTicketStore from "../store/TicketStore"
+import useTicketStore from "../store/TicketStore";
 
 export default function ReservationCodeField(props) {
 
