@@ -40,6 +40,7 @@
 /Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/geo/dto/RestGeoDataDto.java
 /Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/act/service/ActivityRestService.java
 /Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/geo/dto/GeoDataDto.java
+/Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/wtr/dto/RestWeatherListDto.java
 /Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/wtr/service/WeatherRestService.java
 /Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/plc/dto/RestPlaceDto.java
 /Users/ege/Desktop/Ege/project_THY/backend/thy-backend/src/main/java/com/edemirkirkan/thybackend/plc/dto/RestPlaceGeoCodeDto.java
