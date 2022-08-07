@@ -9,18 +9,16 @@ import "./static/style/main.css";
 
 import "./index.css";
 
+import useTicketStore from "./store/TicketStore";
+
 function App() {
-
-	const images = {
-		background_image_01 = ""
-	}
-
+	
 	return (
-		<div className=' bg-black h-full w-full'>
+		<div id = "mainBackground"className = "bg-black h-full w-full">
 			<div className='h-full w-full'>
 				<Navbar /*className = "brightness-110 bg-slate-900 bg-opacity-30 w-full"*/
 				/>
-				<div className="bacground_image">
+				<div className = "w-full h-full">
 					<Routes>
 						<Route
 							path='/'
