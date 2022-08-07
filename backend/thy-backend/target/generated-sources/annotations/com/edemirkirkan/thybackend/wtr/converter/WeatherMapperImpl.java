@@ -4,12 +4,14 @@ import com.edemirkirkan.thybackend.wtr.dto.RestMainDto;
 import com.edemirkirkan.thybackend.wtr.dto.RestWeatherDto;
 import com.edemirkirkan.thybackend.wtr.dto.WeatherDto;
 import com.edemirkirkan.thybackend.wtr.entity.Weather;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-06T19:03:10+0300",
+    date = "2022-08-07T05:56:32+0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -33,6 +35,20 @@ public class WeatherMapperImpl extends WeatherMapper {
     }
 
     @Override
+    public List<Weather> convertToEntityList(List<RestWeatherDto> restWeatherDtos) {
+        if ( restWeatherDtos == null ) {
+            return null;
+        }
+
+        List<Weather> list = new ArrayList<Weather>( restWeatherDtos.size() );
+        for ( RestWeatherDto restWeatherDto : restWeatherDtos ) {
+            list.add( convertToEntity( restWeatherDto ) );
+        }
+
+        return list;
+    }
+
+    @Override
     public WeatherDto convertToDto(Weather weather) {
         if ( weather == null ) {
             return null;
@@ -47,6 +63,20 @@ public class WeatherMapperImpl extends WeatherMapper {
         customMapping( weather, weatherDto );
 
         return weatherDto;
+    }
+
+    @Override
+    public List<WeatherDto> convertToDtoList(List<Weather> weathers) {
+        if ( weathers == null ) {
+            return null;
+        }
+
+        List<WeatherDto> list = new ArrayList<WeatherDto>( weathers.size() );
+        for ( Weather weather : weathers ) {
+            list.add( convertToDto( weather ) );
+        }
+
+        return list;
     }
 
     private String restWeatherDtoMainTemp(RestWeatherDto restWeatherDto) {

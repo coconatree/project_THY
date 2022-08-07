@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/weather")
 @RequiredArgsConstructor
@@ -16,9 +18,9 @@ public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping("/{latitude}/{longitude}")
-    public ResponseEntity<WeatherDto> getCurrentWeatherData(
+    public ResponseEntity<List<WeatherDto>> getCurrentWeatherData(
             @PathVariable String latitude, @PathVariable String longitude) {
-        WeatherDto weatherDto = weatherService.getCurrentWeatherData(latitude, longitude);
-        return ResponseEntity.ok(weatherDto);
+        List<WeatherDto> weatherDtos = weatherService.getCurrentWeatherData(latitude, longitude);
+        return ResponseEntity.ok(weatherDtos);
     }
 }

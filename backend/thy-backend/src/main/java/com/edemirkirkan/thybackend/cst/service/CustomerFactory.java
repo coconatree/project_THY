@@ -3,6 +3,7 @@ package com.edemirkirkan.thybackend.cst.service;
 import com.edemirkirkan.thybackend.cst.dto.CustomerDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class CustomerFactory {
 
 
     public CustomerDto getCustomer(String pnr, LinkedHashMap data) {
-        Pair<String, String> arrivalCityCode = (Pair<String, String>)
+        Triple<String, String, String> arrivalCityCode = (Triple<String, String, String>)
                 any(customerData.arrCityCode.toArray());
         Pair<String, String> departureCityCode = (Pair<String, String>)
                 any(customerData.depCityCode.toArray());
@@ -28,8 +29,9 @@ public class CustomerFactory {
                 .seatNumber(generateSeat())
                 .arrivalDate((String) retrieveFieldByKey(data,"ArrivalDate"))
                 .arrivalTime((String) retrieveFieldByKey(data,"ArrivalTime"))
-                .arrivalCityName(arrivalCityCode.getFirst())
-                .arrivalCountryCode(arrivalCityCode.getSecond())
+                .arrivalCityName(arrivalCityCode.getLeft())
+                .arrivalCountryCode(arrivalCityCode.getMiddle())
+                .arrivalCountryName(arrivalCityCode.getRight())
                 .departureDate((String) retrieveFieldByKey(data,"DepartureDate"))
                 .boardingTime((String) retrieveFieldByKey(data,"BoardingTime"))
                 .departureTime((String) retrieveFieldByKey(data,"DepartureTime"))

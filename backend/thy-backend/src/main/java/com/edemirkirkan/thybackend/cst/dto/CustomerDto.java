@@ -21,6 +21,7 @@ public class CustomerDto {
     private String arrivalTime; // 10:00
     private String arrivalCityName; // DUBAI
     private String arrivalCountryCode; // IE
+    private String arrivalCountryName;
 
     private String departureDate; // 2018-09-06
     private String boardingTime; // 06:15

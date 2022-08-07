@@ -19,6 +19,7 @@ com/edemirkirkan/thybackend/wtr/dao/WeatherDao.class
 com/edemirkirkan/thybackend/plc/dto/RestPlaceGeoCodeDto.class
 com/edemirkirkan/thybackend/act/dto/RestActivityDto.class
 com/edemirkirkan/thybackend/cst/converter/CustomerMapper.class
+com/edemirkirkan/thybackend/plc/service/.PlaceService.class.icloud
 com/edemirkirkan/thybackend/act/dao/ActivityDao.class
 com/edemirkirkan/thybackend/wtr/dto/RestWeatherDto.class
 com/edemirkirkan/thybackend/act/dto/RestActivityListDto.class
@@ -57,3 +58,4 @@ com/edemirkirkan/thybackend/act/service/ActivityRestService.class
 com/edemirkirkan/thybackend/wtr/service/WeatherRestService.class
 com/edemirkirkan/thybackend/act/dto/ActivityDto.class
 com/edemirkirkan/thybackend/act/entity/Activity.class
+com/edemirkirkan/thybackend/plc/converter/.PlaceMapper.class.icloud

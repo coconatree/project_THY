@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
+import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public abstract class WeatherMapper {
@@ -20,7 +21,11 @@ public abstract class WeatherMapper {
     @Mapping(target = "feelsLikeTemperature", source = "main.feels_like")
     public abstract Weather convertToEntity(RestWeatherDto restWeatherDto);
 
+    public abstract List<Weather> convertToEntityList(List<RestWeatherDto> restWeatherDtos);
+
     public abstract WeatherDto convertToDto(Weather weather);
+
+    public abstract List<WeatherDto> convertToDtoList(List<Weather> weathers);
 
     @AfterMapping
     protected void customMapping(Weather weather, @MappingTarget WeatherDto weatherDto) {
@@ -47,10 +52,10 @@ public abstract class WeatherMapper {
         }
 
         DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-        String currentDateStr = df.format(currentDate) + " " + dayPeriod;
+        String currentDateStr = df.format(currentDate) + ", " + dayPeriod;
 
         weatherDto.setDayAndHour(currentDateStr);
-        weatherDto.setIconLink("https://openweathermap.org/img/wn/" + weather.getIconPng() + "@2x.png");
+        weatherDto.setIconLink("https://openweathermap.org/img/wn/" + weather.getIconPng() + "@4x.png");
         weatherDto.setDescription(WordUtils.capitalizeFully(weather.getBriefDescription()));
     }
 

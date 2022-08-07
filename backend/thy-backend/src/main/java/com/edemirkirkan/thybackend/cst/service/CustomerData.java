@@ -1,6 +1,7 @@
 package com.edemirkirkan.thybackend.cst.service;
 
 
+import org.apache.commons.lang3.tuple.Triple;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,12 @@ public class CustomerData {
             Pair.of("Toronto", "CA")
     ));
 
-    public final List<Pair<String, String>> arrCityCode = new ArrayList<>(List.of(
-            Pair.of("London", "GB"),
-            Pair.of("Paris", "FR"),
-            Pair.of("Barcelona", "ES"),
-            Pair.of("New York", "US"),
-            Pair.of("Berlin", "DE")
+    public final List<Triple<String, String, String>> arrCityCode = new ArrayList<>(List.of(
+            Triple.of("London", "GB", "UK"),
+            Triple.of("Paris", "FR", "FRANCE"),
+            Triple.of("Barcelona", "ES", "SPAIN"),
+            Triple.of("New York", "US", "USA"),
+            Triple.of("Berlin", "DE", "GERMANY")
     ));
 
     public final List<Pair<String, String>> name = new ArrayList<>(List.of(
