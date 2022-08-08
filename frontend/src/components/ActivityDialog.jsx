@@ -1,19 +1,22 @@
 import * as React from 'react';
-import {IconButton, Button, Chip, Rating, ImageList, ImageListItem} from '@mui/material';
+import {IconButton, Button, Box, Rating, ImageList, ImageListItem, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
+import CheckIcon from '@mui/icons-material/Check';
 import Draggable from 'react-draggable';
-import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import GoogleIcon from '@mui/icons-material/Google';
+import AppleIcon from '@mui/icons-material/Apple';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 import {ThemeProvider, createTheme} from "@mui/material"
 
 
 const whiteTheme = createTheme({ palette: { primary: { main: '#fdfdfd'} } })
-const redTheme = createTheme({ palette: { primary:{ main: '#c70a0c'}}})
 
 function PaperComponent(props) {
   return (
@@ -48,8 +51,8 @@ export default function CreateActivityDialog(props) {
 
   return (
     <div>
-      <IconButton variant="outlined" color="error" onClick={handleClickOpen}>
-        <InfoTwoToneIcon/>
+      <IconButton variant="outlined" color="primary" onClick={handleClickOpen}>
+        <InfoOutlinedIcon/>
       </IconButton>
       <Dialog
         open={open}
@@ -57,15 +60,23 @@ export default function CreateActivityDialog(props) {
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
-        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+        <DialogTitle style={{ textAlign: "center", cursor: 'move' }} id="draggable-dialog-title">
           {props.title}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          <Rating name="read-only" value={value} precision={0.1} readOnly /> <br/>
+            <Box sx={{display: 'flex'}} className="mb-3">
+          <Typography sx={{flex:2}}>
+            Rating: {props.rating} / 5
+          </Typography>
+          <Rating name="read-only" sx={{flex:1}} value={value} precision={0.1} readOnly /> <br/>
+          </Box>
+          <Typography style={{ fontWeight:500, fontSize:22, cursor: 'move' }} className="pb-10" align="center" color="text.secondary">
+              Pictures
+          </Typography>
           </DialogContentText>
-
-          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={250}>
+            
+          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={300} variant="quilted">
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
                 <img
@@ -80,19 +91,21 @@ export default function CreateActivityDialog(props) {
 
         </DialogContent>
         <DialogActions>
-    <ThemeProvider theme={whiteTheme}>
-        <Button autoFocus onClick={handleClose} variant="outlined" color="primary" style={{ backgroundColor: "#e81932"}}>
-           Okay 
-           </Button>
-            <Button autoFocus onClick={(e) => {e.preventDefault(); window.open(props.googleLink);}} style={{ backgroundColor: "#e81932"}}>
-              See on Google Maps
+    <ThemeProvider theme={whiteTheme} sx={{textAlign:"center", display:"flex"}} >
+              
+       
+            <Button sx={{ textTransform: "none", flex: 1}} autoFocus onClick={(e) => {e.preventDefault(); window.open(props.googleLink);}} style={{ backgroundColor: "#b6291e"}}>
+              <GoogleIcon></GoogleIcon> &nbsp; Maps
              </Button>
-             <Button autoFocus onClick={(e) => {e.preventDefault(); window.open(props.appleLink);}} style={{ backgroundColor: "#e81932"}}>
-              See on Apple Maps
+             <Button sx={{ textTransform: "none", flex: 1}} autoFocus onClick={(e) => {e.preventDefault(); window.open(props.appleLink);}} style={{ backgroundColor: "#b6291e"}}>
+             <AppleIcon></AppleIcon> &nbsp; Maps
              </Button>
-             <Button autoFocus onClick={(e) => {e.preventDefault(); window.open(props.bookingLink);}} style={{ backgroundColor: "#e81932"}}>
-              Book
+             <Button sx={{ textTransform: "none", flex: 1}} autoFocus onClick={(e) => {e.preventDefault(); window.open(props.bookingLink);}} style={{ backgroundColor: "#b6291e"}}>
+              <EventAvailableIcon></EventAvailableIcon> &nbsp; Book
              </Button>
+             <Button sx={{ textTransform: "none", flex: 1}} autoFocus onClick={handleClose} variant="outlined" color="primary" style={{ backgroundColor: "#b6291e"}}>
+            <CheckIcon></CheckIcon>          
+                 </Button>
           </ThemeProvider>
  </DialogActions>
       </Dialog>

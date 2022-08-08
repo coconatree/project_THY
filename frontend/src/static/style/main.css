@@ -9,12 +9,76 @@ label {
     position: absolute;
 }
 
+a:hover {
+  cursor:pointer;
+ }
+
 .opacityBackground {
   background-color: rgba(0,0,0,0.3);
 }
 
 .bacground_image {
   background:  url("../images/reservation_page_background.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width:100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.bacground_image_barcelona {
+  background:  url("../images/Barcelona.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width:100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.bacground_image_berlin {
+  background:  url("../images/Berlin.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width:100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.bacground_image_london {
+  background:  url("../images/London.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width:100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.bacground_image_paris {
+  background:  url("../images/Paris.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width:100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.bacground_image_newyork {
+  background:  url("../images/New York.jpg");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;

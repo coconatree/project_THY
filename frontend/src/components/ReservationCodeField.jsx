@@ -36,12 +36,12 @@ export default function ReservationCodeField(props) {
 		    json.isReturnFlight,
 		    json.flightNumber,
 		    json.ticketNumber,
-		    json.boardingPassQrCode,
 		    json.seatNumber,
 		    json.arrivalDate,
 		    json.arrivalTime,
 		    json.arrivalCityName,
 		    json.arrivalCountryCode,
+            json.arrivalCountryName,
 		    json.departureDate,
 		    json.boardingTime,
 		    json.departureTime,
@@ -70,7 +70,7 @@ export default function ReservationCodeField(props) {
         */
 
         if (!response.ok) {
-            alert("There are no reservations with the given reservation code please check that it is correct")
+            alert("Please check your reservation code and try again.")
             return
         }
         let json = await response.json()

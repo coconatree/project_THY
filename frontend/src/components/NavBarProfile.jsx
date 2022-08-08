@@ -1,5 +1,3 @@
-
-
 import * as React from 'react';
 
 import AppBar from '@mui/material/AppBar';
@@ -9,18 +7,18 @@ import Typography from '@mui/material/Typography';
 
 import Container from '@mui/material/Container';
 import { ReactComponent as THYLogo } from '../static/vector/THYLogo.svg';
-
+import CreateProfileDialog from "../components/ProfileComponent";
 import "../index.css"
 
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
 
   return (
   <AppBar sx={{ bgcolor: "#232B38", margin:"0px"}}>
   <Container maxWidth="xl">
     <Toolbar disableGutters>
-      <THYLogo/>
-      <Typography
+    <THYLogo/> 
+      <Typography 
         variant="h6"
         noWrap
         component="a"
@@ -53,8 +51,12 @@ const ResponsiveAppBar = () => {
         }}
       >
         &nbsp; | &nbsp; Trip Booster
-      </Typography>
-
+      </Typography> 
+  
+     <div class='ml-auto mr-0'>
+        <CreateProfileDialog   t={props.ticket} />
+        </div>
+      
       
     </Toolbar>
   </Container>
@@ -62,4 +64,4 @@ const ResponsiveAppBar = () => {
 //  
   );
 };
- export default ResponsiveAppBar;
+ export default ResponsiveAppBar; 

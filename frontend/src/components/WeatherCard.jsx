@@ -40,7 +40,7 @@ export default function WeatherCard(props) {
           Feels Like: {props.weather[0].feelsLikeTemperature} &deg;C
         </Typography>
         <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
-          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+          <a onClick={(e) => {e.preventDefault(); window.open(`https://www.timeanddate.com/weather/${props.t.arrivalCountryName}/${props.t.arrivalCityName.replace(/\s/g, '')}`, "_blank");}} >Learn More</a>
         </Typography>
       </CardContentLessPadding>
     </Box>
@@ -71,7 +71,7 @@ export default function WeatherCard(props) {
           Feels Like: {props.weather[1].feelsLikeTemperature} &deg;C
         </Typography>
         <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
-          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        <a onClick={(e) => {e.preventDefault(); window.open(`https://www.timeanddate.com/weather/${props.t.arrivalCountryName}/${props.t.arrivalCityName.replace(/\s/g, '')}`, "_blank");}} >Learn More</a>
         </Typography>
       </CardContentLessPadding>
     </Box>
@@ -102,7 +102,7 @@ export default function WeatherCard(props) {
           Feels Like: {props.weather[2].feelsLikeTemperature} &deg;C
         </Typography>
         <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
-          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        <a onClick={(e) => {e.preventDefault(); window.open(`https://www.timeanddate.com/weather/${props.t.arrivalCountryName}/${props.t.arrivalCityName.replace(/\s/g, '')}`, "_blank");}} >Learn More</a>
         </Typography>
       </CardContentLessPadding>
     </Box>
@@ -134,7 +134,7 @@ export default function WeatherCard(props) {
           Feels Like: {props.weather[3].feelsLikeTemperature} &deg;C
         </Typography>
         <Typography sx={{  textAlign:'center', fontSize: 14 }} className="underline" color='primary.main' gutterBottom>
-          <a onClick={(e) => {e.preventDefault(); window.open("https://www.timeanddate.com/weather/germany/berlin", "_blank");}} >Learn More</a>
+        <a onClick={(e) => {e.preventDefault(); window.open(`https://www.timeanddate.com/weather/${props.t.arrivalCountryName}/${props.t.arrivalCityName.replace(/\s/g, '')}`, "_blank");}} >Learn More</a>
         </Typography>
       </CardContentLessPadding>
     </Box>

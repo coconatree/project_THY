@@ -12,17 +12,19 @@ import CircularProgress from "@mui/material/CircularProgress";
 import "../static/style/main.css";
 import "../static/style/reservationPage.css";
 import "../index.css";
-import CreateProfileDialog from "../components/ProfileComponent";
 
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import "../static/style/main.css";
 
-import CategoriesImaged from "../components/CategoriesImaged";
 import WeatherCard from "../components/WeatherCard";
+import PlacePageComponent from "../components/PlacePageComponent";
 
 import useTicketStore from "../store/TicketStore";
 import { useEffect } from "react";
+import Navbar from "../components/NavBar";
+import NavBarProfile from "../components/NavBarProfile";
+
 
 import { useNavigate } from "react-router-dom";
 
@@ -32,12 +34,12 @@ export default function ActivitiesPage() {
     isReturnFlight,
     flightNumber,
     ticketNumber,
-    boardingPassQrCode,
     seatNumber,
     arrivalDate,
     arrivalTime,
     arrivalCityName,
     arrivalCountryCode,
+    arrivalCountryName,
     departureDate,
     boardingTime,
     departureTime,
@@ -53,12 +55,12 @@ export default function ActivitiesPage() {
     isReturnFlight: state.isReturnFlight,
     flightNumber: state.flightNumber,
     ticketNumber: state.ticketNumber,
-    boardingPassQrCode: state.boardingPassQrCode,
     seatNumber: state.seatNumber,
     arrivalDate: state.arrivalDate,
     arrivalTime: state.arrivalTime,
     arrivalCityName: state.arrivalCityName,
     arrivalCountryCode: state.arrivalCountryCode,
+    arrivalCountryName: state.arrivalCountryName,
     departureDate: state.departureDate,
     boardingTime: state.boardingTime,
     departureTime: state.departureTime,
@@ -87,12 +89,12 @@ export default function ActivitiesPage() {
     isReturnFlight,
     flightNumber,
     ticketNumber,
-    boardingPassQrCode,
     seatNumber,
     arrivalDate,
     arrivalTime,
     arrivalCityName,
     arrivalCountryCode,
+    arrivalCountryName,
     departureDate,
     boardingTime,
     departureTime,
@@ -137,12 +139,14 @@ export default function ActivitiesPage() {
   };
 
   async function fetchAllInfo() {
+    let error = "Please check your reservation code and try again.";
     let response = await fetch(
       "http://localhost:8080/api/v1/geodata/" + arrivalCityName
-    ).catch((e) => alert("City is not valid"));
+    ).catch(() => {alert(error);   navigate("/"); });
 
     if (!response.ok) {
-      alert("There is no city with given name");
+      alert(error);
+      navigate("/");
       return;
     }
 
@@ -152,10 +156,11 @@ export default function ActivitiesPage() {
 
     response = await fetch(
       `http://localhost:8080/api/v1/weather/${result.geoData.latitude}/${result.geoData.longitude}`
-    ).catch((e) => alert("Latitude or Longitude is not valid"));
+    ).catch(() => {alert(error);   navigate("/"); });
 
     if (!response.ok) {
-      alert("Latitude or Longitude is not valid");
+      alert(error);
+      navigate("/");
       return;
     }
 
@@ -168,10 +173,11 @@ export default function ActivitiesPage() {
 
     response = await fetch(
       `http://localhost:8080/api/v1/activities/${result.geoData.latitude}/${result.geoData.longitude}`
-    ).catch((e) => alert("Activities error"));
+    ).catch(() => {alert(error);   navigate("/"); });
 
     if (!response.ok) {
-      alert("Activities error");
+      alert(error);
+      navigate("/");
       return;
     }
 
@@ -185,10 +191,11 @@ export default function ActivitiesPage() {
 
     response = await fetch(
       `http://localhost:8080/api/v1/places/${result.geoData.latitude}/${result.geoData.longitude}`
-    ).catch((e) => alert("Places error"));
+    ).catch(() => {alert(error);   navigate("/"); });
 
     if (!response.ok) {
-      alert("Places error");
+      alert(error);
+      navigate("/");
       return;
     }
 
@@ -207,7 +214,9 @@ export default function ActivitiesPage() {
   }
 
   let pageContent = (
-
+    <div className='h-full w-full'>
+        <NavBarProfile ticket={ticketData}/>
+        <div className="bacground_image">
     <Box>
       <Parallax pages={4} style={{ top: "0", left: "0" }}>
         <ParallaxLayer
@@ -232,15 +241,12 @@ export default function ActivitiesPage() {
                 direction="column"
                 sx={{ p: { xs: 0, md: 0, lg: 3, xl: 9 } }}
               >
-                <div style={{ padding: 2 }}>
+                <div class="flex items-center justify-center w-full" style={{ padding: 2 }}>
                   <Grid container spacing={2} alignItems="center" >
                     <Grid item xs={6} md={8} alignItems="center">
-                      <Typography sx={{ fontFamily: 'monospace', fontWeight: 700}} className="inline-block align-middle text-neutral-200" variant="h2" gutterBottom component="div">
+                      <Typography   variant="h2" className="inline-block align-middle" gutterBottom component="div" color="#fdfdfd" sx={{ textShadow: "3px 3px 4px black" }}>
                         Welcome {ticketData.isReturnFlight && 'back'} to {geoData.name}
                       </Typography>
-                    </Grid>
-                    <Grid item xs={6} md={4}>
-                      <CreateProfileDialog t={ticketData} />
                     </Grid>
                   </Grid>
                 </div>
@@ -255,14 +261,17 @@ export default function ActivitiesPage() {
 				>
               <div style={{ padding: 2}} className="mb-24">
                   <Grid>
-                    <WeatherCard geo={geoData} weather={weatherData} />
+                    <WeatherCard geo={geoData} weather={weatherData} t={ticketData} />
                   </Grid>
                 </div>
-					<ArrowDownwardOutlinedIcon
+				</Grid>
+        <div class="flex items-center justify-center w-full">
+		    <ArrowDownwardOutlinedIcon
 					className="svgIcons"
 					style={{ color: "#fdfdfd" }}
 					/>
-				</Grid>
+        </div>
+        	
             </Grid>
 			
           </Grid>
@@ -286,15 +295,15 @@ export default function ActivitiesPage() {
             color="#fdfdfd"
             sx={{ textShadow: "3px 3px 4px black" }}
           >
-            Take that step, <br />
-            widen your world.
+            Take that step, <br/>
+            widen your world. <br/> <br/> <br/>
+            Flw with Turkish Airlines.
           </Typography>
         </ParallaxLayer>
 
         <ParallaxLayer
           offset={2}
           speed={2}
-          style={{ backgroundColor: "#c70a0c" }}
         />
 
         <ParallaxLayer
@@ -312,12 +321,16 @@ export default function ActivitiesPage() {
               variant="h2"
               color="#fdfdfd"
               sx={{ textShadow: "0px 2px 4px black" }}
-              className="underline decoration-black decoration-4"
             >
-              Activities
+              Activities and Tours
             </Typography>
             <Grid
               item
+              sx={{
+                boxShadow: 2,
+                border: 2,
+                borderColor: '#b6291e'
+                }}
               xs={7}
               mt={5}
               p={4}
@@ -333,12 +346,13 @@ export default function ActivitiesPage() {
             </Grid>
           </Grid>
         </ParallaxLayer>
+        
         <ParallaxLayer
           offset={3}
           speed={2}
-          style={{ backgroundColor: "#c70a0c" }}
         />
-        <ParallaxLayer
+
+        <ParallaxLayer  
           offset={3}
           speed={1}
           style={{
@@ -349,43 +363,47 @@ export default function ActivitiesPage() {
             width: "100%",
           }}
         >
-          <Grid container direction="column" mt={10}>
+           <Grid container direction="column" mt={5} p={7}>
             <Typography
-              ml={4}
               variant="h2"
               color="#fdfdfd"
               sx={{ textShadow: "0px 2px 4px black" }}
-              className="underline decoration-black decoration-4"
             >
-              Places
+              Activities and Tours
             </Typography>
-            <Grid item p={3} sx={{ width: "100%" }}>
-              <Grid
-                container
-                p={4}
-                borderRadius="6px"
-                boxShadow="3"
-                backgroundColor={alpha("#E5E4E2", 0.95)}
-                style={{
-                  textAlign: "left",
-                  display: "flex",
-                  mX: "auto",
-                  width: "100%",
+            <Grid
+              item
+              sx={{
+                boxShadow: 2,
+                border: 2,
+                borderColor: '#b6291e'
                 }}
-              >
-                <CategoriesImaged titleName="Food" places={placeData} />
-                <CategoriesImaged titleName="Sights" places={placeData} />
-                <CategoriesImaged titleName="Shopping" places={placeData} />
-                <CategoriesImaged titleName="Nightlife" places={placeData} />
-              </Grid>
+              xs={7}
+              mt={5}
+              p={4}
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+              boxShadow="3"
+              backgroundColor={alpha("#E5E4E2", 0.9)}
+              borderRadius="6px"
+              style={{ textAlign: "center", width: "100%" }}
+            >
+              <PlacePageComponent places={placeData} />
             </Grid>
           </Grid>
+
         </ParallaxLayer>
       </Parallax>
     </Box>
+    </div>
+    </div>
   );
 
   let loadingContent = (
+    <div className='h-full w-full'>
+      <Navbar/>
+    <div className="bacground_image">
     <Box
       height="100vh"
       sx={{
@@ -428,6 +446,8 @@ export default function ActivitiesPage() {
         </Grid>
       </Grid>
     </Box>
+     </div>
+     </div>
   );
   return <>{isLoaded ? pageContent : loadingContent}</>;
 }
