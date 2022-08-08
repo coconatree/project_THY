@@ -18,17 +18,8 @@ export default function ActivitiesGrid(props) {
 		{
 			field: "star",
 			headerName: "Rating",
-			headerAlign: 'center',
-			align: 'center',
-			minWidth: 200, 
-			flex: 3,
-			sortable: true,
+			width: 300,
 			editable: false,
-			renderCell: (params) => {
-				return (
-				<Rating name="read-only" value={params.value.rating} precision={0.1} readOnly />
-				)
-			}
 		},
 		{
 			field: "info",
@@ -36,8 +27,7 @@ export default function ActivitiesGrid(props) {
 			align: 'center',
 			sortable:false,
 			headerName: "Info",
-			minWidth: 100, 
-			flex: 1,
+			minWidth: 100,
 			editable: false,
 			renderCell: (params) => (
 				<div>

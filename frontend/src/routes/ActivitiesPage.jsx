@@ -3,11 +3,11 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import MainPage from "../components/MainPageComponent";
-import CircularProgress from "@mui/material/CircularProgress";
+
 
 import "../static/style/main.css";
 import "../static/style/reservationPage.css";
@@ -304,6 +304,7 @@ export default function ActivitiesPage() {
         <ParallaxLayer
           offset={2}
           speed={2}
+          style={{ backgroundColor: "#c70a0c" }}
         />
 
         <ParallaxLayer
@@ -350,6 +351,7 @@ export default function ActivitiesPage() {
         <ParallaxLayer
           offset={3}
           speed={2}
+          style={{ backgroundColor: "#c70a0c" }}
         />
 
         <ParallaxLayer  
@@ -401,9 +403,6 @@ export default function ActivitiesPage() {
   );
 
   let loadingContent = (
-    <div className='h-full w-full'>
-      <Navbar/>
-    <div className="bacground_image">
     <Box
       height="100vh"
       sx={{
@@ -446,8 +445,6 @@ export default function ActivitiesPage() {
         </Grid>
       </Grid>
     </Box>
-     </div>
-     </div>
   );
   return <>{isLoaded ? pageContent : loadingContent}</>;
 }

@@ -7,9 +7,13 @@ import "./static/style/main.css";
 
 import "./index.css";
 
+import useTicketStore from "./store/TicketStore";
+
 function App() {
+	
 	return (
-		<div className=' bg-black h-full w-full bacground_image'>
+		<div className=' bg-black h-full w-full'>
+		
 					<Routes>
 						<Route
 							path='/'
