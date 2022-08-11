@@ -24,7 +24,6 @@ function App() {
 						<Route path='/activities' element={<ActivitiesPage />} />
 					</Routes>
 		</div>
-	
 	);
 }
 

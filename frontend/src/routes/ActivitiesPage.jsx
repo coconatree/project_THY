@@ -13,6 +13,7 @@ import "../static/style/main.css";
 import "../static/style/reservationPage.css";
 import "../index.css";
 
+import { ReactComponent as THYLogo } from '../static/vector/THYLogo.svg';
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import "../static/style/main.css";
@@ -209,7 +210,6 @@ export default function ActivitiesPage() {
 
     setIsLoaded((prev) => !prev);
 
-    
     return result;
   }
 
@@ -218,7 +218,7 @@ export default function ActivitiesPage() {
         <NavBarProfile ticket={ticketData}/>
         <div className="bacground_image">
     <Box>
-      <Parallax pages={4} style={{ top: "0", left: "0" }}>
+      <Parallax pages={7} style={{ top: "0", left: "0" }}>
         <ParallaxLayer
           offset={0}
           speed={2.5}
@@ -296,16 +296,11 @@ export default function ActivitiesPage() {
             sx={{ textShadow: "3px 3px 4px black" }}
           >
             Take that step, <br/>
-            widen your world. <br/> <br/> <br/>
-            Flw with Turkish Airlines.
+            widen your world.
           </Typography>
         </ParallaxLayer>
 
-        <ParallaxLayer
-          offset={2}
-          speed={2}
-          style={{ backgroundColor: "#c70a0c" }}
-        />
+    
 
         <ParallaxLayer
           offset={2}
@@ -347,31 +342,46 @@ export default function ActivitiesPage() {
             </Grid>
           </Grid>
         </ParallaxLayer>
-        
+
         <ParallaxLayer
           offset={3}
-          speed={2}
-          style={{ backgroundColor: "#c70a0c" }}
-        />
-
-        <ParallaxLayer  
-          offset={3}
-          speed={1}
+          speed={0.1}
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             color: "white",
-            width: "100%",
           }}
         >
-           <Grid container direction="column" mt={5} p={7}>
+          <Typography
+            variant="h2"
+            gutterBottom
+            component="div"
+            color="#fdfdfd"
+            sx={{ textShadow: "3px 3px 4px black" }}
+          >
+         "It's not the destination, it's the journey.”<br/>
+         ― Ralph Waldo Emerson
+          </Typography>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={4}
+          speed={0.5}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+          }}
+        >
+          <Grid container direction="column" mt={5} p={7}>
             <Typography
               variant="h2"
               color="#fdfdfd"
               sx={{ textShadow: "0px 2px 4px black" }}
             >
-              Activities and Tours
+              Points of Interests and Attractions
             </Typography>
             <Grid
               item
@@ -394,8 +404,31 @@ export default function ActivitiesPage() {
               <PlacePageComponent places={placeData} />
             </Grid>
           </Grid>
-
         </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={5}
+          speed={0.1}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+          }}
+        >
+          <Typography
+            variant="h2"
+            gutterBottom
+            component="div"
+            color="#fdfdfd"
+            sx={{ textAlign: "center", textShadow: "3px 3px 4px black" }}
+          >
+         Fly with us.
+         <THYLogo/>
+          </Typography>
+      
+        </ParallaxLayer>
+        
       </Parallax>
     </Box>
     </div>
@@ -403,6 +436,9 @@ export default function ActivitiesPage() {
   );
 
   let loadingContent = (
+    <div className='h-full w-full'>
+        <Navbar/>
+    <div className="bacground_image">
     <Box
       height="100vh"
       sx={{
@@ -445,6 +481,8 @@ export default function ActivitiesPage() {
         </Grid>
       </Grid>
     </Box>
+      </div>
+      </div>
   );
   return <>{isLoaded ? pageContent : loadingContent}</>;
 }

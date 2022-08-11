@@ -40,7 +40,7 @@ export default function PlacesGrid(props) {
 			align: 'center',
 			minWidth: 200, 
 			flex: 3,
-			sortable: true,
+			sortable: false,
 			editable: false,
 			renderCell: (params) => {
 				return (
@@ -92,7 +92,7 @@ export default function PlacesGrid(props) {
       <DataGrid
         rows={rows}
         columns={columns}
-		rowsPerPageOptions={[10, 20, 100]}
+		rowsPerPageOptions={[10]}
         disableSelectionOnClick
 		sx={{
 			boxShadow: 2,
